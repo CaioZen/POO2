@@ -6,7 +6,6 @@ package com.caiozen.trabalhopoo2;
 
 import java.awt.Image;
 import java.io.File;
-import java.io.FileFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -44,7 +43,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         btnCriar = new javax.swing.JButton();
         textFieldCelular = new javax.swing.JFormattedTextField();
         btnLimpar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
         textFieldEmail = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -53,7 +52,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
 
         fotoLabelEscolher.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         fotoLabelEscolher.setText("Imagem");
-        fotoLabelEscolher.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        fotoLabelEscolher.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         fotoLabelEscolher.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fotoLabelEscolherMouseClicked(evt);
@@ -93,8 +92,8 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Email:");
+        labelEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelEmail.setText("Email:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,7 +108,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelNome)
                             .addComponent(labelCelular)
-                            .addComponent(jLabel2))
+                            .addComponent(labelEmail))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,7 +144,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))))
+                            .addComponent(labelEmail))))
                 .addGap(6, 6, 6)
                 .addComponent(fotoLabel)
                 .addGap(260, 260, 260)
@@ -242,9 +241,9 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JLabel fotoLabel;
     private javax.swing.JLabel fotoLabelEscolher;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelCelular;
+    private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelNome;
     private javax.swing.JFormattedTextField textFieldCelular;
     private javax.swing.JTextField textFieldEmail;

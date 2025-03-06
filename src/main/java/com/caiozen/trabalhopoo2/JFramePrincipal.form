@@ -16,16 +16,22 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="usuarioMenu">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/Usuario.png"/>
+            </Property>
             <Property name="mnemonic" type="int" value="117"/>
             <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="novoUsuarioItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/NovoUsuario.png"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="110"/>
                 <Property name="text" type="java.lang.String" value="Novo Usu&#xe1;rio"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
+                <Property name="horizontalTextPosition" type="int" value="4"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novoUsuarioItemActionPerformed"/>
@@ -33,9 +39,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="listaUsuarioItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/Lista.png"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" value="Listar Usu&#xe1;rios"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+                <Property name="horizontalTextPosition" type="int" value="4"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaUsuarioItemActionPerformed"/>

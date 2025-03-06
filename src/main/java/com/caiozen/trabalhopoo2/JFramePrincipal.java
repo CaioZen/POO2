@@ -72,13 +72,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
         iconMenu.setText("Icon");
         menuPrincipal.add(iconMenu);
 
+        usuarioMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Usuario.png"))); // NOI18N
         usuarioMenu.setMnemonic('u');
         usuarioMenu.setText("Usuário");
 
+        novoUsuarioItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NovoUsuario.png"))); // NOI18N
         novoUsuarioItem.setMnemonic('n');
         novoUsuarioItem.setText("Novo Usuário");
         novoUsuarioItem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        novoUsuarioItem.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        novoUsuarioItem.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         novoUsuarioItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 novoUsuarioItemActionPerformed(evt);
@@ -86,9 +88,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
         usuarioMenu.add(novoUsuarioItem);
 
+        listaUsuarioItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Lista.png"))); // NOI18N
         listaUsuarioItem.setMnemonic('l');
         listaUsuarioItem.setText("Listar Usuários");
-        listaUsuarioItem.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        listaUsuarioItem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        listaUsuarioItem.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         listaUsuarioItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listaUsuarioItemActionPerformed(evt);
