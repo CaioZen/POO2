@@ -33,6 +33,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         menuPrincipal = new javax.swing.JMenuBar();
         iconMenu = new javax.swing.JMenu();
+        sairItem = new javax.swing.JMenuItem();
         usuarioMenu = new javax.swing.JMenu();
         novoUsuarioItem = new javax.swing.JMenuItem();
         listaUsuarioItem = new javax.swing.JMenuItem();
@@ -70,6 +71,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
         menuPrincipal.setForeground(new java.awt.Color(255, 255, 255));
 
         iconMenu.setText("Icon");
+
+        sairItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
+        sairItem.setText("Sair");
+        iconMenu.add(sairItem);
+
         menuPrincipal.add(iconMenu);
 
         usuarioMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Usuario.png"))); // NOI18N
@@ -197,6 +203,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem novaPartidaItem;
     private javax.swing.JMenuItem novoUsuarioItem;
     private javax.swing.JMenu partidasMenu;
+    private javax.swing.JMenuItem sairItem;
     private javax.swing.JMenu usuarioMenu;
     // End of variables declaration//GEN-END:variables
 }
