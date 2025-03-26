@@ -11,7 +11,9 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="iconMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Icon"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/logo.png"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="sairItem">
@@ -21,6 +23,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sairItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -63,17 +68,49 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="historiaMenu">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/historia.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Hist&#xf3;rias"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="novaHistoriaItem">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/addLivro.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Nova Hist&#xf3;ria"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="listarHistoriasItem">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/listarHistorias.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Listar Historias"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="partidasMenu">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/partida.png"/>
+            </Property>
             <Property name="mnemonic" type="int" value="112"/>
             <Property name="text" type="java.lang.String" value="Partidas"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="novaPartidaItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/novaPartida.png"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="110"/>
                 <Property name="text" type="java.lang.String" value="Nova Partida"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
+                <Property name="horizontalTextPosition" type="int" value="4"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novaPartidaItemActionPerformed"/>
@@ -81,13 +118,58 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="listaPartidasItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/Lista.png"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="108"/>
                 <Property name="text" type="java.lang.String" value="Listar Partidas"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
+                <Property name="horizontalTextPosition" type="int" value="4"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaPartidasItemActionPerformed"/>
               </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="catalogoMenu">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/catalogo.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cat&#xe1;logo"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="classesItem">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/classes.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Classes"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="racasItem">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/ra&#xe7;as.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ra&#xe7;as"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="antecedentesItem">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/antecedentes.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Antecedentes"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="alinhamentosItem">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagens/alinhamentos.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Alinhamentos"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -125,7 +207,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="665" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="671" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
