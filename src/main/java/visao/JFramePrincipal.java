@@ -197,7 +197,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_novoUsuarioItemActionPerformed
 
     private void listaUsuarioItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaUsuarioItemActionPerformed
-        // TODO add your handling code here:
+        GerenciadorInterfaceGrafica.getInstancia().abrirListarUsr();
     }//GEN-LAST:event_listaUsuarioItemActionPerformed
 
     private void novaPartidaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novaPartidaItemActionPerformed

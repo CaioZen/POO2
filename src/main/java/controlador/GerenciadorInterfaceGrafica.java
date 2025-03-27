@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import visao.JDialogListarUsr;
 import visao.JDialogNovoUsuario;
 import visao.JFramePrincipal;
 
@@ -13,14 +14,18 @@ public class GerenciadorInterfaceGrafica {
 
     private static final GerenciadorInterfaceGrafica instancia = new GerenciadorInterfaceGrafica();
 
+    private GerenciadorDominio gerDominio = null;
+    
     private JFramePrincipal janelaPrincipal = null;
     private JDialogNovoUsuario janelaNovoUsuario = null;
+    private JDialogListarUsr janelaListarUsr = null;
 
     public static GerenciadorInterfaceGrafica getInstancia() {
         return instancia;
     }
 
     private GerenciadorInterfaceGrafica() {
+        gerDominio = new GerenciadorDominio();
     }
 
     public JDialog abrirJanela(java.awt.Frame parent, JDialog dlg, Class classe) {
@@ -44,6 +49,10 @@ public class GerenciadorInterfaceGrafica {
 
     public void abrirJanelaCadUsuario() {
         janelaNovoUsuario = (JDialogNovoUsuario) abrirJanela(janelaPrincipal, janelaNovoUsuario, JDialogNovoUsuario.class);
+    }
+
+    public void abrirListarUsr() {
+        janelaListarUsr = (JDialogListarUsr) abrirJanela(janelaPrincipal, janelaListarUsr, JDialogListarUsr.class);
     }
 
     public void sair() {

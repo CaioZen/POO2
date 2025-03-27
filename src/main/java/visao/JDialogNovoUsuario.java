@@ -4,6 +4,7 @@
  */
 package visao;
 
+import dominio.Usuario;
 import java.awt.Image;
 import java.io.File;
 import javax.swing.Icon;
@@ -122,7 +123,12 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
 
         labelUF.setText("Estado:");
 
-        comboBoxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Espírito Santo", "Acre" }));
+        comboBoxUF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxUFActionPerformed(evt);
+            }
+        });
 
         labelCidade.setText("Cidade:");
 
@@ -273,7 +279,19 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        // TODO add your handling code here:
+        String nome = textFieldNome.getText();
+        String celular = textFieldCelular.getText();
+        String email = textFieldEmail.getText();
+        String numeroCasaS = textFieldNumero.getText();
+        int numeroCasaI = Integer.parseInt(numeroCasaS);
+        String cep = textFieldCEP.getText();
+        String estado = comboBoxUF.getSelectedItem().toString(); //provisório
+        String cidade = comboBoxCidade.getSelectedItem().toString(); //provisório
+        String bairro = textFieldBairro.getText();
+        String referencia = textFieldReferencia.getText();
+        
+        Usuario usuario = new Usuario(nome, celular, email, cep, cidade, numeroCasaI, bairro, referencia);
+        
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -299,6 +317,10 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     private void textFieldCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCEPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldCEPActionPerformed
+
+    private void comboBoxUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxUFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxUFActionPerformed
     private void mostrarImagem(Icon icon){
         ImageIcon imagem = (ImageIcon) icon;
         imagem.setImage(imagem.getImage().getScaledInstance(labelFotoEscolher.getWidth(), labelFotoEscolher.getHeight(),Image.SCALE_SMOOTH));
