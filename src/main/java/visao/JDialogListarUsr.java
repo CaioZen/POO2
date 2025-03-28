@@ -4,18 +4,20 @@
  */
 package visao;
 
+import controlador.TableModelUsuario;
+
 /**
  *
  * @author Caio
  */
 public class JDialogListarUsr extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JDialogListarUsr
-     */
+    private TableModelUsuario tableModelUsuario;
     public JDialogListarUsr(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        tableModelUsuario = new TableModelUsuario();
+        tabelaUsr.setModel(tableModelUsuario);
     }
 
     /**
@@ -34,6 +36,11 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         btnRemover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Usuários"));
         jPanel1.setToolTipText("");
@@ -131,6 +138,12 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        //ATUALIZA A TABELA
+        tableModelUsuario = new TableModelUsuario();
+        tabelaUsr.setModel(tableModelUsuario);
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

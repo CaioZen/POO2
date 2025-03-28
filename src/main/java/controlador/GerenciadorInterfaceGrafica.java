@@ -1,11 +1,15 @@
 package controlador;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import dominio.Usuario;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 import visao.JDialogListarUsr;
 import visao.JDialogNovoUsuario;
 import visao.JFramePrincipal;
@@ -15,7 +19,7 @@ public class GerenciadorInterfaceGrafica {
     private static final GerenciadorInterfaceGrafica instancia = new GerenciadorInterfaceGrafica();
 
     private GerenciadorDominio gerDominio = null;
-    
+
     private JFramePrincipal janelaPrincipal = null;
     private JDialogNovoUsuario janelaNovoUsuario = null;
     private JDialogListarUsr janelaListarUsr = null;
@@ -57,6 +61,19 @@ public class GerenciadorInterfaceGrafica {
 
     public void sair() {
         System.exit(0);
+    }
+
+    public List<Usuario> carregarListaUsr() {
+        return gerDominio.listarUsuarios();
+    }
+
+    public void carregarTabelaUsr(JTable tabela) {
+        List lista = gerDominio.listarUsuarios();
+        tabela.setModel(new DefaultTableModel(lista.toArray(), lista.size()));
+    }
+
+    public void addUsuario(Usuario usr) {
+        gerDominio.addUsuarios(usr);
     }
 
     /**

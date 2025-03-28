@@ -4,6 +4,7 @@
  */
 package visao;
 
+import controlador.GerenciadorInterfaceGrafica;
 import dominio.Usuario;
 import java.awt.Image;
 import java.io.File;
@@ -291,6 +292,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         String referencia = textFieldReferencia.getText();
         
         Usuario usuario = new Usuario(nome, celular, email, cep, cidade, numeroCasaI, bairro, referencia);
+        GerenciadorInterfaceGrafica.getInstancia().addUsuario(usuario);
         
     }//GEN-LAST:event_btnCriarActionPerformed
 

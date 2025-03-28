@@ -10,6 +10,7 @@ public class Usuario {
     private int numeroCasa;
     private String bairro;
     private String referencia;
+    private String endereco;
 
     public Usuario(int idUsr, String nome, String celular, String email, String cep, String cidade, int numeroCasa, String bairro, String referencia) {
         this.idUsr = idUsr;
@@ -32,6 +33,7 @@ public class Usuario {
         this.numeroCasa = numeroCasa;
         this.bairro = bairro;
         this.referencia = referencia;
+        this.endereco = "Bairro "+bairro+", número "+numeroCasa+" "+referencia;
     }
 
     public void setIdUsr(int idUsr) {
@@ -105,6 +107,9 @@ public class Usuario {
     public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
-    
+
+    public String getEndereco() {
+        return endereco;
+    }
     
 }
