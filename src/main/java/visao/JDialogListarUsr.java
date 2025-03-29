@@ -4,7 +4,9 @@
  */
 package visao;
 
+import controlador.GerenciadorInterfaceGrafica;
 import controlador.TableModelUsuario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +15,7 @@ import controlador.TableModelUsuario;
 public class JDialogListarUsr extends javax.swing.JDialog {
 
     private TableModelUsuario tableModelUsuario;
+
     public JDialogListarUsr(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -29,11 +32,30 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuTabela = new javax.swing.JPopupMenu();
+        menuItemEditar = new javax.swing.JMenuItem();
+        menuItemExcluir = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaUsr = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
+
+        menuItemEditar.setText("Editar");
+        menuItemEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEditarActionPerformed(evt);
+            }
+        });
+        menuTabela.add(menuItemEditar);
+
+        menuItemExcluir.setText("Excluir");
+        menuItemExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExcluirActionPerformed(evt);
+            }
+        });
+        menuTabela.add(menuItemExcluir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -70,6 +92,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tabelaUsr.setComponentPopupMenu(menuTabela);
         jScrollPane1.setViewportView(tabelaUsr);
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -145,12 +168,40 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         tabelaUsr.setModel(tableModelUsuario);
     }//GEN-LAST:event_formComponentShown
 
+    private void menuItemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditarActionPerformed
+        //EDITAR AINDA NÃO FUNCIONA SE O USUARIO RESOLVER CANCELAR A EDIÇÃO
+        int linha = tabelaUsr.getSelectedRow();
+        GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
+        GerenciadorInterfaceGrafica.getInstancia().setEditar(true);
+        GerenciadorInterfaceGrafica.getInstancia().abrirJanelaCadUsuario();
+        tableModelUsuario.remover(linha); //ESSA LINHA SAIRÁ DAQUI NO FUTURO, NÃO CONSEGUI PENSAR EM OUTRA SOLUÇÃO
+        GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec()); //ESSA TAMBÉM
+        dispose();
+    }//GEN-LAST:event_menuItemEditarActionPerformed
+
+    private void menuItemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExcluirActionPerformed
+        int linha = tabelaUsr.getSelectedRow();
+        if (linha >= 0) {
+            GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
+            if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o usuário?",
+                    "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                tableModelUsuario.remover(linha);
+                GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma linha válida", "Error ao excluir", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_menuItemExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemover;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem menuItemEditar;
+    private javax.swing.JMenuItem menuItemExcluir;
+    private javax.swing.JPopupMenu menuTabela;
     private javax.swing.JTable tabelaUsr;
     // End of variables declaration//GEN-END:variables
 }

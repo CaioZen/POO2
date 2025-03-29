@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author 2023122760123
  */
 public class JDialogNovoUsuario extends javax.swing.JDialog {
+    private Usuario usuarioSelecionado;
 
     /**
      * Creates new form JDialogNovoUsuario
@@ -26,7 +27,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,8 +60,15 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         textFieldBairro = new javax.swing.JTextField();
         labelReferencia = new javax.swing.JLabel();
         textFieldReferencia = new javax.swing.JTextField();
+        labelRua = new javax.swing.JLabel();
+        textFieldRua = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Novo Usuário"));
 
@@ -116,35 +124,22 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        textFieldCEP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCEPActionPerformed(evt);
-            }
-        });
 
         labelUF.setText("Estado:");
 
-        comboBoxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Espírito Santo", "Acre" }));
-        comboBoxUF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxUFActionPerformed(evt);
-            }
-        });
+        comboBoxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Espírito Santo" }));
 
         labelCidade.setText("Cidade:");
 
-        comboBoxCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBoxCidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxCidadeActionPerformed(evt);
-            }
-        });
+        comboBoxCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Colatina", "Serra", "Linhares", "São Matheus", "Baixo Guandu", "Marilândia" }));
 
         labelNumero.setText("Número:");
 
         labelBairro.setText("Bairro:");
 
         labelReferencia.setText("Referência:");
+
+        labelRua.setText("Rua:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,60 +150,72 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(labelFotoEscolher, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(labelNome))
-                            .addComponent(labelCelular)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(labelEmail)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(labelNome))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(13, 13, 13)
+                                        .addComponent(labelEmail)))
+                                .addGap(11, 11, 11))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(labelCelular)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(labelFoto))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(labelNumero)
-                        .addGap(6, 6, 6)
-                        .addComponent(textFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(labelCEP)
-                        .addGap(6, 6, 6)
-                        .addComponent(textFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(labelUF)
-                        .addGap(6, 6, 6)
-                        .addComponent(comboBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(labelBairro)
-                        .addGap(6, 6, 6)
-                        .addComponent(textFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(labelCidade)
-                        .addGap(6, 6, 6)
-                        .addComponent(comboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(labelReferencia)
-                        .addGap(6, 6, 6)
-                        .addComponent(textFieldReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
+                        .addGap(102, 102, 102)
                         .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                        .addGap(74, 74, 74)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(labelBairro))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(labelReferencia)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldBairro)
+                            .addComponent(textFieldReferencia)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(labelRua)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(textFieldRua, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(labelNumero)
+                                .addGap(6, 6, 6)
+                                .addComponent(textFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
+                                .addComponent(labelCEP)
+                                .addGap(6, 6, 6)
+                                .addComponent(textFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(labelUF)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(labelCidade)
+                                .addGap(3, 3, 3)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,18 +225,18 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
                     .addComponent(labelFotoEscolher, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(labelNome)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelCelular)
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelEmail)
-                            .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(labelNome))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(textFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelCelular))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelEmail))))
                 .addGap(6, 6, 6)
                 .addComponent(labelFoto)
                 .addGap(15, 15, 15)
@@ -245,24 +252,26 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
                             .addComponent(labelUF))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelBairro)
-                            .addComponent(labelCidade))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(labelReferencia))
-                    .addComponent(textFieldReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelRua)
+                            .addComponent(textFieldRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(comboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelCidade)))
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelBairro))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelReferencia))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -273,7 +282,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -290,44 +299,78 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         String cidade = comboBoxCidade.getSelectedItem().toString(); //provisório
         String bairro = textFieldBairro.getText();
         String referencia = textFieldReferencia.getText();
-        
-        Usuario usuario = new Usuario(nome, celular, email, cep, cidade, numeroCasaI, bairro, referencia);
+        String rua = textFieldRua.getText();
+
+        Usuario usuario = new Usuario(nome, celular, email, cep, cidade, estado, numeroCasaI, rua, bairro, referencia);
         GerenciadorInterfaceGrafica.getInstancia().addUsuario(usuario);
         
+        GerenciadorInterfaceGrafica.getInstancia().setEditar(false); 
+        limparCampos();
+        dispose();   
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        // TODO add your handling code here:
+        limparCampos();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void labelFotoEscolherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoEscolherMouseClicked
         JFileChooser janelaArquivo = new JFileChooser();
         janelaArquivo.setMultiSelectionEnabled(false);
-        janelaArquivo.setFileFilter( new FileNameExtensionFilter("Imagens", "PNG", "GIF", "JPEG"));
+        janelaArquivo.setFileFilter(new FileNameExtensionFilter("Imagens", "PNG", "GIF", "JPEG"));
         janelaArquivo.setAcceptAllFileFilterUsed(false);
-        if (janelaArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+        if (janelaArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File arquivo = janelaArquivo.getSelectedFile();
             Icon fotoPerfil = new ImageIcon(arquivo.getPath());
             mostrarImagem(fotoPerfil);
         }
     }//GEN-LAST:event_labelFotoEscolherMouseClicked
 
-    private void comboBoxCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxCidadeActionPerformed
-
-    private void textFieldCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCEPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCEPActionPerformed
-
-    private void comboBoxUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxUFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxUFActionPerformed
-    private void mostrarImagem(Icon icon){
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        configurarBotoes();
+    }//GEN-LAST:event_formComponentShown
+    private void mostrarImagem(Icon icon) {
         ImageIcon imagem = (ImageIcon) icon;
-        imagem.setImage(imagem.getImage().getScaledInstance(labelFotoEscolher.getWidth(), labelFotoEscolher.getHeight(),Image.SCALE_SMOOTH));
+        imagem.setImage(imagem.getImage().getScaledInstance(labelFotoEscolher.getWidth(), labelFotoEscolher.getHeight(), Image.SCALE_SMOOTH));
         labelFotoEscolher.setIcon(imagem);
         labelFotoEscolher.setText("");
+    }
+
+    private void limparCampos() {
+        labelFotoEscolher.setIcon(null);
+        labelFotoEscolher.setText("Imagem");
+        textFieldNome.setText("");
+        textFieldCelular.setText("");
+        textFieldEmail.setText("");
+        textFieldNumero.setText("");
+        textFieldCEP.setText("");
+        textFieldRua.setText("");
+        textFieldBairro.setText("");
+        textFieldReferencia.setText("");
+        comboBoxUF.setSelectedIndex(0);
+        comboBoxCidade.setSelectedIndex(0);
+    }
+
+    private void configurarBotoes() {
+        if (GerenciadorInterfaceGrafica.getInstancia().isEditar()) {
+            preencherCampos();
+            btnCriar.setText("Editar");
+            //btnCriar.setIcon(new javax.swing.ImageIcon(getClass().getResource("imagens/edit.png")));
+            btnLimpar.setText("Cancelar");
+        }
+    }
+
+    private void preencherCampos() {
+        usuarioSelecionado = GerenciadorInterfaceGrafica.getInstancia().getUsrSelec();
+        textFieldNome.setText(usuarioSelecionado.getNome());
+        textFieldCelular.setText(usuarioSelecionado.getCelular());
+        textFieldEmail.setText(usuarioSelecionado.getEmail());
+        textFieldNumero.setText(String.valueOf(usuarioSelecionado.getNumeroCasa()));
+        textFieldCEP.setText(usuarioSelecionado.getCep());
+        textFieldRua.setText(usuarioSelecionado.getRua());
+        textFieldBairro.setText(usuarioSelecionado.getBairro());
+        textFieldReferencia.setText(usuarioSelecionado.getReferencia());
+        comboBoxUF.setSelectedItem(usuarioSelecionado.getUf());
+        comboBoxCidade.setSelectedItem(usuarioSelecionado.getCidade());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -346,6 +389,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelNumero;
     private javax.swing.JLabel labelReferencia;
+    private javax.swing.JLabel labelRua;
     private javax.swing.JLabel labelUF;
     private javax.swing.JTextField textFieldBairro;
     private javax.swing.JFormattedTextField textFieldCEP;
@@ -354,5 +398,6 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     private javax.swing.JTextField textFieldNome;
     private javax.swing.JFormattedTextField textFieldNumero;
     private javax.swing.JTextField textFieldReferencia;
+    private javax.swing.JTextField textFieldRua;
     // End of variables declaration//GEN-END:variables
 }

@@ -83,6 +83,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nova Hist&#xf3;ria"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novaHistoriaItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="listarHistoriasItem">
               <Properties>

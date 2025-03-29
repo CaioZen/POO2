@@ -6,34 +6,40 @@ public class Usuario {
     private String celular;
     private String email;
     private String cep;
-    private String cidade; //Somente para testes
+    private String cidade; //Sem banco
+    private String uf; //Sem banco
     private int numeroCasa;
+    private String rua;
     private String bairro;
     private String referencia;
     private String endereco;
 
-    public Usuario(int idUsr, String nome, String celular, String email, String cep, String cidade, int numeroCasa, String bairro, String referencia) {
+    public Usuario(int idUsr, String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia) {
         this.idUsr = idUsr;
         this.nome = nome;
         this.celular = celular;
         this.email = email;
         this.cep = cep;
         this.cidade = cidade;
+        this.uf = uf;
         this.numeroCasa = numeroCasa;
+        this.rua = rua;
         this.bairro = bairro;
         this.referencia = referencia;
     }
 
-    public Usuario(String nome, String celular, String email, String cep, String cidade, int numeroCasa, String bairro, String referencia) {
+    public Usuario(String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia) {
         this.nome = nome;
         this.celular = celular;
         this.email = email;
         this.cep = cep;
         this.cidade = cidade;
+        this.uf = uf;
         this.numeroCasa = numeroCasa;
+        this.rua = rua;
         this.bairro = bairro;
         this.referencia = referencia;
-        this.endereco = "Bairro "+bairro+", número "+numeroCasa+" "+referencia;
+        this.endereco = "Rua "+rua+", Número "+numeroCasa;
     }
 
     public void setIdUsr(int idUsr) {
@@ -110,6 +116,22 @@ public class Usuario {
 
     public String getEndereco() {
         return endereco;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
     }
     
 }

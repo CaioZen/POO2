@@ -7,9 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 import visao.JDialogListarUsr;
 import visao.JDialogNovoUsuario;
 import visao.JFramePrincipal;
@@ -23,6 +21,8 @@ public class GerenciadorInterfaceGrafica {
     private JFramePrincipal janelaPrincipal = null;
     private JDialogNovoUsuario janelaNovoUsuario = null;
     private JDialogListarUsr janelaListarUsr = null;
+
+    private boolean editar = false;
 
     public static GerenciadorInterfaceGrafica getInstancia() {
         return instancia;
@@ -59,6 +59,9 @@ public class GerenciadorInterfaceGrafica {
         janelaListarUsr = (JDialogListarUsr) abrirJanela(janelaPrincipal, janelaListarUsr, JDialogListarUsr.class);
     }
 
+    public void abrirCadHistoria() {
+    }
+
     public void sair() {
         System.exit(0);
     }
@@ -67,13 +70,28 @@ public class GerenciadorInterfaceGrafica {
         return gerDominio.listarUsuarios();
     }
 
-    public void carregarTabelaUsr(JTable tabela) {
-        List lista = gerDominio.listarUsuarios();
-        tabela.setModel(new DefaultTableModel(lista.toArray(), lista.size()));
-    }
-
     public void addUsuario(Usuario usr) {
         gerDominio.addUsuarios(usr);
+    }
+
+    public void removerUsuario(Usuario usr) {
+        gerDominio.removerUsuarios(usr);
+    }
+
+    public void setUsrSelec(int linha) {
+        gerDominio.setUsuarioSelecionado(linha);
+    }
+
+    public Usuario getUsrSelec() {
+        return gerDominio.getUsuarioSelecionado();
+    }
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
 
     /**

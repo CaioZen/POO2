@@ -24,4 +24,8 @@ public class ListaUsuarios {
     public List<Usuario> listarUsrs() {
         return new ArrayList<>(lista);
     }
+
+    public Usuario getUsrSelecionado(int linha) {
+        return lista.get(linha);
+    }
 }
