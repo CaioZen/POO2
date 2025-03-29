@@ -1,5 +1,6 @@
 package visao;
 
+import controlador.GerenciadorInterfaceGrafica;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.RowFilter;
@@ -43,6 +44,11 @@ public class JDialogListarHis extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuTabela = new javax.swing.JPopupMenu();
+        menuItemEditar = new javax.swing.JMenuItem();
+        menuItemExcluir = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menuItemDesc = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHis = new javax.swing.JTable();
@@ -50,6 +56,16 @@ public class JDialogListarHis extends javax.swing.JDialog {
         btnRemover = new javax.swing.JButton();
         labelPesquisar = new javax.swing.JLabel();
         textFieldPesquisar = new javax.swing.JTextField();
+
+        menuItemEditar.setText("Editar");
+        menuTabela.add(menuItemEditar);
+
+        menuItemExcluir.setText("jMenuItem2");
+        menuTabela.add(menuItemExcluir);
+        menuTabela.add(jSeparator1);
+
+        menuItemDesc.setText("Abrir Descrição Detalhada");
+        menuTabela.add(menuItemDesc);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -83,6 +99,7 @@ public class JDialogListarHis extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tabelaHis.setComponentPopupMenu(menuTabela);
         jScrollPane1.setViewportView(tabelaHis);
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -132,7 +149,7 @@ public class JDialogListarHis extends javax.swing.JDialog {
                 .addComponent(labelPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +182,8 @@ public class JDialogListarHis extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        GerenciadorInterfaceGrafica.getInstancia().abrirCadHistoria();
+        dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
@@ -189,7 +207,12 @@ public class JDialogListarHis extends javax.swing.JDialog {
     private javax.swing.JButton btnRemover;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelPesquisar;
+    private javax.swing.JMenuItem menuItemDesc;
+    private javax.swing.JMenuItem menuItemEditar;
+    private javax.swing.JMenuItem menuItemExcluir;
+    private javax.swing.JPopupMenu menuTabela;
     private javax.swing.JTable tabelaHis;
     private javax.swing.JTextField textFieldPesquisar;
     // End of variables declaration//GEN-END:variables

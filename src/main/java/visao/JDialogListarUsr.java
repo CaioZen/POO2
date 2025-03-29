@@ -188,7 +188,8 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        GerenciadorInterfaceGrafica.getInstancia().abrirJanelaCadUsuario();
+        dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
