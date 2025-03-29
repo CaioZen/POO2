@@ -126,6 +126,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         listarHistoriasItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listarHistorias.png"))); // NOI18N
         listarHistoriasItem.setText("Listar Historias");
+        listarHistoriasItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarHistoriasItemActionPerformed(evt);
+            }
+        });
         historiaMenu.add(listarHistoriasItem);
 
         menuPrincipal.add(historiaMenu);
@@ -220,6 +225,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void novaHistoriaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novaHistoriaItemActionPerformed
         GerenciadorInterfaceGrafica.getInstancia().abrirCadHistoria();
     }//GEN-LAST:event_novaHistoriaItemActionPerformed
+
+    private void listarHistoriasItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarHistoriasItemActionPerformed
+        GerenciadorInterfaceGrafica.getInstancia().abrirListarHis();
+    }//GEN-LAST:event_listarHistoriasItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

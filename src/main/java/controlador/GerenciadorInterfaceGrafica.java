@@ -8,7 +8,9 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import visao.JDialogListarHis;
 import visao.JDialogListarUsr;
+import visao.JDialogNovaHistoria;
 import visao.JDialogNovoUsuario;
 import visao.JFramePrincipal;
 
@@ -21,6 +23,8 @@ public class GerenciadorInterfaceGrafica {
     private JFramePrincipal janelaPrincipal = null;
     private JDialogNovoUsuario janelaNovoUsuario = null;
     private JDialogListarUsr janelaListarUsr = null;
+    private JDialogNovaHistoria janelaNovaHistoria = null;
+    private JDialogListarHis janelaListarHis = null;
 
     private boolean editar = false;
 
@@ -60,6 +64,11 @@ public class GerenciadorInterfaceGrafica {
     }
 
     public void abrirCadHistoria() {
+        janelaNovaHistoria = (JDialogNovaHistoria) abrirJanela(janelaPrincipal, janelaNovaHistoria, JDialogNovaHistoria.class);
+    }
+
+    public void abrirListarHis() {
+        janelaListarHis = (JDialogListarHis) abrirJanela(janelaPrincipal, janelaListarHis, JDialogListarHis.class);
     }
 
     public void sair() {

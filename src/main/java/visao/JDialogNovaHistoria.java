@@ -4,11 +4,24 @@
  */
 package visao;
 
+import dominio.Historia;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Caio
  */
 public class JDialogNovaHistoria extends javax.swing.JDialog {
+
+    private DefaultListModel modeloLista;
+    private List<String> usuarios;
+    private List<String> personagens;
 
     /**
      * Creates new form JDialogNovaHistoria
@@ -16,6 +29,48 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     public JDialogNovaHistoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        painelEscolherMestre.setVisible(false);
+        painelEscolherPersonagens.setVisible(false);
+        usuarios = List.of("Caio", "Andre", "Rhyan", "Gustavo", "Victor Costa", "Henrique");
+        personagens = List.of("Gerald", "Kratos", "Ashen One", "Sonic");
+
+        textFieldMestre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                atualizarListaUsr(textFieldMestre.getText());
+            }
+        });
+
+        listaMestre.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (!listaMestre.isSelectionEmpty()) {
+                    String selecionado = listaMestre.getSelectedValue();
+                    labelMestreSelecionado.setText(selecionado);
+                }
+            }
+        });
+
+        textFieldPersonagens.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                atualizarListaPer(textFieldPersonagens.getText());
+            }
+        });
+
+        listaPersonagens.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (!listaPersonagens.isSelectionEmpty()) {
+                    List<String> selecionados = listaPersonagens.getSelectedValuesList();
+                    modeloLista = new DefaultListModel<>();
+                    for (String nome : selecionados) {
+                        modeloLista.addElement(nome);
+                    }
+                    listaPersonagensEscolhidos.setModel(modeloLista);
+                }
+            }
+        });
     }
 
     /**
@@ -27,80 +82,304 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        labelNome = new javax.swing.JLabel();
+        textFieldNome = new javax.swing.JTextField();
+        labelMestre = new javax.swing.JLabel();
+        textFieldMestre = new javax.swing.JTextField();
+        label = new javax.swing.JLabel();
+        labelMestreSelecionado = new javax.swing.JLabel();
+        labelDesc = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textAreaDesc = new javax.swing.JTextArea();
+        btnCriar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        painelEscolherMestre = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listaMestre = new javax.swing.JList<>();
+        painelEscolherPersonagens = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaPersonagens = new javax.swing.JList<>();
+        labelPersonagens = new javax.swing.JLabel();
+        textFieldPersonagens = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaPersonagensEscolhidos = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nova História"));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Nova História");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+        labelNome.setText("Nome:");
+
+        labelMestre.setText("Mestre:");
+
+        textFieldMestre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textFieldMestreMouseClicked(evt);
+            }
+        });
+
+        label.setText("Mestre Selecionado:");
+
+        labelDesc.setText("Descrição:");
+
+        textAreaDesc.setColumns(20);
+        textAreaDesc.setRows(5);
+        jScrollPane1.setViewportView(textAreaDesc);
+
+        btnCriar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCriar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/accept.png"))); // NOI18N
+        btnCriar.setText("Criar");
+        btnCriar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        painelEscolherMestre.setBorder(javax.swing.BorderFactory.createTitledBorder("Escolha um Mestre"));
+
+        listaMestre.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Caio", "Andre", "Rhyan", "Gustavo", "Victor Costa", "Henrique" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listaMestre.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(listaMestre);
+
+        javax.swing.GroupLayout painelEscolherMestreLayout = new javax.swing.GroupLayout(painelEscolherMestre);
+        painelEscolherMestre.setLayout(painelEscolherMestreLayout);
+        painelEscolherMestreLayout.setHorizontalGroup(
+            painelEscolherMestreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 397, Short.MAX_VALUE)
+        painelEscolherMestreLayout.setVerticalGroup(
+            painelEscolherMestreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
+
+        painelEscolherPersonagens.setBorder(javax.swing.BorderFactory.createTitledBorder("Escolha os personagens"));
+
+        listaPersonagens.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Gerald", "Kratos", "Ashen One", "Sonic", " " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(listaPersonagens);
+
+        javax.swing.GroupLayout painelEscolherPersonagensLayout = new javax.swing.GroupLayout(painelEscolherPersonagens);
+        painelEscolherPersonagens.setLayout(painelEscolherPersonagensLayout);
+        painelEscolherPersonagensLayout.setHorizontalGroup(
+            painelEscolherPersonagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        painelEscolherPersonagensLayout.setVerticalGroup(
+            painelEscolherPersonagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+        );
+
+        labelPersonagens.setText("Personagens:");
+
+        textFieldPersonagens.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textFieldPersonagensMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setText("Jogadores Selecionados:");
+
+        jScrollPane4.setViewportView(listaPersonagensEscolhidos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(labelNome)
+                        .addGap(9, 9, 9)
+                        .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDesc)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelMestreSelecionado, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel2)
+                        .addGap(2, 2, 2)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelMestre)
+                        .addGap(6, 6, 6)
+                        .addComponent(textFieldMestre, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(labelPersonagens)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldPersonagens)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(painelEscolherMestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(painelEscolherPersonagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(labelNome))
+                    .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textFieldMestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldPersonagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMestre)
+                            .addComponent(labelPersonagens))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(painelEscolherPersonagens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelEscolherMestre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(labelMestreSelecionado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(6, 6, 6)
+                                .addComponent(labelDesc))
+                            .addComponent(jLabel2))))
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDialogNovaHistoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDialogNovaHistoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDialogNovaHistoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDialogNovaHistoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
+        String nome = textFieldNome.getText();
+        String mestre = labelMestreSelecionado.getText();
+        String descricao = textAreaDesc.getText();
+        int status = 0; //Para histórias EM ANDAMENTO
+        if (!listaPersonagens.isSelectionEmpty()) {
+            List<String> personagens = listaPersonagens.getSelectedValuesList();
+            Historia historia = new Historia(nome, descricao, status, mestre, personagens);
+        } else {
+            Historia historia = new Historia(nome, descricao, status, mestre);
         }
-        //</editor-fold>
+        
+        limparCampos();
+        dispose();
+    }//GEN-LAST:event_btnCriarActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JDialogNovaHistoria dialog = new JDialogNovaHistoria(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void textFieldMestreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textFieldMestreMouseClicked
+        painelEscolherMestre.setVisible(true);
+        painelEscolherPersonagens.setVisible(true);
+    }//GEN-LAST:event_textFieldMestreMouseClicked
+
+    private void textFieldPersonagensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textFieldPersonagensMouseClicked
+
+    }//GEN-LAST:event_textFieldPersonagensMouseClicked
+
+    private void limparCampos() {
+        textFieldNome.setText("");
+        textFieldMestre.setText("");
+        textAreaDesc.setText("");
     }
 
+    private void atualizarListaUsr(String pesquisa) {
+        modeloLista = new DefaultListModel<>();
+        modeloLista.clear();
+        List<String> filtrados = usuarios.stream().filter(nome -> nome.toLowerCase().contains(pesquisa.toLowerCase())).collect(Collectors.toList());
+
+        for (String nome : filtrados) {
+            modeloLista.addElement(nome);
+        }
+        listaMestre.setModel(modeloLista);
+    }
+
+    private void atualizarListaPer(String pesquisa) {
+        modeloLista = new DefaultListModel<>();
+        modeloLista.clear();
+        List<String> filtrados = personagens.stream().filter(nome -> nome.toLowerCase().contains(pesquisa.toLowerCase())).collect(Collectors.toList());
+        for (String nome : filtrados) {
+            modeloLista.addElement(nome);
+        }
+        listaPersonagens.setModel(modeloLista);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnCriar;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel label;
+    private javax.swing.JLabel labelDesc;
+    private javax.swing.JLabel labelMestre;
+    private javax.swing.JLabel labelMestreSelecionado;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelPersonagens;
+    private javax.swing.JList<String> listaMestre;
+    private javax.swing.JList<String> listaPersonagens;
+    private javax.swing.JList<String> listaPersonagensEscolhidos;
+    private javax.swing.JPanel painelEscolherMestre;
+    private javax.swing.JPanel painelEscolherPersonagens;
+    private javax.swing.JTextArea textAreaDesc;
+    private javax.swing.JTextField textFieldMestre;
+    private javax.swing.JTextField textFieldNome;
+    private javax.swing.JTextField textFieldPersonagens;
     // End of variables declaration//GEN-END:variables
 }

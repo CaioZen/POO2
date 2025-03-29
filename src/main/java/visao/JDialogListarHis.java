@@ -1,37 +1,35 @@
+package visao;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package visao;
-
-import controlador.GerenciadorInterfaceGrafica;
-import controlador.TableModelUsuario;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
-import javax.swing.table.TableRowSorter;
-
 /**
  *
  * @author Caio
  */
-public class JDialogListarUsr extends javax.swing.JDialog {
+public class JDialogListarHis extends javax.swing.JDialog {
 
-    private TableModelUsuario tableModelUsuario;
-    private TableRowSorter<TableModelUsuario> sorter;
+    private TableRowSorter<DefaultTableModel> sorter;
 
-    public JDialogListarUsr(java.awt.Frame parent, boolean modal) {
+    /**
+     * Creates new form JDialogListarHis
+     */
+    public JDialogListarHis(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tableModelUsuario = new TableModelUsuario();
-        tabelaUsr.setModel(tableModelUsuario);
-        sorter = new TableRowSorter<>(tableModelUsuario);
-        tabelaUsr.setRowSorter(sorter);
+        sorter = new TableRowSorter<>();
+        tabelaHis.setRowSorter(sorter);
         textFieldPesquisar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                filtrarTabelaUsr(textFieldPesquisar.getText());
+                filtrarTabelaHis(textFieldPesquisar.getText());
             }
         });
     }
@@ -45,64 +43,36 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menuTabela = new javax.swing.JPopupMenu();
-        menuItemEditar = new javax.swing.JMenuItem();
-        menuItemExcluir = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemDesc = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaUsr = new javax.swing.JTable();
+        tabelaHis = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         labelPesquisar = new javax.swing.JLabel();
         textFieldPesquisar = new javax.swing.JTextField();
 
-        menuItemEditar.setText("Editar");
-        menuItemEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemEditarActionPerformed(evt);
-            }
-        });
-        menuTabela.add(menuItemEditar);
-
-        menuItemExcluir.setText("Excluir");
-        menuItemExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemExcluirActionPerformed(evt);
-            }
-        });
-        menuTabela.add(menuItemExcluir);
-        menuTabela.add(jSeparator1);
-
-        menuItemDesc.setText("Abrir Descrição Detalhada");
-        menuTabela.add(menuItemDesc);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                formComponentShown(evt);
-            }
-        });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Usuários"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Histórias"));
         jPanel1.setToolTipText("");
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela"));
 
-        tabelaUsr.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaHis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"Aventuras", "Caio", "EM ANDAMENTO", "Varios", "Complexo"},
+                {"Alegria", "Henrique", "FINALIZADA", "Varios", "Complexo"},
+                {"Viagens", "Andre", "EM ANDAMENTO", "Varios", "Complexo"}
             },
             new String [] {
-                "Nome", "Celular", "E-mail", "UF", "Cidade", "CEP", "Endereço"
+                "Nome", "Mestre", "Status", "Jogadores", "Descrição"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -113,8 +83,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tabelaUsr.setComponentPopupMenu(menuTabela);
-        jScrollPane1.setViewportView(tabelaUsr);
+        jScrollPane1.setViewportView(tabelaHis);
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/add.png"))); // NOI18N
@@ -136,26 +105,34 @@ public class JDialogListarUsr extends javax.swing.JDialog {
 
         labelPesquisar.setText("Pesquisar por nome:");
 
+        textFieldPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(btnAdd)
+                        .addGap(116, 116, 116)
+                        .addComponent(btnRemover)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
                 .addComponent(labelPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(btnAdd)
-                .addGap(116, 116, 116)
-                .addComponent(btnRemover)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +141,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPesquisar)
                     .addComponent(textFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -195,58 +172,25 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoverActionPerformed
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        //ATUALIZA A TABELA
-        tableModelUsuario = new TableModelUsuario();
-        tabelaUsr.setModel(tableModelUsuario);
-    }//GEN-LAST:event_formComponentShown
-
-    private void menuItemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditarActionPerformed
-        //EDITAR AINDA NÃO FUNCIONA SE O USUARIO RESOLVER CANCELAR A EDIÇÃO
-        int linha = tabelaUsr.getSelectedRow();
-        GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
-        GerenciadorInterfaceGrafica.getInstancia().setEditar(true);
-        GerenciadorInterfaceGrafica.getInstancia().abrirJanelaCadUsuario();
-        tableModelUsuario.remover(linha); //ESSA LINHA SAIRÁ DAQUI NO FUTURO, NÃO CONSEGUI PENSAR EM OUTRA SOLUÇÃO
-        GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec()); //ESSA TAMBÉM
-        dispose();
-    }//GEN-LAST:event_menuItemEditarActionPerformed
-
-    private void menuItemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExcluirActionPerformed
-        int linha = tabelaUsr.getSelectedRow();
-        if (linha >= 0) {
-            GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
-            if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o usuário?",
-                    "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                tableModelUsuario.remover(linha);
-                GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec());
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione uma linha válida", "Error ao excluir", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_menuItemExcluirActionPerformed
-    private void filtrarTabelaUsr(String pesquisa) {
+    private void textFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldPesquisarActionPerformed
+    private void filtrarTabelaHis(String pesquisa) {
         String texto = pesquisa.trim();
         if (texto.isEmpty()) {
             sorter.setRowFilter(null);
         } else {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)"+texto, 0));
-            tabelaUsr.setRowSorter(sorter);
+            tabelaHis.setRowSorter(sorter);
         }
-
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemover;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelPesquisar;
-    private javax.swing.JMenuItem menuItemDesc;
-    private javax.swing.JMenuItem menuItemEditar;
-    private javax.swing.JMenuItem menuItemExcluir;
-    private javax.swing.JPopupMenu menuTabela;
-    private javax.swing.JTable tabelaUsr;
+    private javax.swing.JTable tabelaHis;
     private javax.swing.JTextField textFieldPesquisar;
     // End of variables declaration//GEN-END:variables
 }

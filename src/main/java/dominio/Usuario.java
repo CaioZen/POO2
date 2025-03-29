@@ -133,5 +133,10 @@ public class Usuario {
     public void setRua(String rua) {
         this.rua = rua;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nome=" + nome + '}';
+    }
     
 }
