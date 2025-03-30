@@ -2,16 +2,24 @@ package controlador;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import dominio.Usuario;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import visao.JDialogAlinhamentos;
+import visao.JDialogAntecedentes;
+import visao.JDialogBuscarHis;
+import visao.JDialogClasses;
 import visao.JDialogListarHis;
 import visao.JDialogListarUsr;
 import visao.JDialogNovaHistoria;
+import visao.JDialogNovaPartida;
+import visao.JDialogNovoPersonagem;
 import visao.JDialogNovoUsuario;
+import visao.JDialogRacas;
 import visao.JFramePrincipal;
 
 public class GerenciadorInterfaceGrafica {
@@ -25,6 +33,13 @@ public class GerenciadorInterfaceGrafica {
     private JDialogListarUsr janelaListarUsr = null;
     private JDialogNovaHistoria janelaNovaHistoria = null;
     private JDialogListarHis janelaListarHis = null;
+    private JDialogNovaPartida janelaNovaPartida = null;
+    private JDialogBuscarHis janelaBuscarHis = null;
+    private JDialogNovoPersonagem janelaNovoPersonagem = null;
+    private JDialogClasses janelaClasses = null;
+    private JDialogAntecedentes janelaAntecedentes = null;
+    private JDialogAlinhamentos janelaAlinhamentos = null;
+    private JDialogRacas janelaRacas = null;
 
     private boolean editar = false;
 
@@ -71,6 +86,30 @@ public class GerenciadorInterfaceGrafica {
         janelaListarHis = (JDialogListarHis) abrirJanela(janelaPrincipal, janelaListarHis, JDialogListarHis.class);
     }
 
+    public void abirNovaPartida() {
+        janelaNovaPartida = (JDialogNovaPartida) abrirJanela(janelaPrincipal, janelaNovaPartida, JDialogNovaPartida.class);
+    }
+
+    public void abrirBuscarHis() {
+        janelaBuscarHis = (JDialogBuscarHis) abrirJanela(janelaPrincipal, janelaBuscarHis, JDialogBuscarHis.class);
+    }
+    
+    public void abrirNovoPersonagem() {
+        janelaNovoPersonagem = (JDialogNovoPersonagem) abrirJanela(janelaPrincipal, janelaNovoPersonagem, JDialogNovoPersonagem.class);
+    }
+    
+    public void abrirClasses() {
+        janelaClasses = (JDialogClasses) abrirJanela(janelaPrincipal, janelaClasses, JDialogClasses.class);
+    }
+    public void abrirAlinhamentos() {
+        janelaAlinhamentos = (JDialogAlinhamentos) abrirJanela(janelaPrincipal, janelaAlinhamentos, JDialogAlinhamentos.class);
+    }
+    public void abrirAntecedentes() {
+        janelaAntecedentes = (JDialogAntecedentes) abrirJanela(janelaPrincipal, janelaAntecedentes, JDialogAntecedentes.class);
+    }
+    public void abrirRacas() {
+        janelaRacas = (JDialogRacas) abrirJanela(janelaPrincipal, janelaRacas, JDialogRacas.class);
+    }
     public void sair() {
         System.exit(0);
     }

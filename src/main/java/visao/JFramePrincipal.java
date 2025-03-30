@@ -54,12 +54,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
         usuarioMenu = new javax.swing.JMenu();
         novoUsuarioItem = new javax.swing.JMenuItem();
         listaUsuarioItem = new javax.swing.JMenuItem();
+        novoPersonagemItem = new javax.swing.JMenuItem();
         historiaMenu = new javax.swing.JMenu();
         novaHistoriaItem = new javax.swing.JMenuItem();
         listarHistoriasItem = new javax.swing.JMenuItem();
         partidasMenu = new javax.swing.JMenu();
         novaPartidaItem = new javax.swing.JMenuItem();
-        listaPartidasItem = new javax.swing.JMenuItem();
         catalogoMenu = new javax.swing.JMenu();
         classesItem = new javax.swing.JMenuItem();
         racasItem = new javax.swing.JMenuItem();
@@ -235,9 +235,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
                     .addComponent(labelData2)
                     .addComponent(jLabel12)
                     .addComponent(jLabel13)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5)))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -367,6 +366,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
         usuarioMenu.add(listaUsuarioItem);
 
+        novoPersonagemItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/NovoUsuario.png"))); // NOI18N
+        novoPersonagemItem.setText("Novo Personagem");
+        novoPersonagemItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novoPersonagemItemActionPerformed(evt);
+            }
+        });
+        usuarioMenu.add(novoPersonagemItem);
+
         menuPrincipal.add(usuarioMenu);
 
         historiaMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/historia.png"))); // NOI18N
@@ -407,17 +415,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
         partidasMenu.add(novaPartidaItem);
 
-        listaPartidasItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Lista.png"))); // NOI18N
-        listaPartidasItem.setMnemonic('l');
-        listaPartidasItem.setText("Listar Partidas");
-        listaPartidasItem.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        listaPartidasItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaPartidasItemActionPerformed(evt);
-            }
-        });
-        partidasMenu.add(listaPartidasItem);
-
         menuPrincipal.add(partidasMenu);
 
         catalogoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/catalogo.png"))); // NOI18N
@@ -425,18 +422,38 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         classesItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/classes.png"))); // NOI18N
         classesItem.setText("Classes");
+        classesItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classesItemActionPerformed(evt);
+            }
+        });
         catalogoMenu.add(classesItem);
 
         racasItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/raças.png"))); // NOI18N
         racasItem.setText("Raças");
+        racasItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                racasItemActionPerformed(evt);
+            }
+        });
         catalogoMenu.add(racasItem);
 
         antecedentesItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/antecedentes.png"))); // NOI18N
         antecedentesItem.setText("Antecedentes");
+        antecedentesItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                antecedentesItemActionPerformed(evt);
+            }
+        });
         catalogoMenu.add(antecedentesItem);
 
         alinhamentosItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alinhamentos.png"))); // NOI18N
         alinhamentosItem.setText("Alinhamentos");
+        alinhamentosItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alinhamentosItemActionPerformed(evt);
+            }
+        });
         catalogoMenu.add(alinhamentosItem);
 
         menuPrincipal.add(catalogoMenu);
@@ -490,12 +507,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_listaUsuarioItemActionPerformed
 
     private void novaPartidaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novaPartidaItemActionPerformed
-        // TODO add your handling code here:
+        GerenciadorInterfaceGrafica.getInstancia().abirNovaPartida();
     }//GEN-LAST:event_novaPartidaItemActionPerformed
-
-    private void listaPartidasItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPartidasItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaPartidasItemActionPerformed
 
     private void sairItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairItemActionPerformed
         GerenciadorInterfaceGrafica.getInstancia().sair();
@@ -508,6 +521,26 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void listarHistoriasItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarHistoriasItemActionPerformed
         GerenciadorInterfaceGrafica.getInstancia().abrirListarHis();
     }//GEN-LAST:event_listarHistoriasItemActionPerformed
+
+    private void novoPersonagemItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoPersonagemItemActionPerformed
+        GerenciadorInterfaceGrafica.getInstancia().abrirNovoPersonagem();
+    }//GEN-LAST:event_novoPersonagemItemActionPerformed
+
+    private void classesItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classesItemActionPerformed
+        GerenciadorInterfaceGrafica.getInstancia().abrirClasses();
+    }//GEN-LAST:event_classesItemActionPerformed
+
+    private void racasItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_racasItemActionPerformed
+        GerenciadorInterfaceGrafica.getInstancia().abrirRacas();
+    }//GEN-LAST:event_racasItemActionPerformed
+
+    private void antecedentesItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_antecedentesItemActionPerformed
+        GerenciadorInterfaceGrafica.getInstancia().abrirAntecedentes();
+    }//GEN-LAST:event_antecedentesItemActionPerformed
+
+    private void alinhamentosItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alinhamentosItemActionPerformed
+        GerenciadorInterfaceGrafica.getInstancia().abrirAlinhamentos();
+    }//GEN-LAST:event_alinhamentosItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -543,12 +576,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelMestre2;
     private javax.swing.JLabel labelPartida1;
     private javax.swing.JLabel labelPartida2;
-    private javax.swing.JMenuItem listaPartidasItem;
     private javax.swing.JMenuItem listaUsuarioItem;
     private javax.swing.JMenuItem listarHistoriasItem;
     private javax.swing.JMenuBar menuPrincipal;
     private javax.swing.JMenuItem novaHistoriaItem;
     private javax.swing.JMenuItem novaPartidaItem;
+    private javax.swing.JMenuItem novoPersonagemItem;
     private javax.swing.JMenuItem novoUsuarioItem;
     private javax.swing.JMenu partidasMenu;
     private javax.swing.JMenuItem racasItem;

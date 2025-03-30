@@ -24,6 +24,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     public JDialogListarUsr(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        btnSelecionar.setVisible(false);
         tableModelUsuario = new TableModelUsuario();
         tabelaUsr.setModel(tableModelUsuario);
         sorter = new TableRowSorter<>(tableModelUsuario);
@@ -57,6 +58,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         btnRemover = new javax.swing.JButton();
         labelPesquisar = new javax.swing.JLabel();
         textFieldPesquisar = new javax.swing.JTextField();
+        btnSelecionar = new javax.swing.JButton();
 
         menuItemEditar.setText("Editar");
         menuItemEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -136,26 +138,38 @@ public class JDialogListarUsr extends javax.swing.JDialog {
 
         labelPesquisar.setText("Pesquisar por nome:");
 
+        btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(labelPesquisar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(99, 99, 99)
+                                .addComponent(btnAdd)
+                                .addGap(25, 25, 25)
+                                .addComponent(btnSelecionar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnRemover)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(labelPesquisar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(btnAdd)
-                .addGap(116, 116, 116)
-                .addComponent(btnRemover)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +183,8 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSelecionar))
                 .addGap(19, 19, 19))
         );
 
@@ -200,6 +215,16 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         //ATUALIZA A TABELA
         tableModelUsuario = new TableModelUsuario();
         tabelaUsr.setModel(tableModelUsuario);
+        if (GerenciadorInterfaceGrafica.getInstancia().isEditar()) {
+            btnSelecionar.setVisible(true);
+            btnAdd.setVisible(false);
+            btnRemover.setVisible(false);
+        } else {
+            btnSelecionar.setVisible(false);
+            btnAdd.setVisible(true);
+            btnRemover.setVisible(true);
+        }
+        GerenciadorInterfaceGrafica.getInstancia().setEditar(false);
     }//GEN-LAST:event_formComponentShown
 
     private void menuItemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditarActionPerformed
@@ -226,12 +251,17 @@ public class JDialogListarUsr extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione uma linha válida", "Error ao excluir", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_menuItemExcluirActionPerformed
+
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        
+        dispose();
+    }//GEN-LAST:event_btnSelecionarActionPerformed
     private void filtrarTabelaUsr(String pesquisa) {
         String texto = pesquisa.trim();
         if (texto.isEmpty()) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)"+texto, 0));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 0));
             tabelaUsr.setRowSorter(sorter);
         }
 
@@ -239,9 +269,10 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemover;
+    private javax.swing.JButton btnSelecionar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel labelPesquisar;
     private javax.swing.JMenuItem menuItemDesc;
     private javax.swing.JMenuItem menuItemEditar;

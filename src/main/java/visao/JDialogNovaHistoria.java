@@ -108,7 +108,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Nova História");
 
         labelNome.setText("Nome:");
@@ -196,7 +196,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Jogadores Selecionados:");
+        jLabel2.setText("Personagens Selecionados:");
 
         jScrollPane4.setViewportView(listaPersonagensEscolhidos);
 
