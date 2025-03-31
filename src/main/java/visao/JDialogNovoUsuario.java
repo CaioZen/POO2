@@ -1,24 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
 import dominio.Usuario;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.json.JSONObject;
 
-/**
- *
- * @author 2023122760123
- */
 public class JDialogNovoUsuario extends javax.swing.JDialog {
+
     private Usuario usuarioSelecionado;
+    private String rua;
+    private String bairro;
+    private String cidade;
+    private String uf;
 
     /**
      * Creates new form JDialogNovoUsuario
@@ -27,7 +32,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,6 +129,11 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        textFieldCEP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textFieldCEPFocusLost(evt);
+            }
+        });
 
         labelUF.setText("Estado:");
 
@@ -289,24 +299,30 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        String nome = textFieldNome.getText();
-        String celular = textFieldCelular.getText();
-        String email = textFieldEmail.getText();
-        String numeroCasaS = textFieldNumero.getText();
-        int numeroCasaI = Integer.parseInt(numeroCasaS);
-        String cep = textFieldCEP.getText();
-        String estado = comboBoxUF.getSelectedItem().toString(); //provisório
-        String cidade = comboBoxCidade.getSelectedItem().toString(); //provisório
-        String bairro = textFieldBairro.getText();
-        String referencia = textFieldReferencia.getText();
-        String rua = textFieldRua.getText();
+        if (textFieldNome.getText().equals("") || textFieldCelular.getText().equals("") || textFieldEmail.getText().equals("")|| textFieldNumero.getText().equals("") || textFieldCEP.getText().equals("")
+                || comboBoxUF.getSelectedItem() == "" || comboBoxCidade.getSelectedItem() == null || textFieldBairro.getText().equals("")
+                || textFieldRua.getText().equals("") || textFieldReferencia.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de Usuário", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String nome = textFieldNome.getText();
+            String celular = textFieldCelular.getText();
+            String email = textFieldEmail.getText();
+            String numeroCasaS = textFieldNumero.getText();
+            int numeroCasaI = Integer.parseInt(numeroCasaS);
+            String cep = textFieldCEP.getText();
+            String estado = comboBoxUF.getSelectedItem().toString(); //provisório
+            String cidade = comboBoxCidade.getSelectedItem().toString(); //provisório
+            String bairro = textFieldBairro.getText();
+            String referencia = textFieldReferencia.getText();
+            String rua = textFieldRua.getText();
 
-        Usuario usuario = new Usuario(nome, celular, email, cep, cidade, estado, numeroCasaI, rua, bairro, referencia);
-        GerenciadorInterfaceGrafica.getInstancia().addUsuario(usuario);
-        
-        GerenciadorInterfaceGrafica.getInstancia().setEditar(false); 
-        limparCampos();
-        dispose();   
+            Usuario usuario = new Usuario(nome, celular, email, cep, cidade, estado, numeroCasaI, rua, bairro, referencia);
+            GerenciadorInterfaceGrafica.getInstancia().addUsuario(usuario);
+
+            GerenciadorInterfaceGrafica.getInstancia().setEditar(false);
+            limparCampos();
+            dispose();
+        }
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -328,6 +344,23 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         configurarBotoes();
     }//GEN-LAST:event_formComponentShown
+
+    private void textFieldCEPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldCEPFocusLost
+        try {
+            String ender = consultarCEP(textFieldCEP.getText());
+            if (ender != null) {
+                textFieldRua.setText(rua);
+                textFieldBairro.setText(bairro);
+                comboBoxCidade.setSelectedItem(cidade);
+                comboBoxUF.setSelectedItem(uf);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "CEP não encontrado!", "Cadastro de Usuário", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "ERRO ao consultar CEP!", "Cadastro de Usuário", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_textFieldCEPFocusLost
     private void mostrarImagem(Icon icon) {
         ImageIcon imagem = (ImageIcon) icon;
         imagem.setImage(imagem.getImage().getScaledInstance(labelFotoEscolher.getWidth(), labelFotoEscolher.getHeight(), Image.SCALE_SMOOTH));
@@ -371,6 +404,49 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         textFieldReferencia.setText(usuarioSelecionado.getReferencia());
         comboBoxUF.setSelectedItem(usuarioSelecionado.getUf());
         comboBoxCidade.setSelectedItem(usuarioSelecionado.getCidade());
+    }
+
+    public String consultarCEP(String cep) throws MalformedURLException, IOException {
+        String valido = null;
+
+        // Definir a URL do serviço ViaCEP
+        URL url = new URL("https://viacep.com.br/ws/" + cep + "/json/");
+
+        // Definir a URL do serviço GOV.BR
+        //URL url = new URL("https://h-apigateway.conectagov.estaleiro.serpro.gov.br/api-cep/v1/consulta/cep/" + cep);
+        // Abrir conexão HTTP
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        // Ler a resposta
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+
+        // Converter a resposta JSON em um objeto JSONObject
+        JSONObject jsonObject = new JSONObject(response.toString());
+
+        // Exibir as informações do endereço
+        if (!jsonObject.has("erro")) {
+
+            rua = jsonObject.getString("logradouro");
+            bairro = jsonObject.getString("bairro");
+            cidade = jsonObject.getString("localidade");
+            uf = jsonObject.getString("uf");
+            valido = "valido";
+
+        } else {
+            System.out.println("CEP não encontrado.");
+
+        }
+
+        // Fechar conexão
+        connection.disconnect();
+        return valido;
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

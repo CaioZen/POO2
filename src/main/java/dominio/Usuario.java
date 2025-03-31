@@ -39,7 +39,7 @@ public class Usuario {
         this.rua = rua;
         this.bairro = bairro;
         this.referencia = referencia;
-        this.endereco = "Rua "+rua+", Número "+numeroCasa;
+        this.endereco = rua+", Número "+numeroCasa;
     }
 
     public void setIdUsr(int idUsr) {
