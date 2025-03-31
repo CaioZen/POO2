@@ -5,6 +5,7 @@
 package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -50,8 +51,9 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
         textAreaDesc = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaPersonagens = new javax.swing.JList<>();
         dataCalendario = new com.toedter.calendar.JDateChooser();
+        btnCriar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -109,14 +111,23 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
 
         jLabel8.setText("Personagens:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        listaPersonagens.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(listaPersonagens);
 
         dataCalendario.setDateFormatString("dd/MM/yyyy");
+
+        btnCriar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCriar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/accept.png"))); // NOI18N
+        btnCriar.setText("Criar");
+        btnCriar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,6 +182,10 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(195, 195, 195)
+                .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,7 +220,7 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                     .addComponent(jLabel5)
                     .addComponent(textFieldLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBoxLocal))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -219,11 +234,13 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dataCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,13 +279,23 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarUsrActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        if(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec() != null)
+        if (GerenciadorInterfaceGrafica.getInstancia().getUsrSelec() != null)
             labelMestre.setText(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec().getNome());
     }//GEN-LAST:event_formComponentShown
+
+    private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
+        if (labelHistoria.getText().equals("") || labelMestre.getText().equals("") || textFieldLocal.getText().equals("") || dataCalendario.getDate() == null
+                || listaPersonagens.isSelectionEmpty() == true || textAreaDesc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de Partida", JOptionPane.ERROR_MESSAGE);
+        } else {
+            //INSTANCIAR O OBJETO PARTIDA
+        }
+    }//GEN-LAST:event_btnCriarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarHis;
     private javax.swing.JButton btnBuscarUsr;
+    private javax.swing.JButton btnCriar;
     private javax.swing.JCheckBox checkBoxLocal;
     private com.toedter.calendar.JDateChooser dataCalendario;
     private javax.swing.JLabel jLabel1;
@@ -279,7 +306,6 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -288,6 +314,7 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
     private javax.swing.JLabel labelHistoria;
     private javax.swing.JLabel labelMestre;
     private javax.swing.JLabel labelNumeroPartida;
+    private javax.swing.JList<String> listaPersonagens;
     private javax.swing.JTextArea textAreaDesc;
     private javax.swing.JTextField textFieldLocal;
     // End of variables declaration//GEN-END:variables

@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -303,19 +304,23 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        String nome = textFieldNome.getText();
-        String mestre = labelMestreSelecionado.getText();
-        String descricao = textAreaDesc.getText();
-        int status = 0; //Para histórias EM ANDAMENTO
-        if (!listaPersonagens.isSelectionEmpty()) {
-            List<String> personagens = listaPersonagens.getSelectedValuesList();
-            Historia historia = new Historia(nome, descricao, status, mestre, personagens);
+        if (textFieldNome.getText().equals("") || labelMestreSelecionado.getText().equals("") || textAreaDesc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de História", JOptionPane.ERROR_MESSAGE);
         } else {
-            Historia historia = new Historia(nome, descricao, status, mestre);
+            String nome = textFieldNome.getText();
+            String mestre = labelMestreSelecionado.getText();
+            String descricao = textAreaDesc.getText();
+            int status = 0; //Para histórias EM ANDAMENTO
+            if (!listaPersonagens.isSelectionEmpty()) {
+                List<String> personagens = listaPersonagens.getSelectedValuesList();
+                Historia historia = new Historia(nome, descricao, status, mestre, personagens);
+            } else {
+                Historia historia = new Historia(nome, descricao, status, mestre);
+            }
+
+            limparCampos();
+            dispose();
         }
-        
-        limparCampos();
-        dispose();
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
