@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Configuração da conexão com o banco PostgreSQL -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/TrabalhoPOO2</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">postgres</property>
+
+        <!-- Dialeto específico do PostgreSQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Mostrar as queries SQL no console -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Formatar SQL no log -->
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Criação automática do schema (use com cuidado em produção) -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Pool de conexões (opcional, aqui é o padrão do Hibernate) -->
+        <property name="hibernate.connection.pool_size">10</property>
+
+        <!-- Mapeamentos de classes -->
+        <!-- <mapping class="com.seupacote.SuaClasse" /> -->
+        <!-- ou -->
+        <!-- <mapping resource="com/seupacote/SuaClasse.hbm.xml" /> -->
+
+    </session-factory>
+</hibernate-configuration>

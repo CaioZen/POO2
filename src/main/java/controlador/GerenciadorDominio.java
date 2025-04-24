@@ -1,5 +1,6 @@
 package controlador;
 
+import dao.ConexaoHibernate;
 import dao.ListaUsuarios;
 import dominio.Usuario;
 import java.util.List;
@@ -11,6 +12,7 @@ public class GerenciadorDominio {
 
     public GerenciadorDominio() {
         usuarios = new ListaUsuarios();
+        ConexaoHibernate.getSessionFactory().openSession();        
     }
 
     public List<Usuario> listarUsuarios() {
