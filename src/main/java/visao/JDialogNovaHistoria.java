@@ -304,7 +304,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        if (textFieldNome.getText().equals("") || labelMestreSelecionado.getText().equals("") || textAreaDesc.getText().equals("")) {
+        /*if (textFieldNome.getText().equals("") || labelMestreSelecionado.getText().equals("") || textAreaDesc.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de História", JOptionPane.ERROR_MESSAGE);
         } else {
             String nome = textFieldNome.getText();
@@ -320,7 +320,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
 
             limparCampos();
             dispose();
-        }
+        }*/
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
