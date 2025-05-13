@@ -7,6 +7,7 @@ package dominio;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -14,6 +15,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PersonagensHistoria {
     private Historia historia;
     private List<Personagem> personagens; 
