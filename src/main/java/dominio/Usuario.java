@@ -1,6 +1,7 @@
 package dominio;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table
 public class Usuario implements Serializable {
     
     @Id
@@ -35,6 +37,8 @@ public class Usuario implements Serializable {
     private String bairro;
     @Column 
     private String referencia;
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    private List<Personagem> personagens;
 
     public Usuario(String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia) {
         this.nome = nome;
@@ -51,5 +55,9 @@ public class Usuario implements Serializable {
     
     public String getEndereco(){
         return rua+", Número "+numeroCasa;
+    }
+    
+    public void addPersonagem(Personagem personagem){
+        personagens.add(personagem);
     }
 }

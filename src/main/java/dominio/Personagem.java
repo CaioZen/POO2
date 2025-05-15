@@ -4,22 +4,40 @@
  */
 package dominio;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 /**
  *
  * @author 2023122760123
  */
+
 @Data
 @AllArgsConstructor
-public class Personagem {
+@NoArgsConstructor
+@Entity
+@Table
+public class Personagem implements Serializable {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int idPer;
+    @Column
     private String nome;
+    @Column
     private int nivel;
+    @ManyToOne
+    @JoinColumn (name = "idClass")
     private Classe classe;
+    @ManyToOne
+    @JoinColumn (name = "idSubRaca")
     private SubRaca subRaca;
+    @ManyToOne
+    @JoinColumn (name = "idAnte")
     private Antecedente antecedente;
+    @ManyToOne
+    @JoinColumn (name = "idAli")
     private Alinhamento alinhamento;
 
     public Personagem(String nome, int nivel, Classe classe, SubRaca subRaca, Antecedente antecedente, Alinhamento alinhamento) {

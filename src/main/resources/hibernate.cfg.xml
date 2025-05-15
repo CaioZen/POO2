@@ -32,6 +32,15 @@
         <!-- ou -->
         <!-- <mapping resource="com/seupacote/SuaClasse.hbm.xml" /> -->
         <mapping class="domain.Usuario"/>
+        <mapping class="domain.Alinhamento"/>
+        <mapping class="domain.Antecedente"/>
+        <mapping class="domain.Classe"/>
+        <mapping class="domain.Historia"/>
+        <mapping class="domain.Partida"/>
+        <mapping class="domain.Personagem"/>
+        <mapping class="domain.PersonagensHistoria"/>
+        <mapping class="domain.Raca"/>
+        <mapping class="domain.SubRaca"/>
 
     </session-factory>
 </hibernate-configuration>

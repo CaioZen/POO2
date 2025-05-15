@@ -4,8 +4,10 @@
  */
 package dominio;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.io.Serializable;
+import javax.persistence.*;
+import lombok.*;
+
 
 /**
  *
@@ -13,9 +15,18 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class SubRaca {
+@NoArgsConstructor
+@Entity
+@Table
+public class SubRaca implements Serializable {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int idSubRaca;
+    @Column
     private String nome;
+    @Column
     private Raca raca;
+    @Column
+    private int qtde;
     
 }

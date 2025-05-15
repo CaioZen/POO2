@@ -4,8 +4,9 @@
  */
 package dominio;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.io.Serializable;
+import javax.persistence.*;
+import lombok.*;
 
 /**
  *
@@ -13,8 +14,16 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class Alinhamento {
+@NoArgsConstructor
+@Entity
+@Table
+public class Alinhamento implements Serializable {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int idAli;
+    @Column
     private String nome;
+    @Column
+    private int qtde;
     
 }

@@ -4,19 +4,26 @@
  */
 package dominio;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
+import java.io.Serializable;
+import javax.persistence.*;
+import lombok.*;
 /**
  *
  * @author 2023122760123
  */
 @Data
 @AllArgsConstructor
-public class Classe {
+@NoArgsConstructor
+@Entity
+@Table
+public class Classe implements Serializable {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int idClass;
+    @Column
     private String nome;
+    @Column
     private String habilidadeEspecial;
-    
-    
+    @Column
+    private int qtde;
 }
