@@ -25,10 +25,10 @@ public class Historia implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idUsr")
     private Usuario mestre;
-    @OneToMany(mappedBy = "historia", fetch = FetchType.LAZY)
-    private List<Partida> partidas;
-    @OneToOne(mappedBy = "historia", cascade = CascadeType.ALL)
-    private PersonagensHistoria listaPersonagens;
+    
+    
+    @OneToMany(mappedBy = "historia", cascade = CascadeType.ALL)
+    private List<PersonagensHistoria> listaPersonagens;
 
     public Historia(String nome, String descricao, int status, Usuario mestre) {
         this.nome = nome;

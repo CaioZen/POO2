@@ -36,9 +36,10 @@ public class Partida implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idHis")
     private Historia historia;
-    @ManyToOne
-    @JoinColumn(name = "idPerHis")
-    private PersonagensHistoria listaPersonagens;
+    @ManyToMany
+    @JoinTable(name = "PartidaPersonagem", joinColumns = {@JoinColumn(name = "idPar")},
+                inverseJoinColumns = { @JoinColumn(name = "idPerHis")})
+    private List<PersonagensHistoria> listaPersonagens;
 
     public Partida(int numero, String local, Date data, String descricao, Historia historia) {
         this.numero = numero;

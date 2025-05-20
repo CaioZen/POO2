@@ -43,9 +43,9 @@ public class Personagem implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idUsr")
     private Usuario usuario;
-    @ManyToOne
-    @JoinColumn(name = "idPerHis")
-    private PersonagensHistoria listaPersonagensHistoria;
+    
+    @OneToOne(mappedBy = "personagem")
+    private PersonagensHistoria personagensHistoria;
 
     public Personagem(String nome, int nivel, Classe classe, SubRaca subRaca, Antecedente antecedente, Alinhamento alinhamento) {
         this.nome = nome;

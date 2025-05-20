@@ -19,16 +19,21 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of = {"personagem", "historia"}) //ManyToMany só funciona corretamente com essa Anotação do Lombok
 public class PersonagensHistoria implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int idPerHis;
-    @OneToOne
+    
+    @ManyToOne
     @JoinColumn(name = "idHis", referencedColumnName = "idHis")
     private Historia historia;
-    @OneToMany(mappedBy = "listaPersonagensHistoria", cascade = CascadeType.ALL)
-    private List<Personagem> personagens; 
-    @OneToMany(mappedBy = "listaPersonagens", cascade = CascadeType.ALL)
+    
+    @OneToOne
+    @JoinColumn(name = "idPer")
+    private Personagem personagem; 
+    
+    @ManyToMany(mappedBy = "listaPersonagens")
     private List<Partida> partidas;
     
 }
