@@ -37,8 +37,11 @@ public class Usuario implements Serializable {
     private String bairro;
     @Column 
     private String referencia;
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Personagem> personagens;
+    @OneToMany(mappedBy = "mestre", fetch = FetchType.LAZY)
+    private List<Historia> historias;
 
     public Usuario(String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia) {
         this.nome = nome;

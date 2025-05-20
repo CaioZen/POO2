@@ -10,7 +10,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/TrabalhoPOO2</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">postgres</property>
+        <property name="hibernate.connection.password">12345</property>
 
         <!-- Dialeto específico do PostgreSQL -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
@@ -31,16 +31,16 @@
         <!-- <mapping class="com.seupacote.SuaClasse" /> -->
         <!-- ou -->
         <!-- <mapping resource="com/seupacote/SuaClasse.hbm.xml" /> -->
-        <mapping class="domain.Usuario"/>
-        <mapping class="domain.Alinhamento"/>
-        <mapping class="domain.Antecedente"/>
-        <mapping class="domain.Classe"/>
-        <mapping class="domain.Historia"/>
-        <mapping class="domain.Partida"/>
-        <mapping class="domain.Personagem"/>
-        <mapping class="domain.PersonagensHistoria"/>
-        <mapping class="domain.Raca"/>
-        <mapping class="domain.SubRaca"/>
+        <mapping class="dominio.Usuario"/>
+        <mapping class="dominio.Alinhamento"/>
+        <mapping class="dominio.Antecedente"/>
+        <mapping class="dominio.Classe"/>
+        <mapping class="dominio.Historia"/>
+        <mapping class="dominio.Partida"/>
+        <mapping class="dominio.Personagem"/>
+        <mapping class="dominio.PersonagensHistoria"/>
+        <mapping class="dominio.Raca"/>
+        <mapping class="dominio.SubRaca"/>
 
     </session-factory>
 </hibernate-configuration>

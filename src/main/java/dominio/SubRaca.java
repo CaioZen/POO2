@@ -24,7 +24,8 @@ public class SubRaca implements Serializable {
     private int idSubRaca;
     @Column
     private String nome;
-    @Column
+    @ManyToOne
+    @JoinColumn (name = "idRaca")
     private Raca raca;
     @Column
     private int qtde;

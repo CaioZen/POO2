@@ -4,10 +4,11 @@
  */
 package dominio;
 
+import java.io.Serializable;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import lombok.*;
+
 
 /**
  *
@@ -16,8 +17,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonagensHistoria {
+@Entity
+@Table
+public class PersonagensHistoria implements Serializable {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private int idPerHis;
+    @OneToOne
+    @JoinColumn(name = "idHis", referencedColumnName = "idHis")
     private Historia historia;
+    @OneToMany(mappedBy = "listaPersonagensHistoria", cascade = CascadeType.ALL)
     private List<Personagem> personagens; 
+    @OneToMany(mappedBy = "listaPersonagens", cascade = CascadeType.ALL)
+    private List<Partida> partidas;
     
 }

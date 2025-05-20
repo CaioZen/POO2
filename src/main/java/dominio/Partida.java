@@ -4,9 +4,12 @@
  */
 package dominio;
 
+import java.io.Serializable;
 import java.util.Date;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.util.List;
+import javax.persistence.*;
+import lombok.*;
+
 
 /**
  *
@@ -14,13 +17,28 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class Partida {
+@NoArgsConstructor
+@Entity
+@Table
+public class Partida implements Serializable {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int idPar;
+    @Column
     private int numero;
+    @Column
     private String local;
+    @Temporal ( value = TemporalType.DATE )
     private Date data;
+    @Column
     private String descricao;
+    
+    @ManyToOne
+    @JoinColumn(name = "idHis")
     private Historia historia;
+    @ManyToOne
+    @JoinColumn(name = "idPerHis")
+    private PersonagensHistoria listaPersonagens;
 
     public Partida(int numero, String local, Date data, String descricao, Historia historia) {
         this.numero = numero;
