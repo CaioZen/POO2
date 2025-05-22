@@ -114,22 +114,6 @@ public class GerenciadorInterfaceGrafica {
         System.exit(0);
     }
 
-    public List<Usuario> carregarListaUsr() {
-        return gerDominio.listarUsuarios();
-    }
-
-    public void addUsuario(Usuario usr) {
-        gerDominio.addUsuarios(usr);
-    }
-
-    public void removerUsuario(Usuario usr) {
-        gerDominio.removerUsuarios(usr);
-    }
-
-    public void setUsrSelec(int linha) {
-        gerDominio.setUsuarioSelecionado(linha);
-    }
-
     public Usuario getUsrSelec() {
         return gerDominio.getUsuarioSelecionado();
     }

@@ -43,7 +43,7 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "mestre", fetch = FetchType.LAZY)
     private List<Historia> historias;
 
-    public Usuario(String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia) {
+    public Usuario(String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia, List<Personagem> personagens) {
         this.nome = nome;
         this.celular = celular;
         this.email = email;
@@ -54,6 +54,7 @@ public class Usuario implements Serializable {
         this.rua = rua;
         this.bairro = bairro;
         this.referencia = referencia;
+        this.personagens = personagens;
     }
     
     public String getEndereco(){

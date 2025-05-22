@@ -316,8 +316,8 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
             String referencia = textFieldReferencia.getText();
             String rua = textFieldRua.getText();
 
-            Usuario usuario = new Usuario(nome, celular, email, cep, cidade, estado, numeroCasaI, rua, bairro, referencia);
-            GerenciadorInterfaceGrafica.getInstancia().addUsuario(usuario);
+            Usuario usuario = new Usuario(nome, celular, email, cep, cidade, estado, numeroCasaI, rua, bairro, referencia, null);
+            
 
             GerenciadorInterfaceGrafica.getInstancia().setEditar(false);
             limparCampos();

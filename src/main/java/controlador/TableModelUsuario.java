@@ -6,11 +6,12 @@ import javax.swing.table.AbstractTableModel;
 
 public class TableModelUsuario extends AbstractTableModel {
 
-    private List listaUsr = GerenciadorInterfaceGrafica.getInstancia().carregarListaUsr();
+
 
     @Override
     public int getRowCount() {
-        return listaUsr.size();
+        //return listaUsr.size();
+        return 0;
     }
 
     @Override
@@ -20,23 +21,23 @@ public class TableModelUsuario extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Usuario item = (Usuario) listaUsr.get(rowIndex);
-        switch (columnIndex) {
-            case 0:
-                return item.getNome();
-            case 1:
-                return item.getCelular();
-            case 2:
-                return item.getEmail();
-            case 3:
-                return "Espirito Santo"; //Teste
-            case 4:
-                return item.getCidade();
-            case 5:
-                return item.getCep();
-            case 6:
-                return item.getEndereco();
-        }
+//        Usuario item = (Usuario) listaUsr.get(rowIndex);
+//        switch (columnIndex) {
+//            case 0:
+//                return item.getNome();
+//            case 1:
+//                return item.getCelular();
+//            case 2:
+//                return item.getEmail();
+//            case 3:
+//                return "Espirito Santo"; //Teste
+//            case 4:
+//                return item.getCidade();
+//            case 5:
+//                return item.getCep();
+//            case 6:
+//                return item.getEndereco();
+//        }
         return null;
     }
 
@@ -47,7 +48,7 @@ public class TableModelUsuario extends AbstractTableModel {
     }
 
     public void remover(int indice) {
-        listaUsr.remove(indice);
+//        listaUsr.remove(indice);
         fireTableRowsDeleted(indice, indice);
     }
 }

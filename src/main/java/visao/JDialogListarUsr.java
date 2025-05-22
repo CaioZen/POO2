@@ -230,22 +230,22 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     private void menuItemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditarActionPerformed
         //EDITAR AINDA NÃO FUNCIONA SE O USUARIO RESOLVER CANCELAR A EDIÇÃO
         int linha = tabelaUsr.getSelectedRow();
-        GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
+        //GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
         GerenciadorInterfaceGrafica.getInstancia().setEditar(true);
         GerenciadorInterfaceGrafica.getInstancia().abrirJanelaCadUsuario();
         tableModelUsuario.remover(linha); //ESSA LINHA SAIRÁ DAQUI NO FUTURO, NÃO CONSEGUI PENSAR EM OUTRA SOLUÇÃO
-        GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec()); //ESSA TAMBÉM
+        //GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec()); //ESSA TAMBÉM
         dispose();
     }//GEN-LAST:event_menuItemEditarActionPerformed
 
     private void menuItemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExcluirActionPerformed
         int linha = tabelaUsr.getSelectedRow();
         if (linha >= 0) {
-            GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
+            //GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
             if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o usuário?",
                     "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 tableModelUsuario.remover(linha);
-                GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec());
+                //GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec());
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha válida", "Error ao excluir", JOptionPane.ERROR_MESSAGE);
