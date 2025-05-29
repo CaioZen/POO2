@@ -51,6 +51,11 @@ public class GerenciadorInterfaceGrafica {
         gerDominio = new GerenciadorDominio();
     }
 
+    public GerenciadorDominio getGerDominio() {
+        return gerDominio;
+    }
+    
+
     public JDialog abrirJanela(java.awt.Frame parent, JDialog dlg, Class classe) {
         if (dlg == null) {
             try {

@@ -299,6 +299,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
+        Usuario user;
         if (textFieldNome.getText().equals("") || textFieldCelular.getText().equals("") || textFieldEmail.getText().equals("")|| textFieldNumero.getText().equals("") || textFieldCEP.getText().equals("")
                 || comboBoxUF.getSelectedItem() == "" || comboBoxCidade.getSelectedItem() == null || textFieldBairro.getText().equals("")
                 || textFieldRua.getText().equals("") || textFieldReferencia.getText().equals("")) {
@@ -315,8 +316,10 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
             String bairro = textFieldBairro.getText();
             String referencia = textFieldReferencia.getText();
             String rua = textFieldRua.getText();
-
-            Usuario usuario = new Usuario(nome, celular, email, cep, cidade, estado, numeroCasaI, rua, bairro, referencia, null);
+            Icon foto = labelFotoEscolher.getIcon();
+            
+            user = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirUsuario(nome, celular, email, cep, cidade, uf, numeroCasaI, rua, bairro, referencia, foto);
+            JOptionPane.showMessageDialog(this, "Usuario " + user.getIdUsr() + " inserido com sucesso.", "Cadastro de Usuario", JOptionPane.INFORMATION_MESSAGE);
             
 
             GerenciadorInterfaceGrafica.getInstancia().setEditar(false);

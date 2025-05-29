@@ -37,13 +37,15 @@ public class Usuario implements Serializable {
     private String bairro;
     @Column 
     private String referencia;
+    @Column(columnDefinition = "BYTEA")
+    private byte[] foto;
     
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Personagem> personagens;
     @OneToMany(mappedBy = "mestre", fetch = FetchType.LAZY)
     private List<Historia> historias;
 
-    public Usuario(String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia, List<Personagem> personagens) {
+    public Usuario(String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia, byte[] foto) {
         this.nome = nome;
         this.celular = celular;
         this.email = email;
@@ -54,7 +56,9 @@ public class Usuario implements Serializable {
         this.rua = rua;
         this.bairro = bairro;
         this.referencia = referencia;
-        this.personagens = personagens;
+        this.foto = foto;
+        this.personagens = null;
+        this.historias = null;
     }
     
     public String getEndereco(){

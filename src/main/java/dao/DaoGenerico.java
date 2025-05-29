@@ -81,14 +81,13 @@ public class DaoGenerico {
             sessao.beginTransaction();
             // OPERAÇÃO
             CriteriaQuery consulta = sessao.getCriteriaBuilder().createQuery(classe);
-            consulta.from( classe );
+            consulta.from(classe);
             lista = sessao.createQuery(consulta).getResultList();
-            
-            
+
             sessao.getTransaction().commit();
             sessao.close();
-        } catch ( HibernateException ex) {
-            if ( sessao != null) {
+        } catch (HibernateException ex) {
+            if (sessao != null) {
                 sessao.getTransaction().rollback();
                 sessao.close();
             }
@@ -96,6 +95,27 @@ public class DaoGenerico {
         }
 
         return lista;
-        }
-   }
+    }
 
+    public Object get(Class classe, int id) throws HibernateException {
+        Session sessao = null;
+        Object objReturn = null;
+        try {
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            sessao.getTransaction().begin();
+
+            objReturn = sessao.get(classe, id);
+
+            sessao.getTransaction().commit();
+            sessao.close();
+        } catch (HibernateException ex) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+                sessao.close();
+            }
+            throw new HibernateException(ex);
+        }
+        return objReturn;
+
+    }
+}
