@@ -6,6 +6,7 @@ package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
 import dominio.Historia;
+import dominio.Personagem;
 import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -24,8 +25,6 @@ import javax.swing.ListModel;
 public class JDialogNovaHistoria extends javax.swing.JDialog {
 
     private DefaultListModel modeloLista;
-    private List<Usuario> usuarios;
-    private List<String> personagens;
 
     /**
      * Creates new form JDialogNovaHistoria
@@ -35,8 +34,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
         initComponents();
         painelEscolherMestre.setVisible(false);
         painelEscolherPersonagens.setVisible(false);
-        usuarios = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Usuario.class);
-        personagens = List.of("Gerald", "Kratos", "Ashen One", "Sonic");
+        modeloLista = new DefaultListModel<>();
 
         //FILTRAR A LISTA FICA PARA ALGUM MOMENTO DO FUTURO
 //        textFieldMestre.addKeyListener(new KeyAdapter() {
@@ -51,30 +49,40 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
                 if (!listaMestre.isSelectionEmpty()) {
                     Usuario selecionado = listaMestre.getSelectedValue();
                     labelMestreSelecionado.setText(selecionado.getNome());
+                    List<Personagem> personagensUsr = GerenciadorInterfaceGrafica.getInstancia()
+                            .getGerDominio().listarPersonagens(selecionado);
+
+                    DefaultListModel<Personagem> modeloPersonagens = new DefaultListModel<>();
+                    for (Personagem p : personagensUsr) {
+                        modeloPersonagens.addElement(p);
+                    }
+
+                    listaPersonagens.setModel(modeloPersonagens);
                 }
             }
         });
 
         //FILTRAR A LISTA FICA PARA ALGUM MOMENTO DO FUTURO
-        /*textFieldPersonagens.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                atualizarListaPer(textFieldPersonagens.getText());
-            }
-        });*/
+//        textFieldPersonagens.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                atualizarListaPer(textFieldPersonagens.getText());
+//            }
+//        });
         listaPersonagens.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!listaPersonagens.isSelectionEmpty()) {
-                    List<String> selecionados = listaPersonagens.getSelectedValuesList();
-                    modeloLista = new DefaultListModel<>();
-                    for (String nome : selecionados) {
-                        modeloLista.addElement(nome);
+                    List<Personagem> selecionados = listaPersonagens.getSelectedValuesList();
+
+                    for (Personagem personagem : selecionados) {
+                        modeloLista.addElement(personagem);
                     }
                     listaPersonagensEscolhidos.setModel(modeloLista);
                 }
             }
         });
+
     }
 
     /**
@@ -174,11 +182,6 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
 
         painelEscolherPersonagens.setBorder(javax.swing.BorderFactory.createTitledBorder("Escolha os personagens"));
 
-        listaPersonagens.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Gerald", "Kratos", "Ashen One", "Sonic", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(listaPersonagens);
 
         javax.swing.GroupLayout painelEscolherPersonagensLayout = new javax.swing.GroupLayout(painelEscolherPersonagens);
@@ -365,7 +368,6 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
 //
 //        listaMestre.setModel(modeloLista);
 //    }
-
 //    private void atualizarListaPer(String pesquisa) {
 //        modeloLista = new DefaultListModel<>();
 //        modeloLista.clear();
@@ -391,7 +393,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelPersonagens;
     private javax.swing.JList<Usuario> listaMestre;
-    private javax.swing.JList<String> listaPersonagens;
+    private javax.swing.JList<Personagem> listaPersonagens;
     private javax.swing.JList<String> listaPersonagensEscolhidos;
     private javax.swing.JPanel painelEscolherMestre;
     private javax.swing.JPanel painelEscolherPersonagens;

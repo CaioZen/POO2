@@ -287,7 +287,6 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxClasse, Classe.class);
         GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxRaca, Raca.class);
-        //GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxSubRaca, SubRaca.class);
         GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxAntecedente, Antecedente.class);
         GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxAlinhamento, Alinhamento.class);
     }//GEN-LAST:event_formComponentShown

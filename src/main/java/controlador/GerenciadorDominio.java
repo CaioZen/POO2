@@ -53,20 +53,41 @@ public class GerenciadorDominio {
         Session session = null;
         List<SubRaca> lista = null;
         try {
-        session = ConexaoHibernate.getSessionFactory().openSession();
-        String hql = "from SubRaca where idRaca = :idRaca";
-        Query<SubRaca> query = session.createQuery(hql, SubRaca.class);
-        query.setParameter("idRaca", raca.getIdRaca());
+            session = ConexaoHibernate.getSessionFactory().openSession();
+            String hql = "from SubRaca where idRaca = :idRaca";
+            Query<SubRaca> query = session.createQuery(hql, SubRaca.class);
+            query.setParameter("idRaca", raca.getIdRaca());
 
-        lista = query.list();
-    } catch (HibernateException e) {
-        e.printStackTrace();
-    } finally {
-        if (session != null) {
-            session.close();
+            lista = query.list();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
+        return lista;
     }
-    return lista;
+
+    public List<Personagem> listarPersonagens(Usuario usuario) {
+        Session session = null;
+        List<Personagem> lista = null;
+        try {
+            session = ConexaoHibernate.getSessionFactory().openSession();
+            String hql = "from Personagem where idUsr = :idUsr ";
+            Query<Personagem> query = session.createQuery(hql, Personagem.class);
+            query.setParameter("idUsr", usuario.getIdUsr());
+
+            lista = query.list();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return lista;
+
     }
 
     public static byte[] IconToBytes(Icon icon) {

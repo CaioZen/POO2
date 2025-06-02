@@ -56,5 +56,8 @@ public class Personagem implements Serializable {
         this.alinhamento = alinhamento;
     }
     
-    
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

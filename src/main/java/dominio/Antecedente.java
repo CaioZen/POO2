@@ -28,6 +28,8 @@ public class Antecedente implements Serializable {
     private String proficiencia;
     @Column
     private String habilidadeEspecial;
+    @Column
+    private int qtde;
     
     @Override
     public String toString() {
