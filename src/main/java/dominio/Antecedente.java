@@ -29,4 +29,8 @@ public class Antecedente implements Serializable {
     @Column
     private String habilidadeEspecial;
     
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

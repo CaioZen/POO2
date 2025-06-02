@@ -5,6 +5,16 @@
 package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
+import dominio.Alinhamento;
+import dominio.Antecedente;
+import dominio.Classe;
+import dominio.Raca;
+import dominio.SubRaca;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +29,17 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
     public JDialogNovoPersonagem(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        comboBoxRaca.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Raca racaSelecionada = (Raca) comboBoxRaca.getSelectedItem();
+                if (racaSelecionada != null) {
+                    List<SubRaca> subracas = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listarSubRacas(racaSelecionada);
+                    comboBoxSubRaca.setModel(new DefaultComboBoxModel(subracas.toArray()));
+                }
+
+            }
+        });
     }
 
     /**
@@ -54,6 +75,11 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Novo Personagem");
@@ -257,6 +283,14 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
             //INSTANCIAR O OBJETO PERSONAGEM
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxClasse, Classe.class);
+        GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxRaca, Raca.class);
+        //GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxSubRaca, SubRaca.class);
+        GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxAntecedente, Antecedente.class);
+        GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxAlinhamento, Alinhamento.class);
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

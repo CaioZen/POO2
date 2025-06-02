@@ -32,4 +32,8 @@ public class Raca implements Serializable {
     @OneToMany (mappedBy = "raca", cascade = CascadeType.ALL)
     private List<SubRaca> subRacas;
     
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

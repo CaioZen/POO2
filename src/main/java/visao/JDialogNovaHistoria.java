@@ -4,7 +4,9 @@
  */
 package visao;
 
+import controlador.GerenciadorInterfaceGrafica;
 import dominio.Historia;
+import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 
 /**
  *
@@ -21,7 +24,7 @@ import javax.swing.JOptionPane;
 public class JDialogNovaHistoria extends javax.swing.JDialog {
 
     private DefaultListModel modeloLista;
-    private List<String> usuarios;
+    private List<Usuario> usuarios;
     private List<String> personagens;
 
     /**
@@ -32,33 +35,33 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
         initComponents();
         painelEscolherMestre.setVisible(false);
         painelEscolherPersonagens.setVisible(false);
-        usuarios = List.of("Caio", "Andre", "Rhyan", "Gustavo", "Victor Costa", "Henrique");
+        usuarios = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Usuario.class);
         personagens = List.of("Gerald", "Kratos", "Ashen One", "Sonic");
 
-        textFieldMestre.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                atualizarListaUsr(textFieldMestre.getText());
-            }
-        });
-
+        //FILTRAR A LISTA FICA PARA ALGUM MOMENTO DO FUTURO
+//        textFieldMestre.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                atualizarListaUsr(textFieldMestre.getText());
+//            }
+//        });
         listaMestre.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!listaMestre.isSelectionEmpty()) {
-                    String selecionado = listaMestre.getSelectedValue();
-                    labelMestreSelecionado.setText(selecionado);
+                    Usuario selecionado = listaMestre.getSelectedValue();
+                    labelMestreSelecionado.setText(selecionado.getNome());
                 }
             }
         });
 
-        textFieldPersonagens.addKeyListener(new KeyAdapter() {
+        //FILTRAR A LISTA FICA PARA ALGUM MOMENTO DO FUTURO
+        /*textFieldPersonagens.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 atualizarListaPer(textFieldPersonagens.getText());
             }
-        });
-
+        });*/
         listaPersonagens.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -108,6 +111,11 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
         listaPersonagensEscolhidos = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Nova História");
@@ -150,11 +158,6 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
 
         painelEscolherMestre.setBorder(javax.swing.BorderFactory.createTitledBorder("Escolha um Mestre"));
 
-        listaMestre.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Caio", "Andre", "Rhyan", "Gustavo", "Victor Costa", "Henrique" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         listaMestre.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(listaMestre);
 
@@ -336,32 +339,42 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
 
     }//GEN-LAST:event_textFieldPersonagensMouseClicked
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        GerenciadorInterfaceGrafica.getInstancia().carregarLista(listaMestre, Usuario.class);
+    }//GEN-LAST:event_formComponentShown
+
     private void limparCampos() {
         textFieldNome.setText("");
         textFieldMestre.setText("");
         textAreaDesc.setText("");
     }
 
-    private void atualizarListaUsr(String pesquisa) {
-        modeloLista = new DefaultListModel<>();
-        modeloLista.clear();
-        List<String> filtrados = usuarios.stream().filter(nome -> nome.toLowerCase().contains(pesquisa.toLowerCase())).collect(Collectors.toList());
+    //FILTRAR A LISTA FICA PARA ALGUM MOMENTO DO FUTURO
+//    private void atualizarListaUsr(String pesquisa) {
+//        modeloLista = new DefaultListModel<Usuario>();
+//        modeloLista.clear();
+//
+//        ListModel<Usuario> modeloAtual = listaMestre.getModel();
+//
+//        for (int i = 0; i < modeloAtual.getSize(); i++) {
+//            Usuario u = modeloAtual.getElementAt(i);
+//            if (u.getNome() != null && u.getNome().equalsIgnoreCase(pesquisa)) {
+//                modeloLista.addElement(u);
+//            }
+//        }
+//
+//        listaMestre.setModel(modeloLista);
+//    }
 
-        for (String nome : filtrados) {
-            modeloLista.addElement(nome);
-        }
-        listaMestre.setModel(modeloLista);
-    }
-
-    private void atualizarListaPer(String pesquisa) {
-        modeloLista = new DefaultListModel<>();
-        modeloLista.clear();
-        List<String> filtrados = personagens.stream().filter(nome -> nome.toLowerCase().contains(pesquisa.toLowerCase())).collect(Collectors.toList());
-        for (String nome : filtrados) {
-            modeloLista.addElement(nome);
-        }
-        listaPersonagens.setModel(modeloLista);
-    }
+//    private void atualizarListaPer(String pesquisa) {
+//        modeloLista = new DefaultListModel<>();
+//        modeloLista.clear();
+//        List<String> filtrados = personagens.stream().filter(nome -> nome.toLowerCase().contains(pesquisa.toLowerCase())).collect(Collectors.toList());
+//        for (String nome : filtrados) {
+//            modeloLista.addElement(nome);
+//        }
+//        listaPersonagens.setModel(modeloLista);
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriar;
     private javax.swing.JButton btnLimpar;
@@ -377,7 +390,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     private javax.swing.JLabel labelMestreSelecionado;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelPersonagens;
-    private javax.swing.JList<String> listaMestre;
+    private javax.swing.JList<Usuario> listaMestre;
     private javax.swing.JList<String> listaPersonagens;
     private javax.swing.JList<String> listaPersonagensEscolhidos;
     private javax.swing.JPanel painelEscolherMestre;

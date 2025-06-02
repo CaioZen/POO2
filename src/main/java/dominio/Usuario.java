@@ -68,4 +68,9 @@ public class Usuario implements Serializable {
     public void addPersonagem(Personagem personagem){
         personagens.add(personagem);
     }
+    
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

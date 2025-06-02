@@ -6,9 +6,14 @@ import java.awt.Dialog;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import org.hibernate.HibernateException;
 import visao.JDialogAlinhamentos;
 import visao.JDialogAntecedentes;
 import visao.JDialogBuscarHis;
@@ -54,7 +59,6 @@ public class GerenciadorInterfaceGrafica {
     public GerenciadorDominio getGerDominio() {
         return gerDominio;
     }
-    
 
     public JDialog abrirJanela(java.awt.Frame parent, JDialog dlg, Class classe) {
         if (dlg == null) {
@@ -98,26 +102,54 @@ public class GerenciadorInterfaceGrafica {
     public void abrirBuscarHis() {
         janelaBuscarHis = (JDialogBuscarHis) abrirJanela(janelaPrincipal, janelaBuscarHis, JDialogBuscarHis.class);
     }
-    
+
     public void abrirNovoPersonagem() {
         janelaNovoPersonagem = (JDialogNovoPersonagem) abrirJanela(janelaPrincipal, janelaNovoPersonagem, JDialogNovoPersonagem.class);
     }
-    
+
     public void abrirClasses() {
         janelaClasses = (JDialogClasses) abrirJanela(janelaPrincipal, janelaClasses, JDialogClasses.class);
     }
+
     public void abrirAlinhamentos() {
         janelaAlinhamentos = (JDialogAlinhamentos) abrirJanela(janelaPrincipal, janelaAlinhamentos, JDialogAlinhamentos.class);
     }
+
     public void abrirAntecedentes() {
         janelaAntecedentes = (JDialogAntecedentes) abrirJanela(janelaPrincipal, janelaAntecedentes, JDialogAntecedentes.class);
     }
+
     public void abrirRacas() {
         janelaRacas = (JDialogRacas) abrirJanela(janelaPrincipal, janelaRacas, JDialogRacas.class);
     }
+
     public void sair() {
         System.exit(0);
     }
+
+    public void carregarCombo(JComboBox combobox, Class classe) {
+        try {
+            List lista = gerDominio.listar(classe);
+            combobox.setModel(new DefaultComboBoxModel(lista.toArray()));
+        } catch (HibernateException ex) {
+            System.out.println("Deu errado");
+        }
+    }
+    
+    public void carregarLista(JList lista, Class classe) {
+    try {
+        List dados = gerDominio.listar(classe);
+        DefaultListModel modeloLista = new DefaultListModel();
+        
+        for (Object obj : dados) {
+            modeloLista.addElement(obj);
+        }
+        
+        lista.setModel(modeloLista);
+    } catch (HibernateException ex) {
+        System.out.println("Deu errado");
+    }
+}
 
     public Usuario getUsrSelec() {
         return gerDominio.getUsuarioSelecionado();

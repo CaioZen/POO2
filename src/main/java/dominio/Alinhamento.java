@@ -26,4 +26,10 @@ public class Alinhamento implements Serializable {
     @Column
     private int qtde;
     
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
 }

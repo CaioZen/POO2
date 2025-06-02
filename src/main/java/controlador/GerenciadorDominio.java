@@ -3,6 +3,8 @@ package controlador;
 import dao.ConexaoHibernate;
 import dao.DaoGenerico;
 import dominio.Personagem;
+import dominio.Raca;
+import dominio.SubRaca;
 import dominio.Usuario;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -13,6 +15,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.Icon;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 public class GerenciadorDominio {
 
@@ -32,9 +36,9 @@ public class GerenciadorDominio {
         dao.excluir(objeto);
     }
 
-    public Usuario inserirUsuario(String nome, String celular, String email, String cep, String cidade, String uf, 
+    public Usuario inserirUsuario(String nome, String celular, String email, String cep, String cidade, String uf,
             int numeroCasa, String rua, String bairro, String referencia, Icon foto) {
-        
+
         Usuario user = new Usuario(nome, celular, email, cep, cidade, uf, numeroCasa, rua, bairro, referencia, IconToBytes(foto));
         dao.inserir(user);
         return user;
@@ -44,7 +48,27 @@ public class GerenciadorDominio {
         return usuarioSelecionado;
 
     }
-    
+
+    public List<SubRaca> listarSubRacas(Raca raca) {
+        Session session = null;
+        List<SubRaca> lista = null;
+        try {
+        session = ConexaoHibernate.getSessionFactory().openSession();
+        String hql = "from SubRaca where idRaca = :idRaca";
+        Query<SubRaca> query = session.createQuery(hql, SubRaca.class);
+        query.setParameter("idRaca", raca.getIdRaca());
+
+        lista = query.list();
+    } catch (HibernateException e) {
+        e.printStackTrace();
+    } finally {
+        if (session != null) {
+            session.close();
+        }
+    }
+    return lista;
+    }
+
     public static byte[] IconToBytes(Icon icon) {
         if (icon == null) {
             return null;
