@@ -3,7 +3,6 @@ package visao;
 import controlador.GerenciadorInterfaceGrafica;
 import controlador.TableModelBuscarHis;
 import dominio.Historia;
-import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -13,6 +12,7 @@ import javax.swing.table.TableRowSorter;
 public class JDialogBuscarHis extends javax.swing.JDialog {
 
     private TableModelBuscarHis tableModel;
+    private Historia historia;
     //private TableRowSorter<TableModelHis> sorter;
 
     /**
@@ -185,16 +185,21 @@ public class JDialogBuscarHis extends javax.swing.JDialog {
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
         int selecionado  = tabelaHistoria.getSelectedRow();
-        Historia historia = (Historia) tableModel.getItem(selecionado);
-        
+        historia = (Historia) tableModel.getItem(selecionado);
+        dispose();
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         List listaUsers = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Historia.class);
         tableModel.setLista(listaUsers);
+        
     }//GEN-LAST:event_formComponentShown
 
-
+    public Historia getHistoria() {
+        return historia;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JLabel jLabel1;

@@ -1,6 +1,7 @@
 package controlador;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import dominio.Historia;
 import dominio.Usuario;
 import java.awt.Dialog;
 import java.awt.Frame;
@@ -99,8 +100,9 @@ public class GerenciadorInterfaceGrafica {
         janelaNovaPartida = (JDialogNovaPartida) abrirJanela(janelaPrincipal, janelaNovaPartida, JDialogNovaPartida.class);
     }
 
-    public void abrirBuscarHis() {
+    public Historia abrirBuscarHis() {
         janelaBuscarHis = (JDialogBuscarHis) abrirJanela(janelaPrincipal, janelaBuscarHis, JDialogBuscarHis.class);
+        return janelaBuscarHis.getHistoria();
     }
 
     public void abrirNovoPersonagem() {

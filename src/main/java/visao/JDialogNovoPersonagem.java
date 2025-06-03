@@ -8,20 +8,31 @@ import controlador.GerenciadorInterfaceGrafica;
 import dominio.Alinhamento;
 import dominio.Antecedente;
 import dominio.Classe;
+import dominio.Historia;
+import dominio.Personagem;
 import dominio.Raca;
 import dominio.SubRaca;
+import dominio.Usuario;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author Caio
  */
 public class JDialogNovoPersonagem extends javax.swing.JDialog {
+
+    Historia historiaSelecionada;
 
     /**
      * Creates new form NovoPersonagem
@@ -70,7 +81,7 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
         comboBoxAntecedente = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         comboBoxAlinhamento = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
+        labelFotoEscolher = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -124,9 +135,14 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
 
         comboBoxAlinhamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Imagem");
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        labelFotoEscolher.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelFotoEscolher.setText("Imagem");
+        labelFotoEscolher.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        labelFotoEscolher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelFotoEscolherMouseClicked(evt);
+            }
+        });
 
         jLabel11.setText("Foto");
 
@@ -186,7 +202,7 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
                                 .addComponent(comboBoxSubRaca, 0, 198, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(labelFotoEscolher, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -223,7 +239,7 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
                             .addComponent(jLabel5)
                             .addComponent(comboBoxClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelFotoEscolher, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11)))
                 .addGap(18, 18, 18)
@@ -272,15 +288,30 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        GerenciadorInterfaceGrafica.getInstancia().abrirBuscarHis();
+        historiaSelecionada = GerenciadorInterfaceGrafica.getInstancia().abrirBuscarHis();
+        if (historiaSelecionada != null)
+            labelUsuario.setText(historiaSelecionada.getMestre().getNome());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        Personagem personagem;
         if (labelUsuario.getText().equals("") || textFieldNome.getText().equals("") || spinnerNivel.getValue() == null || comboBoxClasse.getSelectedItem() == null
                 || comboBoxRaca.getSelectedItem() == null || comboBoxSubRaca.getSelectedItem() == null || comboBoxAntecedente.getSelectedItem() == null || comboBoxAlinhamento.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de Personagem", JOptionPane.ERROR_MESSAGE);
         } else {
-            //INSTANCIAR O OBJETO PERSONAGEM
+            Usuario mestre = historiaSelecionada.getMestre();
+            String nome = textFieldNome.getText();
+            int nivel = (int) spinnerNivel.getValue();
+            Classe classe = (Classe) comboBoxClasse.getSelectedItem();
+            SubRaca subRaca = (SubRaca) comboBoxSubRaca.getSelectedItem();
+            Antecedente ante = (Antecedente) comboBoxAntecedente.getSelectedItem();
+            Alinhamento ali = (Alinhamento) comboBoxAlinhamento.getSelectedItem();
+            Icon foto = labelFotoEscolher.getIcon();
+            
+            personagem = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirPersonagem(mestre, nome, nivel, classe, subRaca, ante, ali, foto);
+            JOptionPane.showMessageDialog(this, "Personagem "+ personagem.getIdPer()+ "Inserido com sucesso.", "Cadastro de Personagem", JOptionPane.INFORMATION_MESSAGE);
+            limparCampos();
+            dispose();
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -291,6 +322,65 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
         GerenciadorInterfaceGrafica.getInstancia().carregarCombo(comboBoxAlinhamento, Alinhamento.class);
     }//GEN-LAST:event_formComponentShown
 
+    private void labelFotoEscolherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoEscolherMouseClicked
+        JFileChooser janelaArquivo = new JFileChooser();
+        janelaArquivo.setMultiSelectionEnabled(false);
+        janelaArquivo.setFileFilter(new FileNameExtensionFilter("Imagens", "PNG", "GIF", "JPEG"));
+        janelaArquivo.setAcceptAllFileFilterUsed(false);
+        if (janelaArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File arquivo = janelaArquivo.getSelectedFile();
+            Icon fotoPerfil = new ImageIcon(arquivo.getPath());
+            mostrarImagem(fotoPerfil);
+        }
+    }//GEN-LAST:event_labelFotoEscolherMouseClicked
+    private void mostrarImagem(Icon icon) {
+        ImageIcon imagem = (ImageIcon) icon;
+        imagem.setImage(imagem.getImage().getScaledInstance(labelFotoEscolher.getWidth(), labelFotoEscolher.getHeight(), Image.SCALE_SMOOTH));
+        labelFotoEscolher.setIcon(imagem);
+        labelFotoEscolher.setText("");
+    }
+    
+    private void limparCampos() {
+    // Limpa o nome
+    textFieldNome.setText("");
+
+    // Reseta o nível para o valor mínimo
+    spinnerNivel.setValue(1);
+
+    // Reseta os ComboBoxes para o primeiro item (ou remove seleção)
+    if (comboBoxClasse.getItemCount() > 0) {
+        comboBoxClasse.setSelectedIndex(0);
+    }
+
+    if (comboBoxRaca.getItemCount() > 0) {
+        comboBoxRaca.setSelectedIndex(0);
+    }
+
+    if (comboBoxSubRaca.getItemCount() > 0) {
+        comboBoxSubRaca.setSelectedIndex(0);
+    }
+
+    if (comboBoxAntecedente.getItemCount() > 0) {
+        comboBoxAntecedente.setSelectedIndex(0);
+    }
+
+    if (comboBoxAlinhamento.getItemCount() > 0) {
+        comboBoxAlinhamento.setSelectedIndex(0);
+    }
+
+    // Reseta a imagem do personagem
+    labelFotoEscolher.setIcon(null);
+    labelFotoEscolher.setText("Imagem");
+
+    // Reseta o label do usuário
+    labelUsuario.setText("Lorem Ipsum");
+
+    // Reseta a historia selecionada
+    historiaSelecionada = null;
+}
+
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBuscar;
@@ -300,7 +390,6 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> comboBoxRaca;
     private javax.swing.JComboBox<String> comboBoxSubRaca;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -311,6 +400,7 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelFotoEscolher;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JSpinner spinnerNivel;
     private javax.swing.JTextField textFieldNome;

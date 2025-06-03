@@ -39,6 +39,8 @@ public class Personagem implements Serializable {
     @ManyToOne
     @JoinColumn (name = "idAli")
     private Alinhamento alinhamento;
+    @Column(columnDefinition = "BYTEA")
+    private byte[] foto;
     
     @ManyToOne
     @JoinColumn(name = "idUsr")
@@ -47,13 +49,15 @@ public class Personagem implements Serializable {
     @OneToOne(mappedBy = "personagem")
     private PersonagensHistoria personagensHistoria;
 
-    public Personagem(String nome, int nivel, Classe classe, SubRaca subRaca, Antecedente antecedente, Alinhamento alinhamento) {
+    public Personagem(Usuario mestre, String nome, int nivel, Classe classe, SubRaca subRaca, Antecedente antecedente, Alinhamento alinhamento, byte[] foto) {
+        this.usuario = mestre;
         this.nome = nome;
         this.nivel = nivel;
         this.classe = classe;
         this.subRaca = subRaca;
         this.antecedente = antecedente;
         this.alinhamento = alinhamento;
+        this.foto = foto;
     }
     
     @Override

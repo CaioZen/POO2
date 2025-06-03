@@ -311,8 +311,8 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
             String numeroCasaS = textFieldNumero.getText();
             int numeroCasaI = Integer.parseInt(numeroCasaS);
             String cep = textFieldCEP.getText();
-            String estado = comboBoxUF.getSelectedItem().toString(); //provisório
-            String cidade = comboBoxCidade.getSelectedItem().toString(); //provisório
+            String estado = comboBoxUF.getSelectedItem().toString();
+            String cidade = comboBoxCidade.getSelectedItem().toString(); 
             String bairro = textFieldBairro.getText();
             String referencia = textFieldReferencia.getText();
             String rua = textFieldRua.getText();
