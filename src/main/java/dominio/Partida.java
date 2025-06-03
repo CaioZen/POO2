@@ -41,11 +41,12 @@ public class Partida implements Serializable {
                 inverseJoinColumns = { @JoinColumn(name = "idPerHis")})
     private List<PersonagensHistoria> listaPersonagens;
 
-    public Partida(int numero, String local, Date data, String descricao, Historia historia) {
+    public Partida(int numero, String local, Date data, String descricao, Historia historia, List<PersonagensHistoria> listaPersonagens) {
         this.numero = numero;
         this.local = local;
         this.data = data;
         this.descricao = descricao;
         this.historia = historia;
+        this.listaPersonagens = listaPersonagens;
     }
 }

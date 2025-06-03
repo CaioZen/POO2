@@ -5,6 +5,9 @@
 package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
+import dominio.Historia;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +15,9 @@ import javax.swing.JOptionPane;
  * @author Caio
  */
 public class JDialogNovaPartida extends javax.swing.JDialog {
+    //Não conseguirei terminar a cadastro de partida, preciso de algumas informações, tipo a lista de personagens, que só conseguirei com o pesquisar pesquisando por idUsr
+
+    Historia historia;
 
     /**
      * Creates new form JDialogNovaPartida
@@ -19,6 +25,16 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
     public JDialogNovaPartida(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        checkBoxLocal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkBoxLocal.isSelected()) {
+                    if (historia != null) {
+                        textFieldLocal.setText(historia.getMestre().getEndereco());
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -38,7 +54,6 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         labelMestre = new javax.swing.JLabel();
         btnBuscarHis = new javax.swing.JButton();
-        btnBuscarUsr = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         labelNumeroPartida = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -85,13 +100,6 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
             }
         });
 
-        btnBuscarUsr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
-        btnBuscarUsr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarUsrActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Partida número:");
 
@@ -111,11 +119,6 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
 
         jLabel8.setText("Personagens:");
 
-        listaPersonagens.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(listaPersonagens);
 
         dataCalendario.setDateFormatString("dd/MM/yyyy");
@@ -155,9 +158,7 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                                 .addGap(12, 12, 12)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelMestre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscarUsr))
+                                .addComponent(labelMestre))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel5)
@@ -207,8 +208,7 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                         .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(labelMestre)))
-                    .addComponent(btnBuscarUsr))
+                            .addComponent(labelMestre))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -270,13 +270,12 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarHisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarHisActionPerformed
-        GerenciadorInterfaceGrafica.getInstancia().abrirBuscarHis();
+        historia = GerenciadorInterfaceGrafica.getInstancia().abrirBuscarHis();
+        if (historia != null) {
+            labelHistoria.setText(historia.getNome());
+        }
+        labelMestre.setText(historia.getMestre().getNome());
     }//GEN-LAST:event_btnBuscarHisActionPerformed
-
-    private void btnBuscarUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsrActionPerformed
-        GerenciadorInterfaceGrafica.getInstancia().setEditar(true);
-        GerenciadorInterfaceGrafica.getInstancia().abrirListarUsr();
-    }//GEN-LAST:event_btnBuscarUsrActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         if (GerenciadorInterfaceGrafica.getInstancia().getUsrSelec() != null)
@@ -288,13 +287,13 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                 || listaPersonagens.isSelectionEmpty() == true || textAreaDesc.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de Partida", JOptionPane.ERROR_MESSAGE);
         } else {
-            //INSTANCIAR O OBJETO PARTIDA
+            int numero = Integer.parseInt(labelNumeroPartida.getText());//Ainda nao funciona, preciso do pesquisar
+            
         }
     }//GEN-LAST:event_btnCriarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarHis;
-    private javax.swing.JButton btnBuscarUsr;
     private javax.swing.JButton btnCriar;
     private javax.swing.JCheckBox checkBoxLocal;
     private com.toedter.calendar.JDateChooser dataCalendario;
