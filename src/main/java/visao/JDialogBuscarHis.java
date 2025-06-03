@@ -1,15 +1,19 @@
 package visao;
 
-import controlador.TableModelHis;
+import controlador.GerenciadorInterfaceGrafica;
+import controlador.TableModelBuscarHis;
+import dominio.Historia;
+import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 
 public class JDialogBuscarHis extends javax.swing.JDialog {
 
-    private TableModelHis tableModelHistoria;
-    private TableRowSorter<TableModelHis> sorter;
+    private TableModelBuscarHis tableModel;
+    //private TableRowSorter<TableModelHis> sorter;
 
     /**
      * Creates new form JDialogBuscarHis
@@ -17,43 +21,43 @@ public class JDialogBuscarHis extends javax.swing.JDialog {
     public JDialogBuscarHis(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tableModelHistoria = new TableModelHis();
-        tabelaHistoria.setModel(tableModelHistoria);
-        sorter = new TableRowSorter<>(tableModelHistoria);
-        tabelaHistoria.setRowSorter(sorter);
-        textFieldNome.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                filtrarTabelaHisN(textFieldNome.getText());
-            }
-        });
-        textFieldMestre.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                filtrarTabelaHisM(textFieldMestre.getText());
-            }
-        });
+        tableModel = new TableModelBuscarHis();
+        tabelaHistoria.setModel(tableModel);
+//        sorter = new TableRowSorter<>(tableModelHistoria);
+//        tabelaHistoria.setRowSorter(sorter);
+//        textFieldNome.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                filtrarTabelaHisN(textFieldNome.getText());
+//            }
+//        });
+//        textFieldMestre.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                filtrarTabelaHisM(textFieldMestre.getText());
+//            }
+//        });
     }
 
-    public void filtrarTabelaHisN(String pesquisa) {
-        String texto = pesquisa.trim();
-        if (texto.isEmpty()) {
-            sorter.setRowFilter(null);
-        } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 0));
-            tabelaHistoria.setRowSorter(sorter);
-        }
-    }
-    
-    public void filtrarTabelaHisM(String pesquisa) {
-        String texto = pesquisa.trim();
-        if (texto.isEmpty()) {
-            sorter.setRowFilter(null);
-        } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 1));
-            tabelaHistoria.setRowSorter(sorter);
-        }
-    }
+//    public void filtrarTabelaHisN(String pesquisa) {
+//        String texto = pesquisa.trim();
+//        if (texto.isEmpty()) {
+//            sorter.setRowFilter(null);
+//        } else {
+//            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 0));
+//            tabelaHistoria.setRowSorter(sorter);
+//        }
+//    }
+//    
+//    public void filtrarTabelaHisM(String pesquisa) {
+//        String texto = pesquisa.trim();
+//        if (texto.isEmpty()) {
+//            sorter.setRowFilter(null);
+//        } else {
+//            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 1));
+//            tabelaHistoria.setRowSorter(sorter);
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,6 +78,11 @@ public class JDialogBuscarHis extends javax.swing.JDialog {
         btnSelecionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar História"));
 
@@ -175,8 +184,15 @@ public class JDialogBuscarHis extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-        // TODO add your handling code here:
+        int selecionado  = tabelaHistoria.getSelectedRow();
+        Historia historia = (Historia) tableModel.getItem(selecionado);
+        
     }//GEN-LAST:event_btnSelecionarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        List listaUsers = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Historia.class);
+        tableModel.setLista(listaUsers);
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
