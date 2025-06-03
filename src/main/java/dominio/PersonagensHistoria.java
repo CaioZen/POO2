@@ -35,5 +35,10 @@ public class PersonagensHistoria implements Serializable {
     
     @ManyToMany(mappedBy = "listaPersonagens")
     private List<Partida> partidas;
-    
+
+    public PersonagensHistoria(Historia historia, Personagem personagem) {
+        this.historia = historia;
+        this.personagem = personagem;
+    }
+      
 }

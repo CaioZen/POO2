@@ -2,7 +2,10 @@ package controlador;
 
 import dao.ConexaoHibernate;
 import dao.DaoGenerico;
+import dominio.Historia;
+import dominio.HistoriaStatus;
 import dominio.Personagem;
+import dominio.PersonagensHistoria;
 import dominio.Raca;
 import dominio.SubRaca;
 import dominio.Usuario;
@@ -42,6 +45,18 @@ public class GerenciadorDominio {
         Usuario user = new Usuario(nome, celular, email, cep, cidade, uf, numeroCasa, rua, bairro, referencia, IconToBytes(foto));
         dao.inserir(user);
         return user;
+    }
+
+    public PersonagensHistoria inserirPersonagensHistoria(Historia historia, Personagem personagem) {
+        PersonagensHistoria ph = new PersonagensHistoria(historia, personagem);
+        dao.inserir(ph);
+        return ph;
+    }
+
+    public Historia inserirHistoria(String nome, String descricao, Usuario mestre) {
+        Historia historia = new Historia(nome, descricao, HistoriaStatus.EM_ANDAMENTO, mestre);
+        dao.inserir(historia);
+        return historia;
     }
 
     public Usuario getUsuarioSelecionado() {

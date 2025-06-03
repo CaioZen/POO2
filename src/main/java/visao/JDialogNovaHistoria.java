@@ -6,7 +6,9 @@ package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
 import dominio.Historia;
+import dominio.HistoriaStatus;
 import dominio.Personagem;
+import dominio.PersonagensHistoria;
 import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -310,23 +312,30 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        /*if (textFieldNome.getText().equals("") || labelMestreSelecionado.getText().equals("") || textAreaDesc.getText().equals("")) {
+        Historia historia;
+        List<PersonagensHistoria> listaPersonagensHistoria;
+        List<Personagem> selecionados = listaPersonagens.getSelectedValuesList();
+        if (textFieldNome.getText().equals("") || labelMestreSelecionado.getText().equals("") || textAreaDesc.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de História", JOptionPane.ERROR_MESSAGE);
         } else {
             String nome = textFieldNome.getText();
-            String mestre = labelMestreSelecionado.getText();
+            Usuario mestre = listaMestre.getSelectedValue();
             String descricao = textAreaDesc.getText();
             int status = 0; //Para histórias EM ANDAMENTO
             if (!listaPersonagens.isSelectionEmpty()) {
-                List<String> personagens = listaPersonagens.getSelectedValuesList();
-                Historia historia = new Historia(nome, descricao, status, mestre, personagens);
+                historia = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirHistoria(nome, descricao, mestre);
+                for (Personagem personagem : selecionados) {
+                    GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirPersonagensHistoria(historia, personagem);
+                }
+                JOptionPane.showMessageDialog(this, "História " + historia.getIdHis() + " inserida com sucesso.", "Cadastro de História", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                Historia historia = new Historia(nome, descricao, status, mestre);
+                historia = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirHistoria(nome, descricao, mestre);
+                JOptionPane.showMessageDialog(this, "História " + historia.getIdHis() + " inserida com sucesso.", "Cadastro de História", JOptionPane.INFORMATION_MESSAGE);
             }
 
             limparCampos();
             dispose();
-        }*/
+        }
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed

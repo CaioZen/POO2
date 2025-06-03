@@ -19,8 +19,8 @@ public class Historia implements Serializable {
     private String nome;
     @Column
     private String descricao;
-    @Column
-    private int status;
+    @Enumerated(EnumType.STRING)
+    private HistoriaStatus status;
     
     @ManyToOne
     @JoinColumn(name = "idUsr")
@@ -30,10 +30,11 @@ public class Historia implements Serializable {
     @OneToMany(mappedBy = "historia", cascade = CascadeType.ALL)
     private List<PersonagensHistoria> listaPersonagens;
 
-    public Historia(String nome, String descricao, int status, Usuario mestre) {
+    public Historia(String nome, String descricao, HistoriaStatus status, Usuario mestre) {
         this.nome = nome;
         this.descricao = descricao;
         this.status = status;
         this.mestre = mestre;
     }
+
 }
