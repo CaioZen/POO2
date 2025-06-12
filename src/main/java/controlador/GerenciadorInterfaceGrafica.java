@@ -2,6 +2,7 @@ package controlador;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import dominio.Historia;
+import dominio.Personagem;
 import dominio.Usuario;
 import java.awt.Dialog;
 import java.awt.Frame;
@@ -18,6 +19,8 @@ import org.hibernate.HibernateException;
 import visao.JDialogAlinhamentos;
 import visao.JDialogAntecedentes;
 import visao.JDialogBuscarHis;
+import visao.JDialogBuscarPer;
+import visao.JDialogBuscarUsr;
 import visao.JDialogClasses;
 import visao.JDialogListarHis;
 import visao.JDialogListarUsr;
@@ -41,6 +44,8 @@ public class GerenciadorInterfaceGrafica {
     private JDialogListarHis janelaListarHis = null;
     private JDialogNovaPartida janelaNovaPartida = null;
     private JDialogBuscarHis janelaBuscarHis = null;
+    private JDialogBuscarUsr janelaBuscarUsr = null;
+    private JDialogBuscarPer janelaBuscarPer = null;
     private JDialogNovoPersonagem janelaNovoPersonagem = null;
     private JDialogClasses janelaClasses = null;
     private JDialogAntecedentes janelaAntecedentes = null;
@@ -103,6 +108,16 @@ public class GerenciadorInterfaceGrafica {
     public Historia abrirBuscarHis() {
         janelaBuscarHis = (JDialogBuscarHis) abrirJanela(janelaPrincipal, janelaBuscarHis, JDialogBuscarHis.class);
         return janelaBuscarHis.getHistoria();
+    }
+    
+    public Usuario abrirBuscarUsr(){
+        janelaBuscarUsr = (JDialogBuscarUsr) abrirJanela(janelaPrincipal, janelaBuscarUsr, JDialogBuscarUsr.class);
+        return janelaBuscarUsr.getUsuario();
+    }
+    
+    public List<Personagem> abrirBuscarPer(){
+        janelaBuscarPer = (JDialogBuscarPer) abrirJanela(janelaPrincipal, janelaBuscarPer, JDialogBuscarPer.class);
+        return janelaBuscarPer.getPersonagensSelecionados();
     }
 
     public void abrirNovoPersonagem() {
