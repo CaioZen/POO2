@@ -4,6 +4,7 @@
  */
 package visao;
 
+import controlador.GerenciadorInterfaceGrafica;
 import controlador.TableModelBuscarPer;
 import dominio.Personagem;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class JDialogBuscarPer extends javax.swing.JDialog {
     public JDialogBuscarPer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        List<Personagem> personagensSelecionados;
         tableModel = new TableModelBuscarPer();
         tabela.setModel(tableModel);
     }
@@ -47,6 +49,11 @@ public class JDialogBuscarPer extends javax.swing.JDialog {
         tabela = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Selecionar Personagens"));
 
@@ -146,9 +153,14 @@ public class JDialogBuscarPer extends javax.swing.JDialog {
             indices.add(i);
         }
 
-        List<Personagem> personagensSelecionados = tableModel.getItems(indices);
+        personagensSelecionados = tableModel.getItems(indices);
         dispose();
     }//GEN-LAST:event_btnSelecionarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        List listaPer = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Personagem.class);
+        tableModel.setLista(listaPer);
+    }//GEN-LAST:event_formComponentShown
 
     public List<Personagem> getPersonagensSelecionados() {
         return personagensSelecionados;

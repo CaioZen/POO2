@@ -240,6 +240,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
 
     private void btnBuscarPersonagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPersonagensActionPerformed
         personagensSelecionados = GerenciadorInterfaceGrafica.getInstancia().abrirBuscarPer();
+        System.out.println("Retorno da seleção: " + personagensSelecionados);
         if (personagensSelecionados != null) {
             labelSelecionados.setText(personagensSelecionados.toString());
         }
