@@ -8,7 +8,6 @@ import controlador.GerenciadorInterfaceGrafica;
 import dominio.Alinhamento;
 import dominio.Antecedente;
 import dominio.Classe;
-import dominio.Historia;
 import dominio.Personagem;
 import dominio.Raca;
 import dominio.SubRaca;
@@ -21,7 +20,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -32,7 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class JDialogNovoPersonagem extends javax.swing.JDialog {
 
-    Historia historiaSelecionada;
+    Usuario usuarioSelecionado;
 
     /**
      * Creates new form NovoPersonagem
@@ -288,9 +286,9 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        historiaSelecionada = GerenciadorInterfaceGrafica.getInstancia().abrirBuscarHis();
-        if (historiaSelecionada != null)
-            labelUsuario.setText(historiaSelecionada.getMestre().getNome());
+        usuarioSelecionado = GerenciadorInterfaceGrafica.getInstancia().abrirBuscarUsr();
+        if (usuarioSelecionado != null)
+            labelUsuario.setText(usuarioSelecionado.getNome());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -299,7 +297,7 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
                 || comboBoxRaca.getSelectedItem() == null || comboBoxSubRaca.getSelectedItem() == null || comboBoxAntecedente.getSelectedItem() == null || comboBoxAlinhamento.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de Personagem", JOptionPane.ERROR_MESSAGE);
         } else {
-            Usuario mestre = historiaSelecionada.getMestre();
+            Usuario mestre = usuarioSelecionado;
             String nome = textFieldNome.getText();
             int nivel = (int) spinnerNivel.getValue();
             Classe classe = (Classe) comboBoxClasse.getSelectedItem();
@@ -375,8 +373,8 @@ public class JDialogNovoPersonagem extends javax.swing.JDialog {
     // Reseta o label do usuário
     labelUsuario.setText("Lorem Ipsum");
 
-    // Reseta a historia selecionada
-    historiaSelecionada = null;
+    // Reseta o usuario selecionada
+    usuarioSelecionado = null;
 }
 
 
