@@ -6,11 +6,11 @@ package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
 import controlador.TableModelUsuario;
+import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -19,20 +19,19 @@ import javax.swing.table.TableRowSorter;
 public class JDialogListarUsr extends javax.swing.JDialog {
 
     private TableModelUsuario tableModelUsuario;
-    private TableRowSorter<TableModelUsuario> sorter;
+    private Usuario usuario;
+    private List<Usuario> lista = null;
 
     public JDialogListarUsr(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        btnSelecionar.setVisible(false);
         tableModelUsuario = new TableModelUsuario();
         tabelaUsr.setModel(tableModelUsuario);
-        sorter = new TableRowSorter<>(tableModelUsuario);
-        tabelaUsr.setRowSorter(sorter);
         textFieldPesquisar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                filtrarTabelaUsr(textFieldPesquisar.getText());
+               lista = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarUsuario(textFieldPesquisar.getText());
+               tableModelUsuario.setLista(lista);
             }
         });
     }
@@ -58,7 +57,6 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         btnRemover = new javax.swing.JButton();
         labelPesquisar = new javax.swing.JLabel();
         textFieldPesquisar = new javax.swing.JTextField();
-        btnSelecionar = new javax.swing.JButton();
 
         menuItemEditar.setText("Editar");
         menuItemEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -138,13 +136,6 @@ public class JDialogListarUsr extends javax.swing.JDialog {
 
         labelPesquisar.setText("Pesquisar por nome:");
 
-        btnSelecionar.setText("Selecionar");
-        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelecionarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -164,9 +155,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(99, 99, 99)
                                 .addComponent(btnAdd)
-                                .addGap(25, 25, 25)
-                                .addComponent(btnSelecionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(121, 121, 121)
                                 .addComponent(btnRemover)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -183,8 +172,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSelecionar))
+                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -213,28 +201,14 @@ public class JDialogListarUsr extends javax.swing.JDialog {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         //ATUALIZA A TABELA
-        tableModelUsuario = new TableModelUsuario();
-        tabelaUsr.setModel(tableModelUsuario);
-        if (GerenciadorInterfaceGrafica.getInstancia().isEditar()) {
-            btnSelecionar.setVisible(true);
-            btnAdd.setVisible(false);
-            btnRemover.setVisible(false);
-        } else {
-            btnSelecionar.setVisible(false);
-            btnAdd.setVisible(true);
-            btnRemover.setVisible(true);
-        }
-        GerenciadorInterfaceGrafica.getInstancia().setEditar(false);
+        List listaUsers = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Usuario.class);
+        tableModelUsuario.setLista(listaUsers);
     }//GEN-LAST:event_formComponentShown
 
     private void menuItemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditarActionPerformed
-        //EDITAR AINDA NÃO FUNCIONA SE O USUARIO RESOLVER CANCELAR A EDIÇÃO
         int linha = tabelaUsr.getSelectedRow();
-        //GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
-        GerenciadorInterfaceGrafica.getInstancia().setEditar(true);
-        GerenciadorInterfaceGrafica.getInstancia().abrirJanelaCadUsuario();
-        tableModelUsuario.remover(linha); //ESSA LINHA SAIRÁ DAQUI NO FUTURO, NÃO CONSEGUI PENSAR EM OUTRA SOLUÇÃO
-        //GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec()); //ESSA TAMBÉM
+        Usuario usuarioSelecionado = (Usuario) tableModelUsuario.getItem(linha);
+        GerenciadorInterfaceGrafica.getInstancia().abrirJanelaCadUsuario(usuarioSelecionado);
         dispose();
     }//GEN-LAST:event_menuItemEditarActionPerformed
 
@@ -252,24 +226,9 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_menuItemExcluirActionPerformed
 
-    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-        
-        dispose();
-    }//GEN-LAST:event_btnSelecionarActionPerformed
-    private void filtrarTabelaUsr(String pesquisa) {
-        String texto = pesquisa.trim();
-        if (texto.isEmpty()) {
-            sorter.setRowFilter(null);
-        } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, 0));
-            tabelaUsr.setRowSorter(sorter);
-        }
-
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemover;
-    private javax.swing.JButton btnSelecionar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;

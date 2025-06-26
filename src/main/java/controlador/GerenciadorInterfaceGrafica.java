@@ -78,6 +78,17 @@ public class GerenciadorInterfaceGrafica {
         return dlg;
     }
 
+    public JDialog instanciarJanela(java.awt.Frame parent, JDialog dlg, Class classe) {
+        if (dlg == null) {
+            try {
+                dlg = (JDialog) classe.getConstructor(Frame.class, boolean.class).newInstance(parent, true);
+            } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                JOptionPane.showMessageDialog(parent, "Erro ao abrir a janela " + classe.getName() + ". " + ex.getMessage());
+            }
+        }
+        return dlg;
+    }
+
     public void abrirJanelaPrincipal() {
         if (janelaPrincipal == null) {
             janelaPrincipal = new JFramePrincipal();
@@ -87,6 +98,11 @@ public class GerenciadorInterfaceGrafica {
 
     public void abrirJanelaCadUsuario() {
         janelaNovoUsuario = (JDialogNovoUsuario) abrirJanela(janelaPrincipal, janelaNovoUsuario, JDialogNovoUsuario.class);
+    }
+    public void abrirJanelaCadUsuario(Usuario usuario) {        
+        janelaNovoUsuario = (JDialogNovoUsuario) instanciarJanela(janelaPrincipal, janelaNovoUsuario, JDialogNovoUsuario.class);
+        janelaNovoUsuario.setUsuarioSelecionado(usuario);
+        janelaNovoUsuario.setVisible(true);
     }
 
     public void abrirListarUsr() {

@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 public class JDialogNovoUsuario extends javax.swing.JDialog {
 
-    private Usuario usuarioSelecionado;
+    private Usuario usuarioSelecionado = null;
     private String rua;
     private String bairro;
     private String cidade;
@@ -300,7 +300,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
         Usuario user;
-        if (textFieldNome.getText().equals("") || textFieldCelular.getText().equals("") || textFieldEmail.getText().equals("")|| textFieldNumero.getText().equals("") || textFieldCEP.getText().equals("")
+        if (textFieldNome.getText().equals("") || textFieldCelular.getText().equals("") || textFieldEmail.getText().equals("") || textFieldNumero.getText().equals("") || textFieldCEP.getText().equals("")
                 || comboBoxUF.getSelectedItem() == "" || comboBoxCidade.getSelectedItem() == null || textFieldBairro.getText().equals("")
                 || textFieldRua.getText().equals("") || textFieldReferencia.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de Usuário", JOptionPane.ERROR_MESSAGE);
@@ -312,15 +312,14 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
             int numeroCasaI = Integer.parseInt(numeroCasaS);
             String cep = textFieldCEP.getText();
             String estado = comboBoxUF.getSelectedItem().toString();
-            String cidade = comboBoxCidade.getSelectedItem().toString(); 
+            String cidade = comboBoxCidade.getSelectedItem().toString();
             String bairro = textFieldBairro.getText();
             String referencia = textFieldReferencia.getText();
             String rua = textFieldRua.getText();
             Icon foto = labelFotoEscolher.getIcon();
-            
+
             user = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirUsuario(nome, celular, email, cep, cidade, uf, numeroCasaI, rua, bairro, referencia, foto);
             JOptionPane.showMessageDialog(this, "Usuario " + user.getIdUsr() + " inserido com sucesso.", "Cadastro de Usuario", JOptionPane.INFORMATION_MESSAGE);
-            
 
             GerenciadorInterfaceGrafica.getInstancia().setEditar(false);
             limparCampos();
@@ -345,7 +344,10 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_labelFotoEscolherMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        configurarBotoes();
+        if (usuarioSelecionado != null) {
+            preencherCampos();
+            //usuarioSelecionado = null;
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void textFieldCEPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldCEPFocusLost
@@ -386,17 +388,11 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         comboBoxCidade.setSelectedIndex(0);
     }
 
-    private void configurarBotoes() {
-        if (GerenciadorInterfaceGrafica.getInstancia().isEditar()) {
-            preencherCampos();
-            btnCriar.setText("Editar");
-            //btnCriar.setIcon(new javax.swing.ImageIcon(getClass().getResource("imagens/edit.png")));
-            btnLimpar.setText("Cancelar");
-        }
+    public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+        this.usuarioSelecionado = usuarioSelecionado;
     }
 
     private void preencherCampos() {
-        usuarioSelecionado = GerenciadorInterfaceGrafica.getInstancia().getUsrSelec();
         textFieldNome.setText(usuarioSelecionado.getNome());
         textFieldCelular.setText(usuarioSelecionado.getCelular());
         textFieldEmail.setText(usuarioSelecionado.getEmail());

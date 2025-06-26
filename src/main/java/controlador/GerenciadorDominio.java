@@ -2,6 +2,7 @@ package controlador;
 
 import dao.ConexaoHibernate;
 import dao.DaoGenerico;
+import dao.UsuarioDAO;
 import dominio.Alinhamento;
 import dominio.Antecedente;
 import dominio.Classe;
@@ -28,10 +29,12 @@ public class GerenciadorDominio {
 
     private Usuario usuarioSelecionado;
     private DaoGenerico dao;
+    private UsuarioDAO UsrDao;
 
     public GerenciadorDominio() {
         ConexaoHibernate.getSessionFactory().openSession();
         dao = new DaoGenerico();
+        UsrDao = new UsuarioDAO();
     }
 
     public List listar(Class classe) throws HibernateException {
@@ -113,6 +116,11 @@ public class GerenciadorDominio {
         return lista;
 
     }
+    
+    public List<Usuario> pesquisarUsuario(String pesq){
+        return UsrDao.pesquisar(pesq);
+    }
+    
 
     public static byte[] IconToBytes(Icon icon) {
         if (icon == null) {
