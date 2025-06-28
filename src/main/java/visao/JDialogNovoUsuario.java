@@ -13,6 +13,7 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.json.JSONObject;
@@ -318,10 +319,15 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
             String rua = textFieldRua.getText();
             Icon foto = labelFotoEscolher.getIcon();
 
-            user = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirUsuario(nome, celular, email, cep, cidade, uf, numeroCasaI, rua, bairro, referencia, foto);
-            JOptionPane.showMessageDialog(this, "Usuario " + user.getIdUsr() + " inserido com sucesso.", "Cadastro de Usuario", JOptionPane.INFORMATION_MESSAGE);
+            if (usuarioSelecionado == null) {
+                user = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirUsuario(nome, celular, email, cep, cidade, uf, numeroCasaI, rua, bairro, referencia, foto);
+                JOptionPane.showMessageDialog(this, "Usuario " + user.getIdUsr() + " inserido com sucesso.", "Cadastro de Usuario", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                GerenciadorInterfaceGrafica.getInstancia().getGerDominio().alterarUsuario(usuarioSelecionado, nome, celular, email, cep, cidade, uf, numeroCasaI, rua, bairro, referencia, foto);
+                JOptionPane.showMessageDialog(this, "Usuario " + usuarioSelecionado.getIdUsr() + " alterado com sucesso.", "Cadastro de Usuario", JOptionPane.INFORMATION_MESSAGE);
+                btnCriar.setText("Criar");
+            }
 
-            GerenciadorInterfaceGrafica.getInstancia().setEditar(false);
             limparCampos();
             dispose();
         }
@@ -346,7 +352,7 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         if (usuarioSelecionado != null) {
             preencherCampos();
-            //usuarioSelecionado = null;
+            btnCriar.setText("Editar");
         }
     }//GEN-LAST:event_formComponentShown
 
@@ -403,6 +409,8 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         textFieldReferencia.setText(usuarioSelecionado.getReferencia());
         comboBoxUF.setSelectedItem(usuarioSelecionado.getUf());
         comboBoxCidade.setSelectedItem(usuarioSelecionado.getCidade());
+        ImageIcon imagem = new ImageIcon(usuarioSelecionado.getFoto());
+        mostrarFoto(labelFotoEscolher, imagem);
     }
 
     public String consultarCEP(String cep) throws MalformedURLException, IOException {
@@ -446,6 +454,16 @@ public class JDialogNovoUsuario extends javax.swing.JDialog {
         connection.disconnect();
         return valido;
 
+    }
+
+    public static void mostrarFoto(JLabel lbl, Icon ic) {
+
+        // Redimensionar
+        ImageIcon imagem = (ImageIcon) ic;
+        imagem.setImage(imagem.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(), Image.SCALE_DEFAULT));
+
+        lbl.setText("");
+        lbl.setIcon(imagem);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

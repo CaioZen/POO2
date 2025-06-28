@@ -24,13 +24,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExcluirActionPerformed"/>
           </Events>
         </MenuItem>
-        <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
-        </Component>
-        <MenuItem class="javax.swing.JMenuItem" name="menuItemDesc">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Abrir Descri&#xe7;&#xe3;o Detalhada"/>
-          </Properties>
-        </MenuItem>
       </SubComponents>
     </Container>
   </NonVisualComponents>

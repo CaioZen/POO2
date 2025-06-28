@@ -29,12 +29,12 @@ public class GerenciadorDominio {
 
     private Usuario usuarioSelecionado;
     private DaoGenerico dao;
-    private UsuarioDAO UsrDao;
+    private UsuarioDAO usrDao;
 
     public GerenciadorDominio() {
         ConexaoHibernate.getSessionFactory().openSession();
         dao = new DaoGenerico();
-        UsrDao = new UsuarioDAO();
+        usrDao = new UsuarioDAO();
     }
 
     public List listar(Class classe) throws HibernateException {
@@ -46,11 +46,31 @@ public class GerenciadorDominio {
     }
 
     public Usuario inserirUsuario(String nome, String celular, String email, String cep, String cidade, String uf,
-            int numeroCasa, String rua, String bairro, String referencia, Icon foto) {
+            int numeroCasa, String rua, String bairro, String referencia, Icon foto) throws HibernateException {
 
         Usuario user = new Usuario(nome, celular, email, cep, cidade, uf, numeroCasa, rua, bairro, referencia, IconToBytes(foto));
         dao.inserir(user);
         return user;
+    }
+    
+     public Usuario alterarUsuario(Usuario user, String nome, String celular, String email, String cep, 
+             String cidade, String uf, int numeroCasaI, String rua, String bairro, String referencia, Icon foto) throws HibernateException {
+        
+        user.setNome(nome);
+        user.setCelular(celular);
+        user.setEmail(email);
+        user.setCep(cep);
+        user.setCidade(cidade);
+        user.setUf(uf);
+        user.setNumeroCasa(numeroCasaI);
+        user.setRua(rua);
+        user.setBairro(bairro);
+        user.setReferencia(referencia);
+        user.setFoto(IconToBytes(foto));
+        
+        usrDao.alterar(user);
+        return user;
+        
     }
 
     public Personagem inserirPersonagem(Usuario mestre, String nome, int nivel, Classe classe, SubRaca subRaca, Antecedente ante, Alinhamento ali, Icon foto) {
@@ -118,7 +138,7 @@ public class GerenciadorDominio {
     }
     
     public List<Usuario> pesquisarUsuario(String pesq){
-        return UsrDao.pesquisar(pesq);
+        return usrDao.pesquisar(pesq);
     }
     
 

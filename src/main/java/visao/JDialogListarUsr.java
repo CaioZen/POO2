@@ -48,8 +48,6 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         menuTabela = new javax.swing.JPopupMenu();
         menuItemEditar = new javax.swing.JMenuItem();
         menuItemExcluir = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemDesc = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaUsr = new javax.swing.JTable();
@@ -73,10 +71,6 @@ public class JDialogListarUsr extends javax.swing.JDialog {
             }
         });
         menuTabela.add(menuItemExcluir);
-        menuTabela.add(jSeparator1);
-
-        menuItemDesc.setText("Abrir Descrição Detalhada");
-        menuTabela.add(menuItemDesc);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -218,8 +212,9 @@ public class JDialogListarUsr extends javax.swing.JDialog {
             //GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
             if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o usuário?",
                     "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                Usuario usr = (Usuario)tableModelUsuario.getItem(linha);
+                GerenciadorInterfaceGrafica.getInstancia().getGerDominio().excluir(usr);
                 tableModelUsuario.remover(linha);
-                //GerenciadorInterfaceGrafica.getInstancia().removerUsuario(GerenciadorInterfaceGrafica.getInstancia().getUsrSelec());
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha válida", "Error ao excluir", JOptionPane.ERROR_MESSAGE);
@@ -231,9 +226,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     private javax.swing.JButton btnRemover;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel labelPesquisar;
-    private javax.swing.JMenuItem menuItemDesc;
     private javax.swing.JMenuItem menuItemEditar;
     private javax.swing.JMenuItem menuItemExcluir;
     private javax.swing.JPopupMenu menuTabela;
