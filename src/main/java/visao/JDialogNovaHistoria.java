@@ -6,6 +6,7 @@ package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
 import dominio.Historia;
+import dominio.HistoriaStatus;
 import dominio.Personagem;
 import dominio.PersonagensHistoria;
 import dominio.Usuario;
@@ -22,6 +23,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     private DefaultListModel modeloLista;
     private Usuario usuario;
     private List<Personagem> personagensSelecionados;
+    private Historia historiaSelecionada;
 
     /**
      * Creates new form JDialogNovaHistoria
@@ -55,8 +57,15 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
         btnBuscarPersonagens = new javax.swing.JButton();
         btnBuscarUsr = new javax.swing.JButton();
         labelSelecionados = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        statusCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Nova História");
@@ -113,6 +122,10 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
             }
         });
 
+        jLabel3.setText("Status:");
+
+        statusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EM ANDAMENTO", "FINALIZADA" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,7 +146,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -152,7 +165,12 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
                                         .addComponent(textFieldMestre, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnBuscarUsr))
-                                    .addComponent(btnBuscarPersonagens)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnBuscarPersonagens)
+                                        .addGap(117, 117, 117)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(statusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,20 +202,25 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
                     .addComponent(btnBuscarUsr))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelPersonagens)
-                    .addComponent(btnBuscarPersonagens))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(labelSelecionados, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelDesc)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPersonagens)
+                            .addComponent(btnBuscarPersonagens))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(labelSelecionados, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelDesc)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(statusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -213,13 +236,23 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
             String nome = textFieldNome.getText();
             Usuario mestre = usuario;
             String descricao = textAreaDesc.getText();
-            int status = 0; //Para histórias EM ANDAMENTO
             if (!labelSelecionados.getText().equals("")) {
-                historia = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirHistoria(nome, descricao, mestre);
-                for (Personagem personagem : personagensSelecionados) {
-                    GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirPersonagensHistoria(historia, personagem);
+                if (historiaSelecionada == null) {
+                    historia = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirHistoria(nome, descricao, mestre);
+                    for (Personagem personagem : personagensSelecionados) {
+                        GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirPersonagensHistoria(historia, personagem);
+                    }
+                    JOptionPane.showMessageDialog(this, "História " + historia.getIdHis() + " inserida com sucesso.", "Cadastro de História", JOptionPane.INFORMATION_MESSAGE);
+                } else{
+                    HistoriaStatus status;
+                    
+                    if(statusCombo.getSelectedIndex() == 0){
+                        status = HistoriaStatus.EM_ANDAMENTO;
+                    } else{
+                        status = HistoriaStatus.FINALIZADA;
+                    }
+                    GerenciadorInterfaceGrafica.getInstancia().getGerDominio().alterarHistoria(historiaSelecionada, nome, descricao, mestre, status);
                 }
-                JOptionPane.showMessageDialog(this, "História " + historia.getIdHis() + " inserida com sucesso.", "Cadastro de História", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 historia = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirHistoria(nome, descricao, mestre);
                 JOptionPane.showMessageDialog(this, "História " + historia.getIdHis() + " inserida com sucesso.", "Cadastro de História", JOptionPane.INFORMATION_MESSAGE);
@@ -235,7 +268,7 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void textFieldMestreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textFieldMestreMouseClicked
-   
+
     }//GEN-LAST:event_textFieldMestreMouseClicked
 
     private void btnBuscarPersonagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPersonagensActionPerformed
@@ -252,37 +285,22 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnBuscarUsrActionPerformed
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        if (historiaSelecionada != null) {
+            preencherCampos();
+            btnCriar.setText("Editar");
+        }
+    }//GEN-LAST:event_formComponentShown
+
     private void limparCampos() {
         textFieldNome.setText("");
         textFieldMestre.setText("");
         textAreaDesc.setText("");
     }
 
-    //FILTRAR A LISTA FICA PARA ALGUM MOMENTO DO FUTURO
-//    private void atualizarListaUsr(String pesquisa) {
-//        modeloLista = new DefaultListModel<Usuario>();
-//        modeloLista.clear();
-//
-//        ListModel<Usuario> modeloAtual = listaMestre.getModel();
-//
-//        for (int i = 0; i < modeloAtual.getSize(); i++) {
-//            Usuario u = modeloAtual.getElementAt(i);
-//            if (u.getNome() != null && u.getNome().equalsIgnoreCase(pesquisa)) {
-//                modeloLista.addElement(u);
-//            }
-//        }
-//
-//        listaMestre.setModel(modeloLista);
-//    }
-//    private void atualizarListaPer(String pesquisa) {
-//        modeloLista = new DefaultListModel<>();
-//        modeloLista.clear();
-//        List<String> filtrados = personagens.stream().filter(nome -> nome.toLowerCase().contains(pesquisa.toLowerCase())).collect(Collectors.toList());
-//        for (String nome : filtrados) {
-//            modeloLista.addElement(nome);
-//        }
-//        listaPersonagens.setModel(modeloLista);
-//    }
+    public void setHistoriaSelecionada(Historia historiaSelecionada) {
+        this.historiaSelecionada = historiaSelecionada;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarPersonagens;
     private javax.swing.JButton btnBuscarUsr;
@@ -290,14 +308,43 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelDesc;
     private javax.swing.JLabel labelMestre;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelPersonagens;
     private javax.swing.JLabel labelSelecionados;
+    private javax.swing.JComboBox<String> statusCombo;
     private javax.swing.JTextArea textAreaDesc;
     private javax.swing.JTextField textFieldMestre;
     private javax.swing.JTextField textFieldNome;
     // End of variables declaration//GEN-END:variables
+
+    private void preencherCampos() {
+        textFieldNome.setText(historiaSelecionada.getNome());
+        textAreaDesc.setText(historiaSelecionada.getDescricao());
+
+        // Preenche mestre
+        usuario = historiaSelecionada.getMestre();
+        if (usuario != null) {
+            textFieldMestre.setText(usuario.getNome());
+        }
+
+        // Preenche status
+        HistoriaStatus status = historiaSelecionada.getStatus();
+        if (status != null) {
+            statusCombo.setSelectedItem(status.name().replace("_", " "));
+        }
+
+        // Preenche personagens selecionados
+        List<PersonagensHistoria> personagensSelecionados = GerenciadorInterfaceGrafica.getInstancia()
+                .getGerDominio()
+                .pesquisarPersonagensHistoria(historiaSelecionada.getIdHis());
+        if (personagensSelecionados != null && !personagensSelecionados.isEmpty()) {
+            labelSelecionados.setText(personagensSelecionados.toString());
+        } else {
+            labelSelecionados.setText("");
+        }
+    }
 }

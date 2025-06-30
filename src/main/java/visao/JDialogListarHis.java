@@ -1,8 +1,15 @@
 package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
+import controlador.TableModelHis;
+import dominio.Historia;
+import dominio.Partida;
+import dominio.PersonagensHistoria;
+import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -18,6 +25,7 @@ import javax.swing.table.TableRowSorter;
 public class JDialogListarHis extends javax.swing.JDialog {
 
     private TableRowSorter<DefaultTableModel> sorter;
+    private TableModelHis tableModel;
 
     /**
      * Creates new form JDialogListarHis
@@ -25,14 +33,14 @@ public class JDialogListarHis extends javax.swing.JDialog {
     public JDialogListarHis(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        sorter = new TableRowSorter<>();
-        tabelaHis.setRowSorter(sorter);
-        textFieldPesquisar.addKeyListener(new KeyAdapter() {
+        tableModel = new TableModelHis();
+        tabelaHis.setModel(tableModel);
+        /*textFieldPesquisar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 filtrarTabelaHis(textFieldPesquisar.getText());
             }
-        });
+        });*/
     }
 
     /**
@@ -47,8 +55,6 @@ public class JDialogListarHis extends javax.swing.JDialog {
         menuTabela = new javax.swing.JPopupMenu();
         menuItemEditar = new javax.swing.JMenuItem();
         menuItemExcluir = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemDesc = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHis = new javax.swing.JTable();
@@ -58,16 +64,27 @@ public class JDialogListarHis extends javax.swing.JDialog {
         textFieldPesquisar = new javax.swing.JTextField();
 
         menuItemEditar.setText("Editar");
+        menuItemEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEditarActionPerformed(evt);
+            }
+        });
         menuTabela.add(menuItemEditar);
 
-        menuItemExcluir.setText("jMenuItem2");
+        menuItemExcluir.setText("Excluir");
+        menuItemExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExcluirActionPerformed(evt);
+            }
+        });
         menuTabela.add(menuItemExcluir);
-        menuTabela.add(jSeparator1);
-
-        menuItemDesc.setText("Abrir Descrição Detalhada");
-        menuTabela.add(menuItemDesc);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Histórias"));
         jPanel1.setToolTipText("");
@@ -193,23 +210,45 @@ public class JDialogListarHis extends javax.swing.JDialog {
     private void textFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldPesquisarActionPerformed
-    private void filtrarTabelaHis(String pesquisa) {
-        String texto = pesquisa.trim();
-        if (texto.isEmpty()) {
-            sorter.setRowFilter(null);
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        List listaHis = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Historia.class);
+        tableModel.setLista(listaHis);
+    }//GEN-LAST:event_formComponentShown
+
+    private void menuItemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditarActionPerformed
+        int linha = tabelaHis.getSelectedRow();
+        Historia historiaSelecionada = (Historia) tableModel.getItem(linha);
+        GerenciadorInterfaceGrafica.getInstancia().abrirCadHistoria(historiaSelecionada);
+        dispose();
+    }//GEN-LAST:event_menuItemEditarActionPerformed
+
+    private void menuItemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExcluirActionPerformed
+        int linha = tabelaHis.getSelectedRow();
+        if (linha >= 0) {
+            if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a história?",
+                    "Excluir história", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                Historia his = (Historia) tableModel.getItem(linha);
+                his = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().carregarListaPersonagens(his);
+                for (PersonagensHistoria ph : his.getListaPersonagens()) {
+                    for (Partida partida : ph.getPartidas()) {
+                        GerenciadorInterfaceGrafica.getInstancia().getGerDominio().excluir(partida);
+                    }
+                }
+                GerenciadorInterfaceGrafica.getInstancia().getGerDominio().excluir(his);
+                tableModel.remover(linha);
+            }
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)"+texto, 0));
-            tabelaHis.setRowSorter(sorter);
+            JOptionPane.showMessageDialog(this, "Selecione uma linha válida", "Error ao excluir", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }//GEN-LAST:event_menuItemExcluirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemover;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelPesquisar;
-    private javax.swing.JMenuItem menuItemDesc;
     private javax.swing.JMenuItem menuItemEditar;
     private javax.swing.JMenuItem menuItemExcluir;
     private javax.swing.JPopupMenu menuTabela;

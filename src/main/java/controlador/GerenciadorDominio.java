@@ -2,6 +2,7 @@ package controlador;
 
 import dao.ConexaoHibernate;
 import dao.DaoGenerico;
+import dao.HistoriaDAO;
 import dao.PartidaDAO;
 import dao.PersonagemDAO;
 import dao.PersonagensHistoriaDAO;
@@ -38,14 +39,16 @@ public class GerenciadorDominio {
     private PartidaDAO parDao;
     private PersonagensHistoriaDAO phDao;
     private PersonagemDAO perDao;
+    private HistoriaDAO hisDao;
 
     public GerenciadorDominio() {
         ConexaoHibernate.getSessionFactory().openSession();
         dao = new DaoGenerico();
         usrDao = new UsuarioDAO();
         parDao = new PartidaDAO();
-        phDao= new PersonagensHistoriaDAO();
+        phDao = new PersonagensHistoriaDAO();
         perDao = new PersonagemDAO();
+        hisDao = new HistoriaDAO();
     }
 
     public List listar(Class classe) throws HibernateException {
@@ -63,10 +66,10 @@ public class GerenciadorDominio {
         dao.inserir(user);
         return user;
     }
-    
-     public Usuario alterarUsuario(Usuario user, String nome, String celular, String email, String cep, 
-             String cidade, String uf, int numeroCasaI, String rua, String bairro, String referencia, Icon foto) throws HibernateException {
-        
+
+    public Usuario alterarUsuario(Usuario user, String nome, String celular, String email, String cep,
+            String cidade, String uf, int numeroCasaI, String rua, String bairro, String referencia, Icon foto) throws HibernateException {
+
         user.setNome(nome);
         user.setCelular(celular);
         user.setEmail(email);
@@ -78,10 +81,10 @@ public class GerenciadorDominio {
         user.setBairro(bairro);
         user.setReferencia(referencia);
         user.setFoto(IconToBytes(foto));
-        
+
         usrDao.alterar(user);
         return user;
-        
+
     }
 
     public Personagem inserirPersonagem(Usuario mestre, String nome, int nivel, Classe classe, SubRaca subRaca, Antecedente ante, Alinhamento ali, Icon foto) {
@@ -101,8 +104,22 @@ public class GerenciadorDominio {
         dao.inserir(historia);
         return historia;
     }
-    
-    public Partida inserirPartida(int numero, String local, Date data, String descricao, Historia historia, List<PersonagensHistoria> listaPersonagens){
+
+    public Historia alterarHistoria(Historia historia, String nome, String descricao, Usuario mestre, HistoriaStatus status) {
+        historia.setNome(nome);
+        historia.setDescricao(descricao);
+        historia.setMestre(mestre);
+        historia.setStatus(status);
+
+        hisDao.alterar(historia);
+        return historia;
+    }
+
+    public Historia carregarListaPersonagens(Historia his) {
+        return hisDao.carregarListaPersonagens(his);
+    }
+
+    public Partida inserirPartida(int numero, String local, Date data, String descricao, Historia historia, List<PersonagensHistoria> listaPersonagens) {
         Partida partida = new Partida(numero, local, data, descricao, historia, listaPersonagens);
         dao.inserir(partida);
         return partida;
@@ -153,20 +170,20 @@ public class GerenciadorDominio {
         return lista;
 
     }
-    
-    public List<Usuario> pesquisarUsuario(String pesq){
+
+    public List<Usuario> pesquisarUsuario(String pesq) {
         return usrDao.pesquisar(pesq);
     }
-    
-    public Long contarPartidas(int idHis){
+
+    public Long contarPartidas(int idHis) {
         return parDao.contarPartidasPorIdHis(idHis);
     }
-    
-    public List<PersonagensHistoria> pesquisarPersonagensHistoria(int idHis){
+
+    public List<PersonagensHistoria> pesquisarPersonagensHistoria(int idHis) {
         return phDao.pesquisar(idHis);
     }
-    
-    public List<Personagem> listarDisponiveis(){
+
+    public List<Personagem> listarDisponiveis() {
         return perDao.listarDisponiveis();
     }
 

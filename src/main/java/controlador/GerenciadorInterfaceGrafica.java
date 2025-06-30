@@ -99,7 +99,8 @@ public class GerenciadorInterfaceGrafica {
     public void abrirJanelaCadUsuario() {
         janelaNovoUsuario = (JDialogNovoUsuario) abrirJanela(janelaPrincipal, janelaNovoUsuario, JDialogNovoUsuario.class);
     }
-    public void abrirJanelaCadUsuario(Usuario usuario) {        
+
+    public void abrirJanelaCadUsuario(Usuario usuario) {
         janelaNovoUsuario = (JDialogNovoUsuario) instanciarJanela(janelaPrincipal, janelaNovoUsuario, JDialogNovoUsuario.class);
         janelaNovoUsuario.setUsuarioSelecionado(usuario);
         janelaNovoUsuario.setVisible(true);
@@ -111,6 +112,12 @@ public class GerenciadorInterfaceGrafica {
 
     public void abrirCadHistoria() {
         janelaNovaHistoria = (JDialogNovaHistoria) abrirJanela(janelaPrincipal, janelaNovaHistoria, JDialogNovaHistoria.class);
+    }
+
+    public void abrirCadHistoria(Historia historia) {
+        janelaNovaHistoria = (JDialogNovaHistoria) instanciarJanela(janelaPrincipal, janelaNovaHistoria, JDialogNovaHistoria.class);
+        janelaNovaHistoria.setHistoriaSelecionada(historia);
+        janelaNovaHistoria.setVisible(true);
     }
 
     public void abrirListarHis() {
@@ -125,13 +132,13 @@ public class GerenciadorInterfaceGrafica {
         janelaBuscarHis = (JDialogBuscarHis) abrirJanela(janelaPrincipal, janelaBuscarHis, JDialogBuscarHis.class);
         return janelaBuscarHis.getHistoria();
     }
-    
-    public Usuario abrirBuscarUsr(){
+
+    public Usuario abrirBuscarUsr() {
         janelaBuscarUsr = (JDialogBuscarUsr) abrirJanela(janelaPrincipal, janelaBuscarUsr, JDialogBuscarUsr.class);
         return janelaBuscarUsr.getUsuario();
     }
-    
-    public List<Personagem> abrirBuscarPer(){
+
+    public List<Personagem> abrirBuscarPer() {
         janelaBuscarPer = (JDialogBuscarPer) abrirJanela(janelaPrincipal, janelaBuscarPer, JDialogBuscarPer.class);
         return janelaBuscarPer.getPersonagensSelecionados();
     }
@@ -168,21 +175,21 @@ public class GerenciadorInterfaceGrafica {
             System.out.println("Deu errado");
         }
     }
-    
+
     public void carregarLista(JList lista, Class classe) {
-    try {
-        List dados = gerDominio.listar(classe);
-        DefaultListModel modeloLista = new DefaultListModel();
-        
-        for (Object obj : dados) {
-            modeloLista.addElement(obj);
+        try {
+            List dados = gerDominio.listar(classe);
+            DefaultListModel modeloLista = new DefaultListModel();
+
+            for (Object obj : dados) {
+                modeloLista.addElement(obj);
+            }
+
+            lista.setModel(modeloLista);
+        } catch (HibernateException ex) {
+            System.out.println("Deu errado");
         }
-        
-        lista.setModel(modeloLista);
-    } catch (HibernateException ex) {
-        System.out.println("Deu errado");
     }
-}
 
     public Usuario getUsrSelec() {
         return gerDominio.getUsuarioSelecionado();

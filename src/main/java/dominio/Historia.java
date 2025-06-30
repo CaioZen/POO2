@@ -27,7 +27,7 @@ public class Historia implements Serializable {
     private Usuario mestre;
     
     
-    @OneToMany(mappedBy = "historia", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "historia", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<PersonagensHistoria> listaPersonagens;
 
     public Historia(String nome, String descricao, HistoriaStatus status, Usuario mestre) {
