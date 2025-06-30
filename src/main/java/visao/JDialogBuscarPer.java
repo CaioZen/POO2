@@ -158,7 +158,8 @@ public class JDialogBuscarPer extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        List listaPer = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Personagem.class);
+        List listaPer = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listarDisponiveis();
+        System.out.println(listaPer);
         tableModel.setLista(listaPer);
     }//GEN-LAST:event_formComponentShown
 

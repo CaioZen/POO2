@@ -2,12 +2,16 @@ package controlador;
 
 import dao.ConexaoHibernate;
 import dao.DaoGenerico;
+import dao.PartidaDAO;
+import dao.PersonagemDAO;
+import dao.PersonagensHistoriaDAO;
 import dao.UsuarioDAO;
 import dominio.Alinhamento;
 import dominio.Antecedente;
 import dominio.Classe;
 import dominio.Historia;
 import dominio.HistoriaStatus;
+import dominio.Partida;
 import dominio.Personagem;
 import dominio.PersonagensHistoria;
 import dominio.Raca;
@@ -17,6 +21,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
@@ -30,11 +35,17 @@ public class GerenciadorDominio {
     private Usuario usuarioSelecionado;
     private DaoGenerico dao;
     private UsuarioDAO usrDao;
+    private PartidaDAO parDao;
+    private PersonagensHistoriaDAO phDao;
+    private PersonagemDAO perDao;
 
     public GerenciadorDominio() {
         ConexaoHibernate.getSessionFactory().openSession();
         dao = new DaoGenerico();
         usrDao = new UsuarioDAO();
+        parDao = new PartidaDAO();
+        phDao= new PersonagensHistoriaDAO();
+        perDao = new PersonagemDAO();
     }
 
     public List listar(Class classe) throws HibernateException {
@@ -90,6 +101,12 @@ public class GerenciadorDominio {
         dao.inserir(historia);
         return historia;
     }
+    
+    public Partida inserirPartida(int numero, String local, Date data, String descricao, Historia historia, List<PersonagensHistoria> listaPersonagens){
+        Partida partida = new Partida(numero, local, data, descricao, historia, listaPersonagens);
+        dao.inserir(partida);
+        return partida;
+    }
 
     public Usuario getUsuarioSelecionado() {
         return usuarioSelecionado;
@@ -141,6 +158,17 @@ public class GerenciadorDominio {
         return usrDao.pesquisar(pesq);
     }
     
+    public Long contarPartidas(int idHis){
+        return parDao.contarPartidasPorIdHis(idHis);
+    }
+    
+    public List<PersonagensHistoria> pesquisarPersonagensHistoria(int idHis){
+        return phDao.pesquisar(idHis);
+    }
+    
+    public List<Personagem> listarDisponiveis(){
+        return perDao.listarDisponiveis();
+    }
 
     public static byte[] IconToBytes(Icon icon) {
         if (icon == null) {

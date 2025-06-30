@@ -6,8 +6,15 @@ package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
 import dominio.Historia;
+import dominio.Partida;
+import dominio.Personagem;
+import dominio.PersonagensHistoria;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +25,8 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
     //Não conseguirei terminar a cadastro de partida, preciso de algumas informações, tipo a lista de personagens, que só conseguirei com o pesquisar pesquisando por idUsr
 
     Historia historia;
+    int qtdePar;
+    List<PersonagensHistoria> lista;
 
     /**
      * Creates new form JDialogNovaPartida
@@ -69,6 +78,7 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
         listaPersonagens = new javax.swing.JList<>();
         dataCalendario = new com.toedter.calendar.JDateChooser();
         btnCriar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -103,7 +113,7 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Partida número:");
 
-        labelNumeroPartida.setText("00");
+        labelNumeroPartida.setText("1");
 
         jLabel5.setText("Local:");
 
@@ -131,6 +141,8 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                 btnCriarActionPerformed(evt);
             }
         });
+
+        jLabel9.setText("Selecione os");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,10 +184,12 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(dataCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(jLabel8))
+                                        .addComponent(dataCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel7))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 8, Short.MAX_VALUE))
@@ -228,12 +242,14 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8)))
+                                .addComponent(jLabel6))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dataCalendario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -273,8 +289,12 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
         historia = GerenciadorInterfaceGrafica.getInstancia().abrirBuscarHis();
         if (historia != null) {
             labelHistoria.setText(historia.getNome());
+            labelMestre.setText(historia.getMestre().getNome());
+            qtdePar = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().contarPartidas(historia.getIdHis()).intValue() + 1;
+            labelNumeroPartida.setText(String.valueOf(qtdePar));
+            lista = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarPersonagensHistoria(historia.getIdHis());
+            atualizarLista();
         }
-        labelMestre.setText(historia.getMestre().getNome());
     }//GEN-LAST:event_btnBuscarHisActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -287,10 +307,22 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
                 || listaPersonagens.isSelectionEmpty() == true || textAreaDesc.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Cadastro de Partida", JOptionPane.ERROR_MESSAGE);
         } else {
-            int numero = Integer.parseInt(labelNumeroPartida.getText());//Ainda nao funciona, preciso do pesquisar
-            
+            int numero = Integer.parseInt(labelNumeroPartida.getText());
+            String local = textFieldLocal.getText();
+            Date data = dataCalendario.getDate();
+            String desc = textAreaDesc.getText();
+            List<PersonagensHistoria> selecionados = listaPersonagens.getSelectedValuesList();
+            Partida partida = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirPartida(numero, local, data, desc, historia, selecionados);
+            JOptionPane.showMessageDialog(this, "Partida " + partida.getIdPar() + " inserida com sucesso.", "Cadastro de Partida", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnCriarActionPerformed
+    private void atualizarLista() {
+        DefaultListModel<PersonagensHistoria> model = new DefaultListModel<>();
+        for (PersonagensHistoria p : lista) {
+            model.addElement(p);
+        }
+        listaPersonagens.setModel((DefaultListModel) model);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarHis;
@@ -305,6 +337,7 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -313,8 +346,9 @@ public class JDialogNovaPartida extends javax.swing.JDialog {
     private javax.swing.JLabel labelHistoria;
     private javax.swing.JLabel labelMestre;
     private javax.swing.JLabel labelNumeroPartida;
-    private javax.swing.JList<String> listaPersonagens;
+    private javax.swing.JList<PersonagensHistoria> listaPersonagens;
     private javax.swing.JTextArea textAreaDesc;
     private javax.swing.JTextField textFieldLocal;
     // End of variables declaration//GEN-END:variables
+
 }

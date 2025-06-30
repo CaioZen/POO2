@@ -40,5 +40,9 @@ public class PersonagensHistoria implements Serializable {
         this.historia = historia;
         this.personagem = personagem;
     }
-      
+    
+    @Override
+    public String toString() {
+        return personagem.getNome();
+    }
 }
