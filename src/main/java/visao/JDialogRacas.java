@@ -4,11 +4,18 @@
  */
 package visao;
 
+import controlador.GerenciadorInterfaceGrafica;
+import controlador.TableModelRaca;
+import dominio.Raca;
+import dominio.SubRaca;
+import java.util.List;
+
 /**
  *
  * @author Caio
  */
 public class JDialogRacas extends javax.swing.JDialog {
+    private TableModelRaca tableModel;
 
     /**
      * Creates new form JDialogRacas
@@ -16,6 +23,8 @@ public class JDialogRacas extends javax.swing.JDialog {
     public JDialogRacas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        tableModel = new TableModelRaca();
+        tabela.setModel(tableModel);
     }
 
     /**
@@ -29,14 +38,19 @@ public class JDialogRacas extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Lista de Raças");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -59,7 +73,7 @@ public class JDialogRacas extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,9 +101,14 @@ public class JDialogRacas extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        List lista = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(SubRaca.class);
+        tableModel.setLista(lista);
+    }//GEN-LAST:event_formComponentShown
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
