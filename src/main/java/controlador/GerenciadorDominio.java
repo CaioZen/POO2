@@ -119,6 +119,10 @@ public class GerenciadorDominio {
         return hisDao.carregarListaPersonagens(his);
     }
 
+    public Usuario carregarListasUsuario(Usuario usuario) {
+        return usrDao.carregarListasUsuario(usuario);
+    }
+
     public Partida inserirPartida(int numero, String local, Date data, String descricao, Historia historia, List<PersonagensHistoria> listaPersonagens) {
         Partida partida = new Partida(numero, local, data, descricao, historia, listaPersonagens);
         dao.inserir(partida);

@@ -6,6 +6,10 @@ package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
 import controlador.TableModelUsuario;
+import dominio.Historia;
+import dominio.Partida;
+import dominio.Personagem;
+import dominio.PersonagensHistoria;
 import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -30,8 +34,8 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         textFieldPesquisar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-               lista = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarUsuario(textFieldPesquisar.getText());
-               tableModelUsuario.setLista(lista);
+                lista = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarUsuario(textFieldPesquisar.getText());
+                tableModelUsuario.setLista(lista);
             }
         });
     }
@@ -212,7 +216,23 @@ public class JDialogListarUsr extends javax.swing.JDialog {
             //GerenciadorInterfaceGrafica.getInstancia().setUsrSelec(linha);
             if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o usuário?",
                     "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                Usuario usr = (Usuario)tableModelUsuario.getItem(linha);
+                Usuario usr = (Usuario) tableModelUsuario.getItem(linha);
+                usr = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().carregarListasUsuario(usr);
+                for (Personagem p : usr.getPersonagens()) {
+                    GerenciadorInterfaceGrafica.getInstancia().getGerDominio().excluir(p);
+                }
+
+                for (Historia h : usr.getHistorias()) {
+                    h = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().carregarListaPersonagens(h);
+
+                    for (PersonagensHistoria ph : h.getListaPersonagens()) {
+                        for (Partida partida : ph.getPartidas()) {
+                            GerenciadorInterfaceGrafica.getInstancia().getGerDominio().excluir(partida);
+                        }
+                    }
+
+                    GerenciadorInterfaceGrafica.getInstancia().getGerDominio().excluir(h);
+                }
                 GerenciadorInterfaceGrafica.getInstancia().getGerDominio().excluir(usr);
                 tableModelUsuario.remover(linha);
             }

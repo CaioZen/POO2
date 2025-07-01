@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -34,7 +35,7 @@ public class UsuarioDAO extends DaoGenerico {
             Root tabela = consulta.from(Usuario.class);
 
             //Restrições
-            Predicate restricoes = builder.like(builder.lower(tabela.get("nome")),pesq.toLowerCase() + '%');
+            Predicate restricoes = builder.like(builder.lower(tabela.get("nome")), pesq.toLowerCase() + '%');
             consulta.where(restricoes);
 
             // Executar a query
@@ -52,6 +53,34 @@ public class UsuarioDAO extends DaoGenerico {
 
         return lista;
 
+    }
+
+    public Usuario carregarListasUsuario(Usuario usuario) throws HibernateException {
+        Session sessao = null;
+
+        try {
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            
+            Usuario usuarioTemp = sessao.get(Usuario.class, usuario.getIdUsr());
+
+            
+            Hibernate.initialize(usuarioTemp.getPersonagens());
+            Hibernate.initialize(usuarioTemp.getHistorias());
+
+            sessao.getTransaction().commit();
+            return usuarioTemp;
+        } catch (HibernateException erro) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+            }
+            throw new HibernateException(erro);
+        } finally {
+            if (sessao != null && sessao.isOpen()) {
+                sessao.close();
+            }
+        }
     }
 
 }

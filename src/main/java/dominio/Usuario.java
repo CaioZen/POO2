@@ -40,9 +40,9 @@ public class Usuario implements Serializable {
     @Column(columnDefinition = "BYTEA")
     private byte[] foto;
     
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Personagem> personagens;
-    @OneToMany(mappedBy = "mestre", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "mestre", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Historia> historias;
 
     public Usuario(String nome, String celular, String email, String cep, String cidade, String uf, int numeroCasa, String rua, String bairro, String referencia, byte[] foto) {
