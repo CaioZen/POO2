@@ -54,6 +54,35 @@ public class UsuarioDAO extends DaoGenerico {
         return lista;
 
     }
+    public List<Usuario> pesquisarRelatorio() throws HibernateException {
+        List lista = null;
+        Session sessao = null;
+
+        try {
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            // OPERAÇÃO
+            CriteriaBuilder builder = sessao.getCriteriaBuilder();
+            CriteriaQuery consulta = builder.createQuery(Usuario.class);
+            Root tabela = consulta.from(Usuario.class);
+
+            // Executar a query
+            lista = sessao.createQuery(consulta).getResultList();
+
+            sessao.getTransaction().commit();
+            sessao.close();
+        } catch (HibernateException ex) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+                sessao.close();
+            }
+            throw new HibernateException(ex);
+        }
+
+        return lista;
+
+    }
 
     public Usuario carregarListasUsuario(Usuario usuario) throws HibernateException {
         Session sessao = null;

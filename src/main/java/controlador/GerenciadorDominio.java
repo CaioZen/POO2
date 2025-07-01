@@ -129,6 +129,18 @@ public class GerenciadorDominio {
         return partida;
     }
 
+    public List<Usuario> pesquisarUsuarioRelatorio() throws HibernateException {
+        return usrDao.pesquisarRelatorio();
+    }
+
+    public List<Personagem> pesquisarPersonagemRelatorio() throws HibernateException {
+        return perDao.pesquisarRelatorio();
+    }
+
+    public List<Historia> pesquisarHistoriaRelatorio() throws HibernateException {
+        return hisDao.pesquisarRelatorio();
+    }
+
     public Usuario getUsuarioSelecionado() {
         return usuarioSelecionado;
 

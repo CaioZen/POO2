@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5ff6cc0-606c-454c-a31a-1d1413ea36d0">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5ff6cc0-606c-454c-a31a-1d1413ea36d0">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[email]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[endereco]]></fieldDescription>
+	</field>
+	<field name="cep" class="java.lang.String">
+		<fieldDescription><![CDATA[cep]]></fieldDescription>
+	</field>
+	<field name="celular" class="java.lang.String">
+		<fieldDescription><![CDATA[celular]]></fieldDescription>
+	</field>
+	<field name="foto" class="java.lang.Object">
+		<fieldDescription><![CDATA[foto]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="idUsr" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idUsr]]></fieldDescription>
+	</field>
+	<field name="uf" class="java.lang.String">
+		<fieldDescription><![CDATA[uf]]></fieldDescription>
+	</field>
+	<field name="cidade" class="java.lang.String">
+		<fieldDescription><![CDATA[cidade]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -18,21 +48,104 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="232" y="0" width="100" height="20" uuid="cdd56428-6da6-48a3-a037-70686151233e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Relatorio de Usuario]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="21" width="25" height="20" uuid="ed425848-a9df-4f31-ac1e-21dacbb6e8a9"/>
+				<text><![CDATA[idUsr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="21" width="57" height="20" uuid="f127ed2a-006a-407d-8330-56b9f3637688"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="21" width="79" height="20" uuid="3b07f46d-98c8-4291-b039-ac9a0c184b5a"/>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="21" width="71" height="20" uuid="d3985c7d-e802-4d41-ad23-6845d875737c"/>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="21" width="31" height="20" uuid="ced11b39-6843-4b6a-bdd5-96a4007d2e54"/>
+				<text><![CDATA[UF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="263" y="21" width="69" height="20" uuid="9711cfba-6b52-4b8b-a7be-61796ccf9bd1"/>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="21" width="58" height="20" uuid="b8ec68b5-3964-49e2-916a-0e13b2225f39"/>
+				<text><![CDATA[CEP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="21" width="69" height="20" uuid="efe31ae8-23af-4b4b-839a-8768e07b821a"/>
+				<text><![CDATA[Endereco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="21" width="96" height="20" uuid="1f14c518-9d50-4a2d-884a-d8aec1154e38"/>
+				<text><![CDATA[Foto]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="25" height="58" uuid="d38599a6-6d5e-4f7d-b91b-39c81b24867e"/>
+				<textFieldExpression><![CDATA[$F{idUsr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="0" width="57" height="58" uuid="8154c96f-0c2b-445b-b07b-2e46325f76c6"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="0" width="79" height="58" uuid="787d066c-9f49-41d5-9d1d-efb41d9b25df"/>
+				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="0" width="71" height="58" uuid="8c43dd3a-5c71-4c6a-99ee-760791829913"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="0" width="31" height="58" uuid="644fe92b-b923-4d98-a2b8-9ed2d3dbfc56"/>
+				<textFieldExpression><![CDATA[$F{uf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="263" y="0" width="69" height="58" uuid="e81425e7-f888-4529-b491-7378c0edf37a"/>
+				<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="332" y="0" width="58" height="58" uuid="b54a20b1-69f9-4b20-831c-876448e4e26d"/>
+				<textFieldExpression><![CDATA[$F{cep}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="69" height="58" uuid="64390bda-e979-438d-bce4-03268d42c764"/>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="459" y="0" width="96" height="58" uuid="f26f774b-7429-47bd-9ef3-8bcd8baa78e9"/>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream( $F{foto} )]]></imageExpression>
+			</image>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="34" width="100" height="20" uuid="e27f6626-22ee-40e6-9eda-a9d0198bb2ad"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

@@ -25,6 +25,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     private TableModelUsuario tableModelUsuario;
     private Usuario usuario;
     private List<Usuario> lista = null;
+    private List<Usuario> listaRelatorio = null;
 
     public JDialogListarUsr(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -56,7 +57,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaUsr = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
-        btnRemover = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
         labelPesquisar = new javax.swing.JLabel();
         textFieldPesquisar = new javax.swing.JTextField();
 
@@ -123,12 +124,12 @@ public class JDialogListarUsr extends javax.swing.JDialog {
             }
         });
 
-        btnRemover.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
-        btnRemover.setText("Remover");
-        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+        btnRelatorio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/relatorio.png"))); // NOI18N
+        btnRelatorio.setText("Relatorio");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoverActionPerformed(evt);
+                btnRelatorioActionPerformed(evt);
             }
         });
 
@@ -154,7 +155,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                                 .addGap(99, 99, 99)
                                 .addComponent(btnAdd)
                                 .addGap(121, 121, 121)
-                                .addComponent(btnRemover)))
+                                .addComponent(btnRelatorio)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -170,7 +171,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -193,9 +194,10 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoverActionPerformed
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        listaRelatorio = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarUsuarioRelatorio();
+        GerenciadorInterfaceGrafica.getInstancia().getGerRelatorio().relComLista(listaRelatorio, "relUsuarios.jasper");
+    }//GEN-LAST:event_btnRelatorioActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         //ATUALIZA A TABELA
@@ -243,7 +245,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnRemover;
+    private javax.swing.JButton btnRelatorio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPesquisar;

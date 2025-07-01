@@ -26,6 +26,7 @@ public class JDialogListarHis extends javax.swing.JDialog {
 
     private TableRowSorter<DefaultTableModel> sorter;
     private TableModelHis tableModel;
+    private List<Historia> listaRelatorio = null;
 
     /**
      * Creates new form JDialogListarHis
@@ -59,7 +60,7 @@ public class JDialogListarHis extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHis = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
-        btnRemover = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
         labelPesquisar = new javax.swing.JLabel();
         textFieldPesquisar = new javax.swing.JTextField();
 
@@ -128,12 +129,12 @@ public class JDialogListarHis extends javax.swing.JDialog {
             }
         });
 
-        btnRemover.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/remove.png"))); // NOI18N
-        btnRemover.setText("Remover");
-        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+        btnRelatorio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/relatorio.png"))); // NOI18N
+        btnRelatorio.setText("Relatório");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoverActionPerformed(evt);
+                btnRelatorioActionPerformed(evt);
             }
         });
 
@@ -158,7 +159,7 @@ public class JDialogListarHis extends javax.swing.JDialog {
                         .addGap(99, 99, 99)
                         .addComponent(btnAdd)
                         .addGap(116, 116, 116)
-                        .addComponent(btnRemover)
+                        .addComponent(btnRelatorio)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -180,7 +181,7 @@ public class JDialogListarHis extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -203,9 +204,10 @@ public class JDialogListarHis extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoverActionPerformed
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        listaRelatorio = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarHistoriaRelatorio();
+        GerenciadorInterfaceGrafica.getInstancia().getGerRelatorio().relComLista(listaRelatorio, "relHistoria.jasper");
+    }//GEN-LAST:event_btnRelatorioActionPerformed
 
     private void textFieldPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPesquisarActionPerformed
         // TODO add your handling code here:
@@ -245,7 +247,7 @@ public class JDialogListarHis extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnRemover;
+    private javax.swing.JButton btnRelatorio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelPesquisar;

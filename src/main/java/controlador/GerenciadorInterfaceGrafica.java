@@ -36,6 +36,7 @@ public class GerenciadorInterfaceGrafica {
     private static final GerenciadorInterfaceGrafica instancia = new GerenciadorInterfaceGrafica();
 
     private GerenciadorDominio gerDominio = null;
+    private GerenciadorRelatorios gerRelatorio = null;
 
     private JFramePrincipal janelaPrincipal = null;
     private JDialogNovoUsuario janelaNovoUsuario = null;
@@ -60,12 +61,18 @@ public class GerenciadorInterfaceGrafica {
 
     private GerenciadorInterfaceGrafica() {
         gerDominio = new GerenciadorDominio();
+        gerRelatorio = new GerenciadorRelatorios();
     }
 
     public GerenciadorDominio getGerDominio() {
         return gerDominio;
     }
 
+    public GerenciadorRelatorios getGerRelatorio() {
+        return gerRelatorio;
+    }
+
+    
     public JDialog abrirJanela(java.awt.Frame parent, JDialog dlg, Class classe) {
         if (dlg == null) {
             try {
