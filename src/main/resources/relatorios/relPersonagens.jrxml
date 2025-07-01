@@ -1,29 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15325aee-c62c-4787-bb9d-e52647d60e05">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="alinhamento" class="dominio.Alinhamento">
+		<fieldDescription><![CDATA[alinhamento]]></fieldDescription>
+	</field>
+	<field name="antecedente" class="dominio.Antecedente">
+		<fieldDescription><![CDATA[antecedente]]></fieldDescription>
+	</field>
+	<field name="classe" class="dominio.Classe">
+		<fieldDescription><![CDATA[classe]]></fieldDescription>
+	</field>
+	<field name="foto" class="java.lang.Object">
+		<fieldDescription><![CDATA[foto]]></fieldDescription>
+	</field>
+	<field name="idPer" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idPer]]></fieldDescription>
+	</field>
+	<field name="nivel" class="java.lang.Integer">
+		<fieldDescription><![CDATA[nivel]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="subRaca" class="dominio.SubRaca">
+		<fieldDescription><![CDATA[subRaca]]></fieldDescription>
+	</field>
+	<field name="usuario" class="dominio.Usuario">
+		<fieldDescription><![CDATA[usuario]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="192" y="18" width="196" height="32" uuid="5c358756-dd2e-45e6-a3ea-d223fc2c0bb2"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R20 Matchmaker]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="217" y="0" width="123" height="20" uuid="d69fb04e-f373-4b58-85e0-1bbd74ef9903"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Relatorio de Personagem]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="34" height="20" uuid="faa8e727-aaeb-4430-8a92-6b260f323922"/>
+				<text><![CDATA[idPer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="41" width="75" height="20" uuid="1f7b575f-9cb7-4f01-a5d3-188d389791d5"/>
+				<text><![CDATA[nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="41" width="67" height="20" uuid="ce89d8ed-5a67-48d5-a408-b642d8777bab"/>
+				<text><![CDATA[usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="176" y="41" width="27" height="20" uuid="20ba8b87-137c-477a-8493-be43e7cdd4cc"/>
+				<text><![CDATA[nivel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="41" width="75" height="20" uuid="308b26cc-18ff-4da2-9c7b-f1fed7b8485a"/>
+				<text><![CDATA[classe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="41" width="72" height="20" uuid="26e76187-4422-47ee-bb73-50381efd0afe"/>
+				<text><![CDATA[subRaca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="41" width="63" height="20" uuid="22649481-ff42-432a-8fc0-f1fa0ad7d655"/>
+				<text><![CDATA[alinhamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="41" width="58" height="20" uuid="732c93cd-f4c3-4b33-a601-e1348badaedf"/>
+				<text><![CDATA[antecedente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="471" y="41" width="84" height="20" uuid="af3f2025-478e-4c09-8acc-0e76396f2d2e"/>
+				<text><![CDATA[foto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="34" height="74" uuid="19f91750-8384-4cde-8398-2579e30f737a"/>
+				<textFieldExpression><![CDATA[$F{idPer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="34" y="0" width="75" height="74" uuid="4be9e4e4-4fad-4246-9e2e-bb19ab6dcdf2"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="0" width="67" height="74" uuid="6a2a8b11-11ed-4bf7-9795-dae0057de575"/>
+				<textFieldExpression><![CDATA[""+$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="0" width="27" height="74" uuid="5d6a6019-4b5b-48e7-9109-8fa91ff5695d"/>
+				<textFieldExpression><![CDATA[$F{nivel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="0" width="75" height="74" uuid="3506f61e-5482-4d03-b710-e898eab48c41"/>
+				<textFieldExpression><![CDATA[""+$F{classe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="72" height="74" uuid="ca103841-4e1d-4e93-b5eb-b3445456607f"/>
+				<textFieldExpression><![CDATA[""+$F{subRaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="63" height="74" uuid="6acf3172-9663-4966-9a6a-1c82a0c2f864"/>
+				<textFieldExpression><![CDATA[""+$F{alinhamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="413" y="0" width="58" height="74" uuid="bdda1a23-420b-4b85-8d6c-d94e3fa0b746"/>
+				<textFieldExpression><![CDATA[""+$F{antecedente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="471" y="0" width="84" height="74" uuid="530d2b68-791a-4fa0-9c05-08adb11a2d41"/>
+				<textFieldExpression><![CDATA[""+$F{foto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="22" width="100" height="20" uuid="538adc1a-d177-4272-b0fa-b83ab15eab37"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>
