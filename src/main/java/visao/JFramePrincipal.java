@@ -55,6 +55,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         novoUsuarioItem = new javax.swing.JMenuItem();
         listaUsuarioItem = new javax.swing.JMenuItem();
         novoPersonagemItem = new javax.swing.JMenuItem();
+        listarPersonagemItem = new javax.swing.JMenuItem();
         historiaMenu = new javax.swing.JMenu();
         novaHistoriaItem = new javax.swing.JMenuItem();
         listarHistoriasItem = new javax.swing.JMenuItem();
@@ -375,6 +376,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
         usuarioMenu.add(novoPersonagemItem);
 
+        listarPersonagemItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Lista.png"))); // NOI18N
+        listarPersonagemItem.setText("Listar Personagens");
+        listarPersonagemItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarPersonagemItemActionPerformed(evt);
+            }
+        });
+        usuarioMenu.add(listarPersonagemItem);
+
         menuPrincipal.add(usuarioMenu);
 
         historiaMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/historia.png"))); // NOI18N
@@ -542,6 +552,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
         GerenciadorInterfaceGrafica.getInstancia().abrirAlinhamentos();
     }//GEN-LAST:event_alinhamentosItemActionPerformed
 
+    private void listarPersonagemItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarPersonagemItemActionPerformed
+        GerenciadorInterfaceGrafica.getInstancia().abrirListarPersonagens();
+    }//GEN-LAST:event_listarPersonagemItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem alinhamentosItem;
@@ -578,6 +592,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelPartida2;
     private javax.swing.JMenuItem listaUsuarioItem;
     private javax.swing.JMenuItem listarHistoriasItem;
+    private javax.swing.JMenuItem listarPersonagemItem;
     private javax.swing.JMenuBar menuPrincipal;
     private javax.swing.JMenuItem novaHistoriaItem;
     private javax.swing.JMenuItem novaPartidaItem;

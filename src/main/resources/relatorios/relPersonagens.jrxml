@@ -130,10 +130,10 @@
 				<reportElement x="413" y="0" width="58" height="74" uuid="bdda1a23-420b-4b85-8d6c-d94e3fa0b746"/>
 				<textFieldExpression><![CDATA[""+$F{antecedente}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="471" y="0" width="84" height="74" uuid="530d2b68-791a-4fa0-9c05-08adb11a2d41"/>
-				<textFieldExpression><![CDATA[""+$F{foto}]]></textFieldExpression>
-			</textField>
+			<image>
+				<reportElement x="471" y="0" width="84" height="74" uuid="b0d4891e-0c4b-44bd-8fdb-f4d32995f2e5"/>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream( $F{foto} )]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 	<columnFooter>

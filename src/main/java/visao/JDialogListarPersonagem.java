@@ -5,38 +5,34 @@
 package visao;
 
 import controlador.GerenciadorInterfaceGrafica;
-import controlador.TableModelUsuario;
-import dominio.Historia;
-import dominio.Partida;
+import controlador.TableModelPersonagem;
 import dominio.Personagem;
-import dominio.PersonagensHistoria;
-import dominio.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Caio
  */
-public class JDialogListarUsr extends javax.swing.JDialog {
-
-    private TableModelUsuario tableModelUsuario;
-    private Usuario usuario;
-    private List<Usuario> lista = null;
-    private List<Usuario> listaRelatorio = null;
-
-    public JDialogListarUsr(java.awt.Frame parent, boolean modal) {
+public class JDialogListarPersonagem extends javax.swing.JDialog {
+    private TableModelPersonagem tableModel;
+    private List<Personagem> listaTabela = null;
+    private List<Personagem> listaRelatorio = null;
+    
+    /**
+     * Creates new form JDialogListarPersonagem
+     */
+    public JDialogListarPersonagem(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tableModelUsuario = new TableModelUsuario();
-        tabelaUsr.setModel(tableModelUsuario);
+        tableModel = new TableModelPersonagem();
+        tabela.setModel(tableModel);
         textFieldPesquisar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                lista = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarUsuario(textFieldPesquisar.getText());
-                tableModelUsuario.setLista(lista);
+                listaTabela = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarPersonagem(textFieldPesquisar.getText());
+                tableModel.setLista(listaTabela);
             }
         });
     }
@@ -53,12 +49,12 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         menuTabela = new javax.swing.JPopupMenu();
         menuItemEditar = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaUsr = new javax.swing.JTable();
-        btnAdd = new javax.swing.JButton();
-        btnRelatorio = new javax.swing.JButton();
         labelPesquisar = new javax.swing.JLabel();
         textFieldPesquisar = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+        btnRelatorio = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         menuItemEditar.setText("Editar");
         menuItemEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -75,12 +71,13 @@ public class JDialogListarUsr extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Usuários"));
-        jPanel1.setToolTipText("");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Personagens"));
+
+        labelPesquisar.setText("Pesquisar por nome:");
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela"));
 
-        tabelaUsr.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -103,17 +100,8 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tabelaUsr.setComponentPopupMenu(menuTabela);
-        jScrollPane1.setViewportView(tabelaUsr);
-
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/add.png"))); // NOI18N
-        btnAdd.setText("Adicionar");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
+        tabela.setComponentPopupMenu(menuTabela);
+        jScrollPane1.setViewportView(tabela);
 
         btnRelatorio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/relatorio.png"))); // NOI18N
@@ -124,7 +112,14 @@ public class JDialogListarUsr extends javax.swing.JDialog {
             }
         });
 
-        labelPesquisar.setText("Pesquisar por nome:");
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/add.png"))); // NOI18N
+        btnAdd.setText("Adicionar");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,32 +133,32 @@ public class JDialogListarUsr extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
+                                .addGap(14, 14, 14)
                                 .addComponent(labelPesquisar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(99, 99, 99)
+                                .addGap(98, 98, 98)
                                 .addComponent(btnAdd)
                                 .addGap(121, 121, 121)
                                 .addComponent(btnRelatorio)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 9, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPesquisar)
                     .addComponent(textFieldPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -180,28 +175,28 @@ public class JDialogListarUsr extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        listaRelatorio = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarPersonagemRelatorio();
+        GerenciadorInterfaceGrafica.getInstancia().getGerRelatorio().relComLista(listaRelatorio, "relPersonagem.jasper");
+    }//GEN-LAST:event_btnRelatorioActionPerformed
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        GerenciadorInterfaceGrafica.getInstancia().abrirJanelaCadUsuario();
+        GerenciadorInterfaceGrafica.getInstancia().abrirNovoPersonagem();
         dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        listaRelatorio = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarUsuarioRelatorio();
-        GerenciadorInterfaceGrafica.getInstancia().getGerRelatorio().relComLista(listaRelatorio, "relUsuarios.jasper");
-    }//GEN-LAST:event_btnRelatorioActionPerformed
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        //ATUALIZA A TABELA
-        List listaUsers = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Usuario.class);
-        tableModelUsuario.setLista(listaUsers);
+        listaTabela = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().listar(Personagem.class);
+        tableModel.setLista(listaTabela);
     }//GEN-LAST:event_formComponentShown
 
     private void menuItemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditarActionPerformed
-        int linha = tabelaUsr.getSelectedRow();
-        Usuario usuarioSelecionado = (Usuario) tableModelUsuario.getItem(linha);
-        GerenciadorInterfaceGrafica.getInstancia().abrirJanelaCadUsuario(usuarioSelecionado);
+        int linha = tabela.getSelectedRow();
+        Personagem personagemSelecionado = (Personagem) tableModel.getItem(linha);
+        GerenciadorInterfaceGrafica.getInstancia().abrirNovoPersonagem(personagemSelecionado);
         dispose();
     }//GEN-LAST:event_menuItemEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -211,7 +206,7 @@ public class JDialogListarUsr extends javax.swing.JDialog {
     private javax.swing.JLabel labelPesquisar;
     private javax.swing.JMenuItem menuItemEditar;
     private javax.swing.JPopupMenu menuTabela;
-    private javax.swing.JTable tabelaUsr;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextField textFieldPesquisar;
     // End of variables declaration//GEN-END:variables
 }

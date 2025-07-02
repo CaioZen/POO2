@@ -93,6 +93,21 @@ public class GerenciadorDominio {
         return personagem;
     }
 
+    public Personagem alterarPersonagem(Personagem personagem, Usuario Mestre, String nome, int nivel, Classe classe,
+            SubRaca subRaca, Antecedente ante, Alinhamento ali, Icon foto) throws HibernateException {
+        personagem.setNome(nome);
+        personagem.setUsuario(Mestre);
+        personagem.setNivel(nivel);
+        personagem.setClasse(classe);
+        personagem.setSubRaca(subRaca);
+        personagem.setAntecedente(ante);
+        personagem.setAlinhamento(ali);
+        personagem.setFoto(IconToBytes(foto));
+        
+        perDao.alterar(personagem);
+        return personagem;
+    }
+
     public PersonagensHistoria inserirPersonagensHistoria(Historia historia, Personagem personagem) {
         PersonagensHistoria ph = new PersonagensHistoria(historia, personagem);
         dao.inserir(ph);
@@ -197,6 +212,10 @@ public class GerenciadorDominio {
 
     public List<PersonagensHistoria> pesquisarPersonagensHistoria(int idHis) {
         return phDao.pesquisar(idHis);
+    }
+
+    public List<Personagem> pesquisarPersonagem(String text) {
+        return perDao.pesquisar(text);
     }
 
     public List<Personagem> listarDisponiveis() {

@@ -23,6 +23,7 @@ import visao.JDialogBuscarPer;
 import visao.JDialogBuscarUsr;
 import visao.JDialogClasses;
 import visao.JDialogListarHis;
+import visao.JDialogListarPersonagem;
 import visao.JDialogListarUsr;
 import visao.JDialogNovaHistoria;
 import visao.JDialogNovaPartida;
@@ -52,6 +53,7 @@ public class GerenciadorInterfaceGrafica {
     private JDialogAntecedentes janelaAntecedentes = null;
     private JDialogAlinhamentos janelaAlinhamentos = null;
     private JDialogRacas janelaRacas = null;
+    private JDialogListarPersonagem janelaListarPer = null;
 
     private boolean editar = false;
 
@@ -72,7 +74,6 @@ public class GerenciadorInterfaceGrafica {
         return gerRelatorio;
     }
 
-    
     public JDialog abrirJanela(java.awt.Frame parent, JDialog dlg, Class classe) {
         if (dlg == null) {
             try {
@@ -152,6 +153,17 @@ public class GerenciadorInterfaceGrafica {
 
     public void abrirNovoPersonagem() {
         janelaNovoPersonagem = (JDialogNovoPersonagem) abrirJanela(janelaPrincipal, janelaNovoPersonagem, JDialogNovoPersonagem.class);
+        janelaNovoPersonagem.setPersonagemSelecionado(null);
+    }
+
+    public void abrirNovoPersonagem(Personagem personagem) {
+        janelaNovoPersonagem = janelaNovoPersonagem = (JDialogNovoPersonagem) instanciarJanela(janelaPrincipal, janelaNovoPersonagem, JDialogNovoPersonagem.class);
+        janelaNovoPersonagem.setPersonagemSelecionado(personagem);
+        janelaNovoPersonagem.setVisible(true);
+    }
+
+    public void abrirListarPersonagens() {
+        janelaListarPer = (JDialogListarPersonagem) abrirJanela(janelaPrincipal, janelaListarPer, JDialogListarPersonagem.class);
     }
 
     public void abrirClasses() {
