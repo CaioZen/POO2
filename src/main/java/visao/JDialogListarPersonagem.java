@@ -177,7 +177,7 @@ public class JDialogListarPersonagem extends javax.swing.JDialog {
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
         listaRelatorio = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().pesquisarPersonagemRelatorio();
-        GerenciadorInterfaceGrafica.getInstancia().getGerRelatorio().relComLista(listaRelatorio, "relPersonagem.jasper");
+        GerenciadorInterfaceGrafica.getInstancia().getGerRelatorio().relComLista(listaRelatorio, "relPersonagens.jasper");
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
