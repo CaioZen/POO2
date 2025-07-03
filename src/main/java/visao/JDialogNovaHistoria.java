@@ -240,8 +240,13 @@ public class JDialogNovaHistoria extends javax.swing.JDialog {
                 if (historiaSelecionada == null) {
                     historia = GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirHistoria(nome, descricao, mestre);
                     for (Personagem personagem : personagensSelecionados) {
+                      //   PersonagensHistoria perso = new PersonagensHistoria(..);
+                     //    listaPersonagensHistoria.add(perso);
+                         
+                         
                         GerenciadorInterfaceGrafica.getInstancia().getGerDominio().inserirPersonagensHistoria(historia, personagem);
                     }
+                    
                     JOptionPane.showMessageDialog(this, "História " + historia.getIdHis() + " inserida com sucesso.", "Cadastro de História", JOptionPane.INFORMATION_MESSAGE);
                 } else{
                     HistoriaStatus status;
